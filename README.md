@@ -33,6 +33,9 @@ The app will now be available on `localhost:3000`.
 
 ## Technology
 
+Please refer to [Meteor Documentation](http://docs.meteor.com/#/full/) and [Meteor Guide](http://guide.meteor.com/)
+on how to get started with Meteor and best practices.
+
 ### React
 
 React is used for the client.
