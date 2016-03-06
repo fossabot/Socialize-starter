@@ -30,7 +30,7 @@ The app will now be available on `localhost:3000`.
 
 ## Technology
 
-## React
+### React
 
 React is used for the client.
 
@@ -42,7 +42,7 @@ Edit the home page look in `client/HomePage.jsx`.
 
 The user dashboard is in `client/modules/users/Dashboard.jsx`.
 
-## Materialize CSS
+### Materialize CSS
 
 We are using Material design via the `poetic:materialize-scss`.
 
@@ -53,7 +53,7 @@ This allows you to use scss to change the theme easily.
 We are using `kadira:flow-router` for routing.
 You can find the routes in `lib/routes.jsx`
 
-## Roles
+### Roles
 
 We are using `alanning:roles` for roles management.
 
