@@ -76,3 +76,16 @@ but can also be used independently:
 *   [storyteller:profiles-server](https://atmospherejs.com/storyteller/profiles-server)
 *   [storyteller:messaging-react-materialize](https://atmospherejs.com/storyteller/messaging-react-materialize)
 *   [storyteller:messaging-server](https://atmospherejs.com/storyteller/messaging-server)
+
+## Future plans
+
+What is coming in the future?
+
+*   Improve existing functionality
+*   Testing
+*   Update to Meteor 1.3 and move closer to Mantra
+*   Blogs (new package)
+*   Badges (new packages)
+*   Beta Signup (new feature in the accounts packages)
+*   User search / listing (addition to profiles packages)
+*   Administration components for everything

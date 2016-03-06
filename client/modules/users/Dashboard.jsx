@@ -15,10 +15,10 @@ UserDashboard = React.createClass({
     event.preventDefault();
     Meteor.logout((error)=>{
       if(error){
-        console.log("There was an error: " + error);
+        console.log("There was an error: " + error)
       } else {
-        console.log("User logout");
-        FlowRouter.go("/");
+        console.log("User logout")
+        FlowRouter.go("/")
       }
     });
   },
