@@ -20,7 +20,10 @@ Install the latest official Meteor release from your terminal:
 ### Get the repository
 
 Download the [newest version of the code](https://github.com/StorytellerCZ/Socialize-starter/releases)
-or clone this repository
+or clone this repository either using a git client like [Github Desktop](https://desktop.github.com/)
+or the terminal (you need to have git installed):
+
+`git clone https://github.com/StorytellerCZ/Socialize-starter.git`
 
 Navigate into the folder where you extracted/cloned the code.
 
