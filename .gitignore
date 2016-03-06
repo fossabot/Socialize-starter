@@ -1,2 +1,8 @@
 .meteor/local
 .meteor/meteorite
+/packages/accounts-react-materialize/
+/packages/accounts-server/
+/packages/messaging-react-materialize/
+/packages/messaging-server/
+/packages/profiles-react-materialize/
+/packages/profiles-server/

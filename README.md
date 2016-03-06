@@ -1,7 +1,7 @@
 # Socialize starter
 
-A starter for your apps that takes care of basic user functionality by
-utilizing the `socialize` packages.
+A starter for [Meteor](https://www.meteor.com/) apps that takes care of basic
+user functionality by utilizing the `socialize` packages.
 
 ## Getting started
 
@@ -64,3 +64,15 @@ You can find the routes in `lib/routes.jsx`
 We are using `alanning:roles` for roles management.
 
 Basic "user" role is added to each user after they register.
+
+## Packages
+
+The following packages were developed specifically for this project,
+but can also be used independently:
+
+*   [storyteller:accounts-react-materialize](https://atmospherejs.com/storyteller/accounts-react-materialize)
+*   [storyteller:accounts-server](https://atmospherejs.com/storyteller/accounts-server)
+*   [storyteller:profiles-react-materialize](https://atmospherejs.com/storyteller/profiles-react-materialize)
+*   [storyteller:profiles-server](https://atmospherejs.com/storyteller/profiles-server)
+*   [storyteller:messaging-react-materialize](https://atmospherejs.com/storyteller/messaging-react-materialize)
+*   [storyteller:messaging-server](https://atmospherejs.com/storyteller/messaging-server)
