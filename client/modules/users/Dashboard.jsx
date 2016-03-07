@@ -140,6 +140,9 @@ UserDashboard = React.createClass({
     <section className="row">
       {this.getFriendshipRequests()}
     </section>
+    <hr />
+    <NewFeedPost />
+    <UserFeed userId={false} />
   </div>)
   }
 })
