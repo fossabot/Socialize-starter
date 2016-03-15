@@ -36,6 +36,15 @@ FlowRouter.route("/register", {
  }
 })
 
+//forgot password
+FlowRouter.route("/forgot-password", {
+  name: "forgot-password",
+  triggersEnter: [anonOnly],
+  action: ()=>{
+    ReactLayout.render(MainLayout, {content: <ForgotPassword />})
+  }
+})
+
 //user settings
 FlowRouter.route("/user/settings", {
  name: "user-settings",

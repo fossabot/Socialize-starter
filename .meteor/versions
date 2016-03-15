@@ -113,10 +113,10 @@ srp@1.0.4
 standard-minifiers@1.0.2
 storyteller:accounts-react-materialize@0.2.0
 storyteller:accounts-server@0.1.4
-storyteller:messaging-react-materialize@0.3.1
+storyteller:messaging-react-materialize@0.3.2
 storyteller:messaging-server@0.1.4
-storyteller:profiles-react-materialize@0.3.1
-storyteller:profiles-server@0.3.1
+storyteller:profiles-react-materialize@0.3.2
+storyteller:profiles-server@0.3.2
 templating@1.1.5
 templating-tools@1.0.0
 tmeasday:publish-with-relations@0.2.0

@@ -41,7 +41,7 @@ HomePage = React.createClass({
           </div>
         </div>
 
-        <h3>What is in the future</h3>
+        <h3 className="col s12">What is in the future</h3>
 
         <div className="col s12 m6">
           <div className="card-panel blue-grey darken-1">
