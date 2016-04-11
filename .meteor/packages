@@ -7,12 +7,10 @@
 meteor-base             # Packages every Meteor app needs to have
 mobile-experience       # Packages for a great mobile UX
 mongo                   # The database Meteor supports right now
-blaze-html-templates    # Compile .html files into Meteor Blaze views
 session                 # Client-side reactive dictionary for your app
 jquery                  # Helpful client-side library
 tracker                 # Meteor's client-side reactive programming library
 
-standard-minifiers      # JS/CSS minifiers run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
@@ -20,14 +18,12 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 audit-argument-checks   # To make sure that all input is checked
 east5th:check-checker   # builds on audit-argument-checks to give a comprehensive report
 
-react
 browser-policy
 
 fourseven:scss
 poetic:materialize-scss
 
-kadira:flow-router
-kadira:react-layout
+kadira:flow-router-ssr
 meteorhacks:fast-render
 storyteller:accounts-server
 storyteller:accounts-react-materialize
@@ -35,3 +31,10 @@ storyteller:profiles-react-materialize
 storyteller:messaging-react-materialize
 
 alanning:roles
+standard-minifier-css
+standard-minifier-js
+react-meteor-data
+
+reactive-dict
+check
+random
