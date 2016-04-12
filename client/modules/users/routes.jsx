@@ -1,5 +1,6 @@
 import React from 'react'
 import {mount} from 'react-mounter'
+import {Accounts} from 'meteor/accounts-base'
 
 // layouts
 import MainLayout from '../core/components/layout_main.jsx'
@@ -13,6 +14,8 @@ import UserLogin from './containers/login.js'
 import UserSettings from './components/settings.jsx'
 import UserProfile from './containers/profile.js'
 import UserFriendsRequests from './containers/friend_requests.js'
+import ForgotPassword from './components/password_forgot.jsx'
+import EmailVerify from './components/email_verify.jsx'
 
 export default function(injectDeps, {FlowRouter}){
   const MainLayoutCtx = injectDeps(MainLayout)
@@ -109,6 +112,34 @@ export default function(injectDeps, {FlowRouter}){
    action(){
      mount(MainLayoutCtx, {
        content: () => (<UserFriendsRequests />)
+     })
+   }
+ })
+
+ // password operations
+ FlowRouter.route('/forgot-password', {
+   name: 'forgot-password',
+   triggersEnter: [routeAnonOnly],
+   action: function(params, queryParams){
+     mount(MainLayoutCtx, {
+       content: () => (<ForgotPassword />)
+     })
+   }
+ })
+
+ FlowRouter.route('/reset-password', {
+   triggersEnter: [routeAnonOnly],
+   action: function(params, queryParams){
+     mount(MainLayoutCtx, {
+       content: () => (<SetPassword token={queryParams.token} />)
+     })
+   }
+ })
+
+ FlowRouter.route('/user/verify-email', {
+   action: function(params, queryParams){
+     mount(MainLayoutCtx, {
+       content: () => (<EmailVerify token={queryParams.token} />)
      })
    }
  })
