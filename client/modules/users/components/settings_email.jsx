@@ -6,6 +6,11 @@ import {Materialize} from 'meteor/poetic:materialize-scss'
  * @classdesc Shows e-mails associated with the account and allows to add more or delete them.
  */
 export default class UserEmail extends React.Component{
+  constructor(){
+    super()
+
+    this.verification.bind(this)
+  }
   /**
    * Prepares the list of e-mails for display
    * @access private
@@ -18,7 +23,7 @@ export default class UserEmail extends React.Component{
         if(email.verified){
           verified = (<i className="material-icons green-text">check</i>)
         } else {
-          verified = (<div className="chip red darken-1"><a href="#!" onClick={this.sendVerification.bind(this, email.address)}>not verified</a></div>)
+          verified = (<div className="chip red darken-1"><a href="#!" onClick={this.verification.bind(this, email.address)}>not verified</a></div>)
         }
         return (<li key={email.address} className="collection-item">{email.address} {verified}<div className="secondary-content"><a href="#!" onClick={this.removeEmail}><i id={email.address} className="material-icons">delete</i></a></div></li>)
       })
@@ -56,9 +61,8 @@ export default class UserEmail extends React.Component{
   addEmail(e){
     e.preventDefault()
     let email = e.target.email.value
-    check(email, String)
     if(email.length > 6){
-      Meteor.call("accountAddEmail", email, function(error, result){
+      Meteor.call("accountAddEmail", email, (error, result)=>{
         if(error){
           Materialize.toast("There has been an error!", 5000)
           console.log("error", error)
@@ -67,6 +71,7 @@ export default class UserEmail extends React.Component{
           Materialize.toast(email + " is already associated with another account.", 5000)
         } else {
           Materialize.toast(email + " has been added.", 4000)
+          this.verification(email)
         }
       })
       e.target.reset()
@@ -76,12 +81,22 @@ export default class UserEmail extends React.Component{
   }
 
   /**
-   * TODO: Send verification to the given e-mail
    * @access private
    * @param {event} e Click event
    */
-  sendVerification(email){
-    console.log(email)
+  verification(email){
+    /** TODO make Mantra work here
+    const {verify} = this.props
+    verify(email)
+    */
+    Meteor.call("accountVerifyEmailSend", email, function(error, result){
+      if(error){
+        console.log(error)
+      } else {
+        Materialize.toast("Verification e-mail send.", 5000)
+      }
+    })
+
   }
 
   /**

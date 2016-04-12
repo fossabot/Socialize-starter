@@ -128,6 +128,7 @@ export default function(injectDeps, {FlowRouter}){
  })
 
  FlowRouter.route('/reset-password', {
+   name: 'reset-password',
    triggersEnter: [routeAnonOnly],
    action: function(params, queryParams){
      mount(MainLayoutCtx, {
@@ -137,6 +138,7 @@ export default function(injectDeps, {FlowRouter}){
  })
 
  FlowRouter.route('/user/verify-email', {
+   name: 'verify-email',
    action: function(params, queryParams){
      mount(MainLayoutCtx, {
        content: () => (<EmailVerify token={queryParams.token} />)
