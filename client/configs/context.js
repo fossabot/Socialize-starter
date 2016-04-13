@@ -6,6 +6,11 @@ import {Meteor} from 'meteor/meteor'
 import {FlowRouter} from 'meteor/kadira:flow-router-ssr'
 import {ReactiveDict} from 'meteor/reactive-dict'
 import {Tracker} from 'meteor/tracker'
+// Subscription manager
+import {SubsManager} from 'meteor/meteorhacks:subs-manager'
+
+const UserSubs = new SubsManager()
+const ProfileSubs = new SubsManager()
 
 export default function(){
   return {
@@ -13,6 +18,9 @@ export default function(){
     FlowRouter,
     Collections,
     LocalState: new ReactiveDict(),
-    Tracker
+    Tracker,
+    /* SUBS */
+    UserSubs,
+    ProfileSubs
   }
 }

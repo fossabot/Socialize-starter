@@ -13,11 +13,6 @@ const context = initContext()
 // create the app
 const app = createApp(context)
 
-// Subscription manager
-import {SubsManager} from 'meteor/meteorhacks:subs-manager'
-
-UserSubs = new SubsManager()
-
 // load the modules
 app.loadModule(coreModule)
 app.loadModule(pagesModule)
