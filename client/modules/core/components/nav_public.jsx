@@ -17,7 +17,7 @@ export default class NavPublic extends React.Component {
             <a href="#" data-activates="nav-mobile" ref="sideNavControl" className="button-collapse right"><i className="material-icons">menu</i></a>
             <ul className="right hide-on-med-and-down">
               <li><a href={FlowRouter.path("register")}>Register</a></li>
-              <li><a href={FlowRouter.path("login")}><i className="material-icons right">login</i>Sign in</a></li>
+              <li><a href={FlowRouter.path("login")}><i className="material-icons right">lock_open</i>Sign in</a></li>
             </ul>
             <ul className="side-nav" id="nav-mobile">
               <li><a href={FlowRouter.path("register")}>Register</a></li>
