@@ -28,9 +28,9 @@ export default class NavUser extends React.Component {
             <li><a href={FlowRouter.path("/")} id="pageName" className="brand-logo">Socialize starter</a></li>
           </ul>
           <ul className="right">
-            <li className="hide-on-small-only"><a className="waves-effect" href={FlowRouter.path("dashboard")}><i className="material-icons">dashboard</i></a></li>
-            <li className="hide-on-med-and-down"><a className="waves-effect" href={FlowRouter.path("pm-overview")}><i className="material-icons">mail</i></a></li>
-            <li><a className="dropdown-button waves-effect" data-activates="user-dropdown" href="#!">{this.showAvatar()}</a></li>
+            <li className="hide-on-small-only"><a title="Dashboard" className="waves-effect" href={FlowRouter.path("dashboard")}><i className="material-icons">dashboard</i></a></li>
+            <li className="hide-on-med-and-down"><a title="Private Messages" className="waves-effect" href={FlowRouter.path("pm-overview")}><i className="material-icons">mail</i></a></li>
+            <li><a title="Options" className="dropdown-button waves-effect" data-activates="user-dropdown" href="#!">{this.showAvatar()}</a></li>
           </ul>
           <ul id="user-dropdown" className="dropdown-content">
             <li><a className="waves-effect" href={FlowRouter.path("profile-personal")}>Profile</a></li>
