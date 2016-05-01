@@ -22,7 +22,7 @@ export default class UserConversation extends React.Component{
 
   componentDidMount(){
     // get the total number of documents from server
-    Meteor.call("countMessages", this.props.conversationId, (error, result)=>{
+    Meteor.call("pm.conversation.count", this.props.conversationId, (error, result)=>{
       if(error){
         console.log(error)
       }
@@ -84,7 +84,7 @@ export default class UserConversation extends React.Component{
     //update the total message count
     //TODO: figure a better way that is not too taxing on the servers to count messages whenever any user adds a message
     //currently this is not very accurate if the user doesn't post much and the other post a lot
-    Meteor.call("countMessages", this.props.conversationId, (error, result)=>{
+    Meteor.call("pm.conversation.count", this.props.conversationId, (error, result)=>{
       if(error){
         console.log(error)
       }

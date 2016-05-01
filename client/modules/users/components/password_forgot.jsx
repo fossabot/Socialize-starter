@@ -12,7 +12,7 @@ export default class ForgotPassword extends React.Component{
 
     check(email, String)
 
-    Meteor.call("accountSendResetPassword", email, (error, result)=>{
+    Meteor.call("accounts.password.reset.email.send", email, (error, result)=>{
       if(error){
         console.log(error)
         Materialize.toast(error.reason, 5000)

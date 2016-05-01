@@ -20,8 +20,8 @@ export default class NewFeedPost extends React.Component{
 
   render(){
     if(Meteor.userId()){
-      return <form id="postForm" method="post" onSubmit={this.addPost.bind(this)}>
-        <div className="input-field">
+      return <form id="postForm" method="post" className="row card-panel hoverable" onSubmit={this.addPost.bind(this)}>
+        <div className="input-field col s12">
           <input type="text" className="validate" name="postText" />
           <label htmlFor="postText">New post</label>
         </div>

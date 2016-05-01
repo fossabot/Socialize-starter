@@ -15,6 +15,14 @@ class UserFeed extends React.Component{
     }
   }
 
+  liking(post){
+    if(post.isLikedBy(Meteor.user())){
+      post.unlike()
+    } else {
+      post.like()
+    }
+  }
+
   /**
    * List individual post
    * @access private
@@ -26,13 +34,16 @@ class UserFeed extends React.Component{
         return posts.map((post)=>{
           return <div key={post._id} className="row card-panel hoverable">
             <div className="col s2 center-align">
-              <a href={FlowRouter.path("profile-public", {username: post.poster().username})} >
+              <a href={FlowRouter.path("profilePublic", {username: post.poster().username})} >
                 <i className="material-icons">account_circle</i><br />
                 {post.poster().username}
               </a>
             </div>
             <div className="col s7">{post.body}</div>
-            <div className="col s3">{moment(post.date).fromNow()}</div>
+            <div className="col s3">
+              {moment(post.date).fromNow()}<br />
+            <a href="" onClick={this.liking.bind(this, post)}>{post.likeCount()} <i className="material-icons">favorite</i></a>
+              </div>
           </div>
         })
       } else {

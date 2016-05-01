@@ -63,6 +63,16 @@ export default function(){
           collection: Meteor.users,
           options:{fields:{username:true}}
         }]
+      }, {
+        reverse: true,
+        key: 'linkedObjectId',
+        collection: Meteor.likes,
+        options: {fields: {linkedObjectId: true, userId: true, date: true}},
+        mappings: [{
+          key: 'userId',
+          collection: Meteor.users,
+          options:{fields:{username:true}}
+        }]
       }]
     })
   })
@@ -74,7 +84,7 @@ export default function(){
    * @param {object} options
    * @returns {pointer}
    */
-  Meteor.publish('posts', function(userId, options) {
+  Meteor.publish('feed.posts', function(userId, options) {
     check(userId, String)
 
     options = options || {}
@@ -110,6 +120,16 @@ export default function(){
         key: 'linkedObjectId',
         collection: Meteor.comments,
         options:{sort:{date:-1}, limit:3},
+        mappings: [{
+          key: 'userId',
+          collection: Meteor.users,
+          options:{fields:{username:true}}
+        }]
+      }, {
+        reverse: true,
+        key: 'linkedObjectId',
+        collection: Meteor.likes,
+        options: {fields: {linkedObjectId: true, userId: true, date: true}},
         mappings: [{
           key: 'userId',
           collection: Meteor.users,

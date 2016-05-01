@@ -5,7 +5,7 @@ import Component from '../components/settings_name.jsx'
 
 export const composer = ({context, clearErrors}, onData) => {
   const {Meteor, Collections} = context()
-  if(Meteor.subscribe('profileFor', Meteor.userId()).ready()){
+  if(Meteor.subscribe('profile.for', Meteor.userId()).ready()){
     const profile = Meteor.profiles.findOne({userId: Meteor.userId()})
 
     onData(null, {profile})

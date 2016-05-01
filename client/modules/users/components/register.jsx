@@ -39,19 +39,19 @@ class UserRegister extends React.Component{
           <h1>Register</h1>
           <div className="col s12">{error ? <div className="red darken-2"><p className="white-text">{error}</p></div> : null}</div>
           <form onSubmit={this.register.bind(this)}>
-            <div className="input-field">
+            <div className="input-field col s12 left-align">
               <input className="validate" type="text" id="username" name="username" required />
               <label htmlFor="username">Your username</label>
             </div>
-            <div className="input-field">
+            <div className="input-field col s12 left-align">
               <input className="validate" type="email" name="email" required />
               <label htmlFor="email">Your e-mail</label>
             </div>
-            <div className="input-field">
+            <div className="input-field col s12 left-align">
               <input className="validate" type="password" name="password" required />
               <label htmlFor="password">Your password</label>
             </div>
-            <div className="input-field">
+            <div className="input-field col s12 left-align">
               <input className="validate" type="password" name="password2" required />
               <label htmlFor="password2">Repeat your password</label>
             </div>

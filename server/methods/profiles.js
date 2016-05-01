@@ -1,14 +1,15 @@
 import {Meteor} from 'meteor/meteor'
+import sanitizeHtml from 'sanitize-html'
 
 export default function(){
   Meteor.methods({
     /**
      * Updates user's avatar
-     * @function call updateAvatar
+     * @function call profile.avater.update
      * @param {string} avatar
      * @returns {boolean}
      */
-    updateAvatar:function(avatar){
+    'profile.avatar.update'(avatar){
       check(avatar, String)
       let profile = Meteor.profiles.findOne({userId: Meteor.userId()}).update({$set: {avatar: avatar}})
       if(profile === undefined){
@@ -19,14 +20,14 @@ export default function(){
     },
     /**
      * Updates user's biography
-     * @function call updateBiography
+     * @function call profile.biography.update
      * @param {string} bio
      * @returns {boolean}
      */
-    updateBiography:function(bio){
+    'profile.biography.update'(bio){
       check(bio, String)
-      let profile = Meteor.profiles.findOne({userId: Meteor.userId()}).update({$set: {biography: bio}})
-      //console.log(profile);
+      bio = sanitizeHtml(bio)
+      let profile = Meteor.profiles.update({userId: Meteor.userId()}, {$set: {biography: bio}})
       if(profile === undefined){
         return true
       } else {
@@ -39,25 +40,31 @@ export default function(){
     },
     /**
      * Updates user's name
-     * @function call updateName
+     * @function call profile.name.update
      * @param {object} names object containing the given and family name {given: "firstname", family: "surname"}
      * @returns {boolean}
      */
-    updateName:function(names){
+    'profile.name.update'(names){
       check(names, {
         given: String,
         family: String
       })
-      let profile = Meteor.profiles.findOne({userId: Meteor.userId()}, {fields: {userId: 1, givenName: 1, familyName: 1}})
 
-      let result = profile.update({$set: {givenName: names.given, familyName: names.family}})
+      let result = Meteor.profiles.update({userId: Meteor.userId()}, {$set: {givenName: sanitizeHtml(names.given), familyName: sanitizeHtml(names.family)}})
 
-      console.log(result)
       if(result){
         return true
       } else {
         return false
       }
+    },
+    /**
+     * Count all users on the site
+     * @function call users.count
+     * @returns {Number}
+     */
+    'users.count'(){
+      return Meteor.users.find().count()
     }
   })
 }

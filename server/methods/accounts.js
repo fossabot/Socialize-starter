@@ -7,7 +7,7 @@ export default function(){
      * Change username for current logged in user
      * @param {string} newUsername
      */
-    accountChangeUsername:function(newUsername){
+    'accounts.username'(newUsername){
       check(newUsername, String)
       return Accounts.setUsername(Meteor.userId(), newUsername)
     },
@@ -15,7 +15,7 @@ export default function(){
      * Associate a new e-mail with the user
      * @param {string} newEmail
      */
-    accountAddEmail:function(newEmail){
+    'accounts.email.add'(newEmail){
       check(newEmail, String)
       return Accounts.addEmail(Meteor.userId(), newEmail)
     },
@@ -23,7 +23,7 @@ export default function(){
      * Remove the given e-mail from the user
      * @param {string} email
      */
-    accountRemoveEmail:function(email){
+    'accounts.email.remove'(email){
       check(email, String)
       return Accounts.removeEmail(Meteor.userId(), email)
     },
@@ -31,15 +31,17 @@ export default function(){
      * Sends a verification e-mail to the given e-mail
      * @param {string} email
      */
-    accountVerifyEmailSend:function(email){
+    'accounts.email.verify.send'(email){
       check(email, String)
-      return Accounts.sendVerificationEmail(Meteor.userId(), email)
+      return Meteor.defer(function(){
+        return Accounts.sendVerificationEmail(Meteor.userId(), email)
+      })
     },
     /**
      * Send a reset password link to the given email.
      * @param {string} email
      */
-    accountSendResetPassword:function(email){
+    'accounts.password.reset.email.send'(email){
       check(email, String)
       let user = Accounts.findUserByEmail(email)
 
@@ -48,7 +50,9 @@ export default function(){
       check(user, String)
 
       if(user !== null){
-        return Accounts.sendResetPasswordEmail(user, email)
+        return Meteor.defer(function(){
+          return Accounts.sendResetPasswordEmail(user, email)
+        })
       } else {
         return false
       }

@@ -13,7 +13,7 @@ export default class ConversationParticipants extends React.Component{
     return this.props.conversation.participants().map((participant)=>{
       // get username and avatar
       return <li className="collection-item avatar" key={participant}>
-        <a href={FlowRouter.path("profile-public", {username: participant.user().username})}>
+        <a href={FlowRouter.path("profilePublic", {username: participant.user().username})}>
           <i className="material-icons circle">person</i>
           <span className="title">{participant.user().username}</span>
         </a>

@@ -16,11 +16,11 @@ class UserLogin extends React.Component{
           <h1>Login</h1>
           <div className="col s12">{error ? <div className="red darken-2"><p className="white-text">{error}</p></div> : null}</div>
           <form onSubmit={this.login.bind(this)}>
-            <div className="input-field">
+            <div className="input-field col s12 left-align">
               <input className="validate" type="text" id="email" name="email" required />
               <label htmlFor="email">E-mail</label>
             </div>
-            <div className="input-field">
+            <div className="input-field col s12 left-align">
               <input className="validate" type="password" name="password" required />
               <label htmlFor="email">Your password</label>
             </div>
@@ -44,9 +44,6 @@ class UserLogin extends React.Component{
 
     let email = e.target.email.value
     let password = e.target.password.value
-
-    check(email, String)
-    check(password, String)
 
     const {loginUser} = this.props
     loginUser(email, password)

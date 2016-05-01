@@ -28,7 +28,7 @@ export default class UserChangeBio extends React.Component{
 
     check(bio, String)
 
-    Meteor.call("updateBiography", bio, (error, result)=>{
+    Meteor.call("profile.biography.update", bio, (error, result)=>{
       if(error){
         Materialize.toast(error.reason, 5000)
         console.log(error);

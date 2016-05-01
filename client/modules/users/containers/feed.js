@@ -15,7 +15,7 @@ export const composer = ({context, userId, clearErrors}, onData) => {
   // TODO fix
   // Possibly page 49 of Meteor+React ???
   if(userId){
-    if(Meteor.subscribe('posts', userId, {limit: postLimit}).ready()) {
+    if(Meteor.subscribe('feed.posts', userId, {limit: postLimit}).ready()) {
       const posts = Meteor.posts.find({posterId: userId}, {sort: {date: -1}}).fetch()
       onData(null, {posts, postLimit})
     } else {

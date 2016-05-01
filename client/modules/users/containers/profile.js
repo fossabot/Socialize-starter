@@ -10,15 +10,15 @@ export const composer = ({context, user, clearErrors}, onData) => {
     user = Meteor.userId()
   }
 
-  if(Meteor.subscribe('profileFor', user).ready()){
+  if(Meteor.subscribe('profile.for', user).ready()){
     const profile = Meteor.profiles.findOne({$or:[{userId:user}, {username:user}]})
 
     if(Meteor.userId() !== profile.userId){
       if(
-        Meteor.subscribe("getUser", profile.userId).ready() &&
+        Meteor.subscribe("user.get", profile.userId).ready() &&
         Meteor.subscribe("friends").ready() &&
-        Meteor.subscribe("friendRequests").ready() &&
-        Meteor.subscribe("outgoingFriendRequests").ready()
+        Meteor.subscribe("friends.requests").ready() &&
+        Meteor.subscribe("friends.requests.outgoing").ready()
       ){
         const profileUser = Meteor.users.findOne({_id: profile.userId})
         const currentUser = Meteor.users.findOne({_id: Meteor.userId()})

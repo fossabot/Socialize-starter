@@ -25,7 +25,7 @@ export default class UserChangeName extends React.Component{
     check(family, String)
 
     // TODO reconsider this approach instead of using the Socialize way
-    Meteor.call("updateName", {given: given, family: family}, function(error, result){
+    Meteor.call("profile.name.update", {given: given, family: family}, function(error, result){
       if(error){
         console.log("error", error);
         Materialize.toast(error.reason, 5000)

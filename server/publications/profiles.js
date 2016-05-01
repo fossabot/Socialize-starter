@@ -25,7 +25,12 @@ export default function(){
     }
   })
 
-  Meteor.publish("profileFor", function(userIdOrUsername){
+  /**
+   * Get a profile for the specified user.
+   * @param {String} userIdOrUsername
+   * @return {MongoDB pointer}
+   */
+  Meteor.publish("profile.for", function(userIdOrUsername){
     check(userIdOrUsername, String)
     return Profile.collection.find({$or:[{userId:userIdOrUsername}, {username:userIdOrUsername}]})
   })

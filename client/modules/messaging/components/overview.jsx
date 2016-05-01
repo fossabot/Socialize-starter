@@ -1,6 +1,6 @@
 import React from 'react'
 
-import UserNewConversation from '../containers/conversation_new.js'
+import UserNewConversation from './conversation_new.jsx'
 
 /**
  * @class component UserConversationOverview

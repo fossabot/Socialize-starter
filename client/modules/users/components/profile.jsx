@@ -1,7 +1,9 @@
 import React from 'react'
+import moment from 'moment'
 
 import UserFeed from '../containers/feed.js'
-import UserNewConversation from '../../messaging/containers/conversation.js'
+// NOTE This was creating a very strange behavior where it would redirect user to a conversation (right after component mounted)
+//import UserNewConversation from '../../messaging/components/conversation.jsx'
 
 export default class UserProfile extends React.Component{
   constructor(){
@@ -41,7 +43,7 @@ export default class UserProfile extends React.Component{
   }
 
   reportUser(e){
-    //TODO
+    // TODO
     e.preventDefault()
   }
 
@@ -66,12 +68,6 @@ export default class UserProfile extends React.Component{
     let profileUser = this.props.profileUser
 
     //if friend request pending show cancel request button
-    //TODO wait if PR #18 accepted https://github.com/copleykj/socialize-friendships/pull/18
-    //else include this function into the server file
-    /*
-    if(currentUser.hasRequested(profileUser)){
-      return <a href="#!" onClick={this.cancelFriendshipRequest} className="btn waves-effect">Cancel friendship request</a>
-    }*/
     if(profileUser.hasRequestFrom(currentUser)){
       return <a href="#!" onClick={this.cancelFriendshipRequest.bind(this)} className="btn waves-effect">Cancel friendship request</a>
     }
@@ -113,12 +109,9 @@ export default class UserProfile extends React.Component{
       //not the same user
       if(Meteor.userId() !== this.props.profile.userId){
         return (<div className="card-action">
-          <a href="#newConversation" className="btn waves-effect modal-trigger">Send a message</a>
-          <UserNewConversation recipients={[this.props.profile]} />
           {this.friendshipOption()}
           {this.blockOption()}
           <a onClick={this.reportUser.bind(this)} className="btn waves-effect">Report</a>
-
         </div>)
       }
     }
@@ -130,10 +123,11 @@ export default class UserProfile extends React.Component{
    * @returns {jsx}
    */
   render(){
+    let {profile} = this.props
     return (<div className="profile-header-bg">
       <section className="card-panel">
           <span className="profile-picture-box">{this.showAvatar()}</span>
-          <h1 className="profile-username">{this.props.profile.username}</h1>
+          <h1 className="profile-username">{profile.username}</h1>
           <hr />
           {this.addActions()}
       </section>
@@ -141,13 +135,14 @@ export default class UserProfile extends React.Component{
         <div className="col s12 m10 l9">
           <div className="card-panel">
             <h4>Stream</h4>
-            <UserFeed userId={this.props.profile.userId} />
+            <UserFeed userId={profile.userId} />
           </div>
         </div>
         <div className="col s12 m2 l3">
           <div className="card-panel">
-            <h5>{this.props.profile.givenName} {this.props.profile.familyName}</h5>
-            <p>{this.props.profile.biography}</p>
+            <h5>{profile.givenName} {profile.familyName}</h5>
+            <p>{profile.biography}</p>
+            <p>Joined on {moment(profile.createdAt).format('LL')}</p>
           </div>
         </div>
       </section>

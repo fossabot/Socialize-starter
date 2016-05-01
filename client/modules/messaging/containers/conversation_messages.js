@@ -5,7 +5,7 @@ export const composer = ({context, conversationId, msgLimit, clearErrors}, onDat
   const {Meteor, Collections, LocalState} = context()
 
   if(conversationId){
-    const handleConv = Meteor.subscribe("messagesFor", conversationId, {limit: msgLimit, skip: 0})
+    const handleConv = Meteor.subscribe("messages.for", conversationId, {limit: msgLimit, skip: 0})
     const handleMsg = Meteor.subscribe("conversation", conversationId)
 
     if(handleConv.ready() && handleMsg.ready()){

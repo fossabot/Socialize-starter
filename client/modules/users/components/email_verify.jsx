@@ -7,9 +7,12 @@ export default class EmailVerify extends React.Component{
   }
 
   render(){
-    return Accounts.verifyEmail(this.props.token, function(error){
+    let {token} = this.props
+    if(token[0] === "3" && token[1] === "D"){
+      token = token.substr(2)
+    }
+    return Accounts.verifyEmail(token, function(error){
       if(error){
-        console.log(error)
         return <div>
           <h3>There was an error!</h3>
           <p>{error.reason}</p>

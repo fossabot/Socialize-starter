@@ -15,7 +15,7 @@ export default class UserChangeUsernane extends React.Component{
     e.preventDefault()
     let username = e.target.username.value
     check(username, String)
-    Meteor.call("accountChangeUsername", username, function(error, result){
+    Meteor.call("accounts.username", username, function(error, result){
       if(error){
         Materialize.toast(error.reason, 5000)
         console.log("error", error)
@@ -40,7 +40,7 @@ export default class UserChangeUsernane extends React.Component{
         <fieldset>
           <legend>Change Username</legend>
           <div className="input-field col s12">
-            <input type="text" className="validate" name="username" value={Meteor.user().username}></input>
+            <input type="text" className="validate" name="username" defaultValue={Meteor.user().username}></input>
             <label htmlFor="username" className="active">Username</label>
             <input type="submit" value="Change" className="btn waves-effect"></input>
           </div>

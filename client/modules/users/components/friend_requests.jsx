@@ -44,7 +44,7 @@ export default class UserFriendsRequests extends React.Component{
           <span className="title">{requester.username}</span>
           <p><a href="#!" onClick={this.accept.bind(this, requester)} ><i className="material-icons">check</i></a>
           <a href="#!" onClick={this.deny.bind(this, requester)} ><i className="material-icons">cancel</i></a></p>
-          <a href={FlowRouter.path("/profile/"+requester.username)} className="secondary-content"><i className="material-icons">send</i></a>
+          <a href={FlowRouter.path("profilePublic", {username: requester.username})} className="secondary-content"><i className="material-icons">send</i></a>
         </li>)
       })
     }

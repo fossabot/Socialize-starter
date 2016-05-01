@@ -20,8 +20,10 @@ export default function(){
 
   /**
    * Searches for users
+   * @param {String} query
+   * @param {Array} excluded
    */
-  Meteor.publish("searchForUsers", function(query, excluded){
+  Meteor.publish("pm.users.search", function(query, excluded){
     check(query, String)
     check(excluded, [String])
     return Meteor.users.find({username: {$regex: query, $options: 'i'}, _id: {$nin: excluded}}, {fields: {username: 1, roles: 1},limit: 10})
@@ -118,7 +120,7 @@ export default function(){
   /**
   * Publish conversations that have not been read yet by the user
   */
-  Meteor.publish("unreadConversations", function(){
+  Meteor.publish("conversations.unread", function(){
      if(!this.userId){
          return this.ready();
      }
@@ -155,7 +157,7 @@ export default function(){
   * @param   {Object}       options        Query options {limit:Number, skip:Number}
   * @returns {Mongo.Cursor} A cursor of messsages that belong to the current conversation
   */
-  Meteor.publish("messagesFor", function(conversationId, options){
+  Meteor.publish("messages.for", function(conversationId, options){
     check(conversationId, String)
 
     let user = User.createEmpty(this.userId)

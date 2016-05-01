@@ -48,10 +48,10 @@ export default function(){
 
   /**
    * Publish all friend requests to the current users.
-   * @function publication friendRequests
+   * @function publication friends.requests
    * @param {object} options
    */
-  Meteor.publish('friendRequests', function(options){
+  Meteor.publish('friends.requests', function(options){
     if(!this.userId){
       return this.ready()
     }
@@ -75,10 +75,10 @@ export default function(){
 
   /**
    * Ignored friend requests to the current user.
-   * @function publication ignoredFriendRequests
+   * @function publication friends.requests.ignored
    * @param {object} options
    */
-  Meteor.publish('ignoredFriendRequests', function(options){
+  Meteor.publish('friends.requests.ignored', function(options){
     if(!this.userId){
       return this.ready()
     }
@@ -102,10 +102,10 @@ export default function(){
 
   /**
    * Friend requests from the current user to other users.
-   * @function publication outgoingFriendRequests
+   * @function publication friends.requests.outgoing
    * @param {object} options
    */
-  Meteor.publish('outgoingFriendRequests', function(options){
+  Meteor.publish('friends.requests.outgoing', function(options){
    if(!this.userId){
       return this.ready()
    }

@@ -42,7 +42,7 @@ export default class UserEmail extends React.Component{
     e.preventDefault()
     //TODO figure out a better way that doesn't uses jquery
     email = e.target.id
-    Meteor.call("accountRemoveEmail", email, function(error, result){
+    Meteor.call("accounts.email.remove", email, function(error, result){
       if(error || result === false){
         Materialize.toast(error.reason, 4000)
         console.log("error", error)
@@ -62,7 +62,7 @@ export default class UserEmail extends React.Component{
     e.preventDefault()
     let email = e.target.email.value
     if(email.length > 6){
-      Meteor.call("accountAddEmail", email, (error, result)=>{
+      Meteor.call("accounts.email.add", email, (error, result)=>{
         if(error){
           Materialize.toast("There has been an error!", 5000)
           console.log("error", error)
@@ -89,7 +89,7 @@ export default class UserEmail extends React.Component{
     const {verify} = this.props
     verify(email)
     */
-    Meteor.call("accountVerifyEmailSend", email, function(error, result){
+    Meteor.call("accounts.email.verify.send", email, function(error, result){
       if(error){
         console.log(error)
       } else {

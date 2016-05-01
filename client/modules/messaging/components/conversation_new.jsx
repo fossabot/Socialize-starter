@@ -1,6 +1,7 @@
 import React from 'react'
 import {Materialize} from 'meteor/poetic:materialize-scss'
 import sanitizeHtml from 'sanitize-html'
+import {check} from 'meteor/check'
 
 /**
  * @class component UserNewConversation
@@ -10,7 +11,7 @@ export default class UserNewConversation extends React.Component{
   constructor(props){
     super(props)
 
-    let users = props.users
+    let users = props.recipients
 
     if(users === undefined){
       users = []
@@ -19,8 +20,6 @@ export default class UserNewConversation extends React.Component{
     this.state = {
       users: users
     }
-
-    const {LocalState} = props.context()
 
     this.usersListing.bind(this)
     this.populateSuggestions.bind(this)
@@ -46,13 +45,15 @@ export default class UserNewConversation extends React.Component{
       })
 
       //search through users collection
-      Meteor.subscribe("searchForUsers", query, excluded, ()=>{
+      Meteor.subscribe("pm.users.search", query, excluded, ()=>{
         //onReady
         this.setState({
           search: Meteor.users.find({username: {$regex: query, $options: 'i'}, _id: {$nin: excluded}}, {limit: 10}).fetch()
         })
         this.showSuggestions()
       })
+    } else {
+      this.hideSuggestions()
     }
   }
 
@@ -165,7 +166,7 @@ export default class UserNewConversation extends React.Component{
 
 
   render(){
-    let {recipients, buttonClass, buttonText} = this.props
+    let {buttonClass, buttonText} = this.props
 
     if(buttonClass === null || buttonClass === undefined){
       buttonClass = "btn waves-effect modal-trigger"
