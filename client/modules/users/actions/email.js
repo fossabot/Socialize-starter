@@ -1,12 +1,10 @@
-import {Meteor} from 'meteor/meteor'
-
 export default {
-  verify(email){
-    Meteor.call("accountVerifyEmailSend", email, function(error, result){
+  verify({Meteor, LocalState}, email){
+    Meteor.call("accounts.email.verify.send", email, function(error, result){
       if(error){
+        LocalState.set('ACCOUNTS_ERROR_EMAIL_SENDING', error.reason)
         console.log(error)
       }
     })
   }
 }
-

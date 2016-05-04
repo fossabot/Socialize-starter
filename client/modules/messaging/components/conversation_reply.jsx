@@ -6,6 +6,10 @@ import sanitizeHtml from 'sanitize-html'
  * @classdesc Reply to the given conversation
  */
 export default class ConversationReply extends React.Component{
+  constructor(props){
+    super(props)
+  }
+
   isTyping(){
     this.setState({
       typing: Meteor.subscribe("typing", this.props.conversationId)

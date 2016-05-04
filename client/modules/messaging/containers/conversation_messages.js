@@ -1,8 +1,14 @@
+import {
+  useDeps, composeWithTracker, composeAll
+} from 'mantra-core'
 import Component from '../components/conversation_messages.jsx'
-import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 
 export const composer = ({context, conversationId, msgLimit, clearErrors}, onData) => {
-  const {Meteor, Collections, LocalState} = context()
+  const {Meteor, Collections, FlowRouter, LocalState} = context()
+
+  if(!msgLimit){
+    msgLimit = 10
+  }
 
   if(conversationId){
     const handleConv = Meteor.subscribe("messages.for", conversationId, {limit: msgLimit, skip: 0})
@@ -25,7 +31,7 @@ export const composer = ({context, conversationId, msgLimit, clearErrors}, onDat
         onData(null, {messages})
       } else {
         console.log("Access denied!")
-        Materialize.toast("Access denied!", 3000)
+        //Materialize.toast("Access denied!", 3000)
         //unsubscribe
         handleConv.stop()
         handleMsg.stop()
@@ -43,7 +49,12 @@ export const composer = ({context, conversationId, msgLimit, clearErrors}, onDat
   return clearErrors
 }
 
+export const depsMapper = (context, actions) => ({
+  clearErrors: actions.messaging.clearErrors,
+  context: () => context
+})
+
 export default composeAll(
   composeWithTracker(composer),
-  useDeps()
+  useDeps(depsMapper)
 )(Component)

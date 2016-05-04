@@ -44,37 +44,38 @@ export default function(){
     //only allow the limit, skip and sort options
     options = _.pick(options, "limit", "skip", "sort")
 
-    Meteor.publishWithRelations({
+    this.relations({
       handle: this,
       collection: Meteor.posts,
       filter: {$or:[{userId:{$in:friendMap}}, {posterId:{$in:friendMap}}]},
       options:options,
       mappings: [{
-        key: 'userId',
+        foreign_key: 'userId',
         collection: Meteor.users,
         options:{fields:{username:true}}
       }, {
         reverse: true,
-        key: 'linkedObjectId',
+        foreign_key: 'linkedObjectId',
         collection: Meteor.comments,
         options:{sort:{date:-1}, limit:3},
         mappings: [{
-          key: 'userId',
+          foreign_key: 'userId',
           collection: Meteor.users,
           options:{fields:{username:true}}
         }]
       }, {
         reverse: true,
-        key: 'linkedObjectId',
+        foreign_key: 'linkedObjectId',
         collection: Meteor.likes,
         options: {fields: {linkedObjectId: true, userId: true, date: true}},
         mappings: [{
-          key: 'userId',
+          foreign_key: 'userId',
           collection: Meteor.users,
           options:{fields:{username:true}}
         }]
       }]
     })
+    this.ready()
   })
 
   /**
@@ -91,51 +92,44 @@ export default function(){
 
     check(options, publicationOptionsSchema)
 
-    let friendMap
-
     if(!userId){
       return this.ready()
     }
 
-    friendMap = Meteor.friends.find({posterId: userId}, {fields:{friendId:true}}).map(function(friend){
-      return friend.friendId;
-    })
-
-    friendMap.push(userId)
-
     //only allow the limit, skip and sort options
     options = _.pick(options, "limit", "skip", "sort")
 
-    Meteor.publishWithRelations({
+    this.relations({
       handle: this,
       collection: Meteor.posts,
       filter: {$or:[{userId: userId}, {posterId: userId}]},
       options:options,
       mappings: [{
-        key: 'userId',
+        foreign_key: 'userId',
         collection: Meteor.users,
         options:{fields:{username:true}}
       }, {
         reverse: true,
-        key: 'linkedObjectId',
+        foreign_key: 'linkedObjectId',
         collection: Meteor.comments,
         options:{sort:{date:-1}, limit:3},
         mappings: [{
-          key: 'userId',
+          foreign_key: 'userId',
           collection: Meteor.users,
           options:{fields:{username:true}}
         }]
       }, {
         reverse: true,
-        key: 'linkedObjectId',
+        foreign_key: 'linkedObjectId',
         collection: Meteor.likes,
         options: {fields: {linkedObjectId: true, userId: true, date: true}},
         mappings: [{
-          key: 'userId',
+          foreign_key: 'userId',
           collection: Meteor.users,
           options:{fields:{username:true}}
         }]
       }]
     })
+    this.ready()
   })
 }

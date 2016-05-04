@@ -33,17 +33,18 @@ export default function(){
 
     check(options, publicationOptionsSchema)
 
-    Meteor.publishWithRelations({
+    this.relations({
       handle: this,
       collection: Meteor.friends,
       filter: {userId:this.userId, friendId:{$ne:this.userId}},
       options:options,
       mappings: [{
-        key: 'friendId',
+        foreign_key: 'friendId',
         collection: Meteor.users,
         options:{fields:{username:true, status:true}}
       }]
     })
+    this.ready()
   })
 
   /**
@@ -60,17 +61,18 @@ export default function(){
 
     check(options, publicationOptionsSchema)
 
-    Meteor.publishWithRelations({
+    this.relations({
       handle: this,
       collection: Meteor.requests,
       filter: {userId:this.userId, denied:{$exists:false}, ignored:{$exists:false}},
       options:options,
       mappings: [{
-        key: 'requesterId',
+        foreign_key: 'requesterId',
         collection: Meteor.users,
         options:{fields:{username:true}}
       }]
     })
+    this.ready()
   })
 
   /**
@@ -87,17 +89,18 @@ export default function(){
 
     check(options, publicationOptionsSchema)
 
-    Meteor.publishWithRelations({
+    this.relations({
       handle: this,
       collection: Meteor.requests,
       filter: {userId:this.userId, denied:{$exists:false}, ignored:{$exists:true}},
       options:options,
       mappings: [{
-        key: 'requesterId',
+        foreign_key: 'requesterId',
         collection: Meteor.users,
         options:{fields:{username:true}}
       }]
     })
+    this.ready()
   })
 
   /**
@@ -114,16 +117,17 @@ export default function(){
 
    check(options, publicationOptionsSchema)
 
-   Meteor.publishWithRelations({
+   this.relations({
      handle: this,
      collection: Meteor.requests,
      filter: {requesterId:this.userId, denied:{$exists:false}},
      options:options,
      mappings: [{
-       key: 'requesterId',
+       foreign_key: 'requesterId',
        collection: Meteor.users,
        options:{fields:{username:true}}
      }]
    })
+   this.ready()
   })
 }

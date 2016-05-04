@@ -23,17 +23,21 @@ browser-policy
 fourseven:scss
 poetic:materialize-scss
 
+accounts-password
+socialize:user-profile
+socialize:base-model
+socialize:likeable
+socialize:feed
+socialize:messaging
+socialize:friendships
+
 kadira:flow-router-ssr
+kadira:dochead
 meteorhacks:fast-render
-storyteller:accounts-server
-storyteller:accounts-react-materialize
-storyteller:profiles-react-materialize
-storyteller:messaging-react-materialize
+lepozepo:publish-with-relations
+meteorhacks:subs-manager
 
 alanning:roles
-standard-minifier-css
-standard-minifier-js
-react-meteor-data
 
 reactive-dict
 check

@@ -7,8 +7,14 @@ import UserNewConversation from './conversation_new.jsx'
  * @classdesc Overview of all conversations that the user is involved in.
  */
 export default class UserConversationOverview extends React.Component{
+  constructor(props){
+    super(props)
+
+    this.getConversations = this.getConversations.bind(this)
+  }
+
   getConversations(conversations){
-    if(conversations.length > 0){
+    if(conversations && conversations.length > 0){
       return conversations.map((conversation)=>{
 
         let usersArray = []
@@ -22,11 +28,13 @@ export default class UserConversationOverview extends React.Component{
           users = users + ", " + usersArray[i]
         }
 
+        let lastMessage = conversation.lastMessage()
+
         return <li className="collection-item avatar" key={conversation._id}>
           <a href={FlowRouter.path("pm-conversation", {conversationId: conversation._id})} >
           <i className="material-icons circle">mail</i>
           <span className="title">{users}</span>
-          <p className="flow-text truncate">{conversation.lastMessage().user().username}: {conversation.lastMessage().body}</p>
+          <p className="flow-text truncate">{lastMessage.user().username}: {lastMessage.body}</p>
           </a>
         </li>
       })

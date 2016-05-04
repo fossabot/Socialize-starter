@@ -15,7 +15,10 @@ import UserSettings from './components/settings.jsx'
 import UserProfile from './containers/profile.js'
 import UserFriendsRequests from './containers/friend_requests.js'
 import ForgotPassword from './components/password_forgot.jsx'
+import SetPassword from './components/password_set.jsx'
 import EmailVerify from './components/email_verify.jsx'
+import UserListing from './containers/list.js'
+import UserSearch from './components/search.jsx'
 
 export default function(injectDeps, {FlowRouter}){
   const MainLayoutCtx = injectDeps(MainLayout)
@@ -74,7 +77,7 @@ export default function(injectDeps, {FlowRouter}){
   })
 
   userRoutes.route('/profile', {
-    name: "profile-personal",
+    name: "profilePersonal",
     action(){
       mount(MainLayoutCtx, {
         content: ()=>(<UserProfile user={Meteor.users.findOne({_id: Meteor.userId()}).username} />)
@@ -82,9 +85,21 @@ export default function(injectDeps, {FlowRouter}){
     }
   })
 
-  FlowRouter.route('/profile/:username', {
-    name: "profile-public",
-    action: function(params, queryParams){
+  let profileRoutes = FlowRouter.group({
+    prefix: '/profile'
+  })
+
+  profileRoutes.route("/", {
+    name: "profileList",
+    action(params, queryParams){
+      // TODO user search
+      console.log("Working on this.")
+    }
+  })
+
+  profileRoutes.route('/:username', {
+    name: "profilePublic",
+    action(params, queryParams){
      //check if user exists
      if(params.username !== null && ! Meteor.user({username: params.username})){
        //show 404
@@ -94,12 +109,13 @@ export default function(injectDeps, {FlowRouter}){
      //if username null, go to the currently logged in user
      if(params.username === null){
        if(Meteor.userId()){
-         FlowRouter.go("profile-personal")
+         FlowRouter.go("profilePersonal")
        } else {
          //show 404
          console.log("User not found!")
        }
      }
+
      mount(MainLayoutCtx, {
        content: ()=>(<UserProfile user={params.username} />)
     })
@@ -120,7 +136,7 @@ export default function(injectDeps, {FlowRouter}){
  FlowRouter.route('/forgot-password', {
    name: 'forgot-password',
    triggersEnter: [routeAnonOnly],
-   action: function(params, queryParams){
+   action(params, queryParams){
      mount(MainLayoutCtx, {
        content: () => (<ForgotPassword />)
      })
@@ -130,7 +146,7 @@ export default function(injectDeps, {FlowRouter}){
  FlowRouter.route('/reset-password', {
    name: 'reset-password',
    triggersEnter: [routeAnonOnly],
-   action: function(params, queryParams){
+   action(params, queryParams){
      mount(MainLayoutCtx, {
        content: () => (<SetPassword token={queryParams.token} />)
      })
@@ -139,9 +155,35 @@ export default function(injectDeps, {FlowRouter}){
 
  FlowRouter.route('/user/verify-email', {
    name: 'verify-email',
-   action: function(params, queryParams){
+   action(params, queryParams){
      mount(MainLayoutCtx, {
        content: () => (<EmailVerify token={queryParams.token} />)
+     })
+   }
+ })
+
+ FlowRouter.route('/user/search', {
+   name: 'userSearch',
+   action(params, queryParams){
+     mount(MainLayoutCtx, {
+       content: () => (<UserSearch />)
+     })
+   }
+ })
+
+ FlowRouter.route('/users', {
+   action(params){
+     FlowRouter.go("userListing", {page: 1})
+   }
+ })
+
+ FlowRouter.route('/users/:page', {
+   name: 'userListing',
+   action(params){
+     let page = params.page
+     if(page === undefined || page === 0){page = 1}
+     mount(MainLayoutCtx, {
+       content: ()=>(<UserListing page={page} />)
      })
    }
  })

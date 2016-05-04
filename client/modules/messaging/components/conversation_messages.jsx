@@ -8,14 +8,11 @@ import moment from 'moment'
 export default class ConversationMessage extends React.Component{
   constructor(props){
     super(props)
-    this.getMessages.bind(this)
-  }
+    this.getMessages = this.getMessages.bind(this)
 
-  componentDidMount(){
-    let {conversationId} = this.props
-    this.setState({
-      viewing: Meteor.subscribe("viewingConversation", conversationId)
-    })
+    this.state = {
+      viewing: Meteor.subscribe("viewingConversation", props.conversationId)
+    }
   }
 
   componentWillUnmount(){

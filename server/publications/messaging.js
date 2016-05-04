@@ -41,15 +41,16 @@ export default function(){
       return this.ready()
     }
 
-    Meteor.publishWithRelations({
+    this.relations({
         handle: this,
         collection: Meteor.participants,
         options: options,
         filter: {conversationId: conversationId, deleted:{$exists:false}},
         mappings: [{
-            key: 'conversationId',
+            foreign_key: 'conversationId',
             collection: Meteor.conversations,
             mappings:[{
+                foreign_key: "conversationId",
                 key: "conversationId",
                 collection: Meteor.participants,
                 filter: {userId:{$ne:this.userId}},
@@ -61,12 +62,14 @@ export default function(){
                 }]
             },{
                 reverse:true,
+                foreign_key: "conversationId",
                 key: "conversationId",
                 collection: Meteor.messages,
                 options:{limit:1, sort:{date:-1}}
             }]
         }]
     })
+    this.ready
   })
 
   /**
@@ -88,13 +91,13 @@ export default function(){
 
      options.sort = {date:-1}
 
-     Meteor.publishWithRelations({
+     this.relations({
          handle: this,
          collection: Meteor.participants,
-         options:options,
-         filter: {userId:this.userId, deleted:{$exists:false}},
+         options: options,
+         filter: {userId: this.userId, deleted:{$exists:false}},
          mappings: [{
-             key: 'conversationId',
+             foreign_key: 'conversationId',
              collection: Meteor.conversations,
              mappings:[{
                  key: "conversationId",
@@ -102,19 +105,20 @@ export default function(){
                  filter: {userId:{$ne:this.userId}},
                  reverse:true,
                  mappings:[{
-                     key:"userId",
+                     foreign_key:"userId",
                      collection:Meteor.users,
-                     options:{fields:{username:true, avatarId:true}}
+                     options:{fields:{username:true}}
                  }]
-             },{
-                 reverse:true,
-                 key: "conversationId",
-                 collection: Meteor.messages,
-                 options:{limit:1, sort:{date:-1}}
              }]
+         },{
+             reverse:true,
+             key: "conversationdId",
+             foreign_key: "conversationdId",
+             collection: Meteor.messages,
+             options:{sort:{date:-1}} // TODO limit: 1 seems to cause problems
          }]
-     });
-
+     })
+     this.ready()
   })
 
   /**
@@ -125,30 +129,33 @@ export default function(){
          return this.ready();
      }
 
-     Meteor.publishWithRelations({
+     this.relations({
          handle: this,
          collection: Meteor.participants,
          filter: {userId:this.userId, deleted:{$exists:false}, read:false},
          mappings: [{
-             key: 'conversationId',
+             foreign_key: 'conversationId',
              collection: Meteor.conversations,
              mappings:[{
+                 foreign_key: "conversationId",
                  key: "conversationId",
                  collection: Meteor.participants,
                  reverse:true,
                  options:{limit:1, sort:{date:-1}},
                  mappings:[{
-                     key:"userId",
+                     foreign_key:"userId",
                      collection:Meteor.users,
-                     options:{fields:{username:true, avatarId:true}}
+                     options:{fields:{username:true}}
                  }]
              },{
+                 foreign_key: "conversationId",
                  key: "conversationId",
                  collection: Meteor.messages,
                  options:{limit:1, sort:{date:-1}}
              }]
          }]
      })
+     this.ready()
   })
 
   /**

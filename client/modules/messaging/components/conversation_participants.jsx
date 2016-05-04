@@ -7,8 +7,9 @@ import React from 'react'
 export default class ConversationParticipants extends React.Component{
   constructor(){
     super()
-    this.getParticipants.bind(this)
+    this.getParticipants = this.getParticipants.bind(this)
   }
+  
   getParticipants(){
     return this.props.conversation.participants().map((participant)=>{
       // get username and avatar
