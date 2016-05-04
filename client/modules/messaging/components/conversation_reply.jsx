@@ -8,6 +8,10 @@ import sanitizeHtml from 'sanitize-html'
 export default class ConversationReply extends React.Component{
   constructor(props){
     super(props)
+
+    this.state = {
+      typing: null
+    }
   }
 
   isTyping(){
@@ -44,7 +48,7 @@ export default class ConversationReply extends React.Component{
       return (<form method="post" onSubmit={this.sendMessage.bind(this)}>
         <fieldset>
           <legend>Send message</legend>
-          <div className="input-field">
+          <div className="input-field col s12">
             <i className="material-icons prefix">mode_edit</i>
             <textarea name="message" id="messageToSend" className="materialize-textarea" onFocus={this.isTyping.bind(this)} onBlur={this.isNotTyping.bind(this)}></textarea>
             <label htmlFor="messageToSend">Message</label>

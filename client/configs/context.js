@@ -11,6 +11,7 @@ import {SubsManager} from 'meteor/meteorhacks:subs-manager'
 
 const UserSubs = new SubsManager()
 const ProfileSubs = new SubsManager()
+const MessagesSubs = new SubsManager()
 
 export default function(){
   return {
@@ -21,6 +22,7 @@ export default function(){
     Tracker,
     /* SUBS */
     UserSubs,
-    ProfileSubs
+    ProfileSubs,
+    MessagesSubs
   }
 }

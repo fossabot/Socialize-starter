@@ -4,8 +4,8 @@ import {
 import Component from '../components/overview.jsx'
 
 export const composer = ({context, clearErrors}, onData) => {
-  const {Meteor, Collections} = context()
-  if(Meteor.subscribe('conversations').ready()){
+  const {Meteor, Collections, MessagesSubs} = context()
+  if(MessagesSubs.subscribe('conversations').ready()){
     const conversations = Meteor.conversations.find().fetch()
 
     onData(null, {conversations})

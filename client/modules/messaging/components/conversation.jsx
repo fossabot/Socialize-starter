@@ -12,36 +12,23 @@ export default class UserConversation extends React.Component{
   constructor(props){
     super(props)
 
-    this.state = {
-      viewing: null,
-      typing: null,
-      msgLimit: 10,
-      msgTotal: 1
-    }
-  }
-
-  componentDidMount(){
+    let totalMessages
     // get the total number of documents from server
     Meteor.call("pm.conversation.count", this.props.conversationId, (error, result)=>{
       if(error){
         console.log(error)
       }
       if(result){
-        this.setState({
-          msgTotal: result
-        })
+        totalMessages = result
       }
     })
-  }
 
-  isTyping(){
-    this.setState({
-      typing: Meteor.subscribe("typing", this.props.conversationId)
-    })
-  }
-
-  isNotTyping(){
-    this.state.typing.stop()
+    this.state = {
+      viewing: null,
+      typing: null,
+      msgLimit: 10,
+      msgTotal: 1
+    }
   }
 
   showOlder(){

@@ -31,7 +31,7 @@ export default class UserConversationOverview extends React.Component{
         let lastMessage = conversation.lastMessage()
 
         return <li className="collection-item avatar" key={conversation._id}>
-          <a href={FlowRouter.path("pm-conversation", {conversationId: conversation._id})} >
+          <a href={FlowRouter.path("pmConversation", {conversationId: conversation._id})} >
           <i className="material-icons circle">mail</i>
           <span className="title">{users}</span>
           <p className="flow-text truncate">{lastMessage.user().username}: {lastMessage.body}</p>

@@ -1,12 +1,15 @@
+import {
+  useDeps, composeWithTracker, composeAll
+} from 'mantra-core'
 import Component from '../components/conversation.jsx'
-import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
 
-export const composer = ({context, conversationId, clearErrors}, onData) => {
-  const {Meteor, Collections, LocalState} = context()
+export const composer = ({context, conversationId}, onData) => {
+  const {Meteor, Collections, MessagesSubs} = context()
 
   if(conversationId){
-    if(Meteor.subscribe("conversation", conversationId).ready()){
-      let conversation = Meteor.conversations.findOne({_id: conversationId})
+    MessagesSubs.subscribe("conversation", conversationId)
+    if(MessagesSubs.ready()){
+      const conversation = Meteor.conversations.findOne({_id: conversationId})
 
       //confirm that user can view the conversation
       let access = false
@@ -20,23 +23,16 @@ export const composer = ({context, conversationId, clearErrors}, onData) => {
       if(access){
         onData(null, {conversation})
       } else {
-        console.log("Access denied!")
-        Materialize.toast("Access denied!", 3000)
-        //unsubscribe
-        handleConv.stop()
-        handleMsg.stop()
-        //redirect back
-        FlowRouter.go("pm-overview")
+        // unauthorized access
+        FlowRouter.go("pmOverview")
       }
     } else {
       onData()
     }
   } else {
-    console.log("No conversation id specified.")
-    FlowRouter.go("pm-overview")
+    FlowRouter.go("pmOverview")
   }
 
-  return clearErrors
 }
 
 export default composeAll(

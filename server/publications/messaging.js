@@ -53,23 +53,20 @@ export default function(){
                 foreign_key: "conversationId",
                 key: "conversationId",
                 collection: Meteor.participants,
-                filter: {userId:{$ne:this.userId}},
-                reverse:true,
-                mappings:[{
-                    key:"userId",
-                    collection:Meteor.users,
-                    options:{fields:{username:true}}
-                }]
+                filter: {userId:{$ne:this.userId}}
             },{
-                reverse:true,
                 foreign_key: "conversationId",
                 key: "conversationId",
                 collection: Meteor.messages,
                 options:{limit:1, sort:{date:-1}}
             }]
+        },{
+            foreign_key: "userId",
+            collection:Meteor.users,
+            options:{fields:{username:true}}
         }]
     })
-    this.ready
+    this.ready()
   })
 
   /**
@@ -102,20 +99,17 @@ export default function(){
              mappings:[{
                  key: "conversationId",
                  collection: Meteor.participants,
-                 filter: {userId:{$ne:this.userId}},
-                 reverse:true,
-                 mappings:[{
-                     foreign_key:"userId",
-                     collection:Meteor.users,
-                     options:{fields:{username:true}}
-                 }]
+                 filter: {userId:{$ne:this.userId}}
              }]
          },{
-             reverse:true,
              key: "conversationdId",
              foreign_key: "conversationdId",
              collection: Meteor.messages,
              options:{sort:{date:-1}} // TODO limit: 1 seems to cause problems
+         },{
+             foreign_key: "userId",
+             collection:Meteor.users,
+             options:{fields:{username:true}}
          }]
      })
      this.ready()
@@ -140,19 +134,17 @@ export default function(){
                  foreign_key: "conversationId",
                  key: "conversationId",
                  collection: Meteor.participants,
-                 reverse:true,
-                 options:{limit:1, sort:{date:-1}},
-                 mappings:[{
-                     foreign_key:"userId",
-                     collection:Meteor.users,
-                     options:{fields:{username:true}}
-                 }]
+                 options:{limit:1, sort:{date:-1}}
              },{
                  foreign_key: "conversationId",
                  key: "conversationId",
                  collection: Meteor.messages,
                  options:{limit:1, sort:{date:-1}}
              }]
+         },{
+             foreign_key: "userId",
+             collection:Meteor.users,
+             options:{fields:{username:true}}
          }]
      })
      this.ready()

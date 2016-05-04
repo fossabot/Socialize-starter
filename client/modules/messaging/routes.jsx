@@ -20,7 +20,7 @@ export default function(injectDeps, {FlowRouter}){
   })
 
   userMessaging.route("/", {
-    name: "pm-overview",
+    name: "pmOverview",
     action(params, queryParams){
       mount(MainLayoutCtx, {
         content: () => (<UserConversationOverview />)
@@ -29,7 +29,7 @@ export default function(injectDeps, {FlowRouter}){
   })
 
   userMessaging.route("/:conversationId", {
-    name: "pm-conversation",
+    name: "pmConversation",
     action(params, queryParams){
       mount(MainLayoutCtx, {
         content: () => (<UserConversation conversationId={params.conversationId} />)
