@@ -65,17 +65,14 @@ We are using `alanning:roles` for roles management.
 
 Basic "user" role is added to each user after they register.
 
-## Packages
+## Features
 
-The following packages were developed specifically for this project,
-but can also be used independently:
-
-*   [storyteller:accounts-react-materialize](https://atmospherejs.com/storyteller/accounts-react-materialize)
-*   [storyteller:accounts-server](https://atmospherejs.com/storyteller/accounts-server)
-*   [storyteller:profiles-react-materialize](https://atmospherejs.com/storyteller/profiles-react-materialize)
-*   [storyteller:profiles-server](https://atmospherejs.com/storyteller/profiles-server)
-*   [storyteller:messaging-react-materialize](https://atmospherejs.com/storyteller/messaging-react-materialize)
-*   [storyteller:messaging-server](https://atmospherejs.com/storyteller/messaging-server)
+*   Login & Registration
+*   Beta Signup
+*   User profiles
+*   User feed
+*   Friending
+*   Messaging
 
 ## Future plans
 
@@ -84,8 +81,7 @@ What is coming in the future?
 *   Improve existing functionality
 *   Testing
 *   Update to Meteor 1.3 and move closer to Mantra
-*   Blogs (new package)
-*   Badges (new packages)
-*   Beta Signup (new feature in the accounts packages)
-*   User search / listing (addition to profiles packages)
+*   Blogs
+*   Badges
+*   User search / listing
 *   Administration components for everything

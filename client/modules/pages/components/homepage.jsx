@@ -41,6 +41,13 @@ const Homepage = () => (
           <p className="white-text">Facebook like feed to allow users post what they think and interact with others.</p>
         </div>
       </div>
+      
+      <div className="col s12 m6">
+        <div className="card-panel blue-grey darken-1">
+          <h4 className="white-text">Beta signup</h4>
+          <p className="white-text">Disallow registration and rather have users signup their interest in your app and select those you want to join.</p>
+        </div>
+      </div>
 
       <h3 className="col s12">What is in the future</h3>
 
@@ -55,13 +62,6 @@ const Homepage = () => (
         <div className="card-panel blue-grey darken-1">
           <h4 className="white-text">Badges</h4>
           <p className="white-text">Motivate your users interactions with badges.</p>
-        </div>
-      </div>
-
-      <div className="col s12 m6">
-        <div className="card-panel blue-grey darken-1">
-          <h4 className="white-text">Beta signup</h4>
-          <p className="white-text">Disallow registration and rather have users signup their interest in your app and select those you want to join.</p>
         </div>
       </div>
 
