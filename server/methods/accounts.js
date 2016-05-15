@@ -25,7 +25,13 @@ export default function(){
      */
     'accounts.email.remove'(email){
       check(email, String)
-      return Accounts.removeEmail(Meteor.userId(), email)
+      // double check that there will be an e-mail left if we remove
+      let user = Meteor.users.find({"emails.address": email}).fetch()
+      if(user[0].emails.length < 2){
+        throw new Meteor.Error("last-email", "You can't delete your last e-mail.")
+      } else {
+        return Accounts.removeEmail(Meteor.userId(), email)
+      }
     },
     /**
      * Sends a verification e-mail to the given e-mail

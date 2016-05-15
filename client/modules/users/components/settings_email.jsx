@@ -47,7 +47,7 @@ export default class UserEmail extends React.Component{
         Materialize.toast(error.reason, 4000)
         console.log("error", error)
       }
-      if(result !== false){
+      if(result){
          Materialize.toast(email + " has been removed.", 4000)
       }
     })

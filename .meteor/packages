@@ -34,7 +34,6 @@ socialize:friendships
 kadira:flow-router-ssr
 kadira:dochead
 meteorhacks:fast-render
-lepozepo:publish-with-relations
 meteorhacks:subs-manager
 
 alanning:roles
@@ -42,3 +41,4 @@ alanning:roles
 reactive-dict
 check
 random
+reywood:publish-composite

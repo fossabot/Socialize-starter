@@ -19,6 +19,7 @@ import SetPassword from './components/password_set.jsx'
 import EmailVerify from './components/email_verify.jsx'
 import UserListing from './containers/list.js'
 import UserSearch from './components/search.jsx'
+import BetaSignup from './components/signup_beta.jsx'
 
 export default function(injectDeps, {FlowRouter}){
   const MainLayoutCtx = injectDeps(MainLayout)
@@ -32,6 +33,7 @@ export default function(injectDeps, {FlowRouter}){
     action(){
       mount(MainLayoutCtx, {
         content: ()=>(<UserRegister />)
+        //content: ()=>(<BetaSignup />)
       })
     }
   })
@@ -87,14 +89,6 @@ export default function(injectDeps, {FlowRouter}){
 
   let profileRoutes = FlowRouter.group({
     prefix: '/profile'
-  })
-
-  profileRoutes.route("/", {
-    name: "profileList",
-    action(params, queryParams){
-      // TODO user search
-      console.log("Working on this.")
-    }
   })
 
   profileRoutes.route('/:username', {

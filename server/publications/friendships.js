@@ -24,7 +24,7 @@ export default function(){
    * @function publication friends
    * @param {object} options
    */
-  Meteor.publish("friends", function(options){
+  Meteor.publishComposite("friends", function(options){
     if(!this.userId){
       return this.ready();
     }
@@ -33,18 +33,18 @@ export default function(){
 
     check(options, publicationOptionsSchema)
 
-    this.relations({
-      handle: this,
-      collection: Meteor.friends,
-      filter: {userId:this.userId, friendId:{$ne:this.userId}},
-      options:options,
-      mappings: [{
-        foreign_key: 'friendId',
-        collection: Meteor.users,
-        options:{fields:{username:true, status:true}}
-      }]
-    })
-    this.ready()
+    return {
+      find: function(){
+        return Meteor.friends.find({userId: this.userId, friendId: {$ne:this.userId}}, options)
+      },
+      children: [
+        {
+          find: function(friend){
+            return Meteor.users.find({_id: friend.friendId}, {fields: {username: 1, status: 1}})
+          }
+        }
+      ]
+    }
   })
 
   /**
@@ -52,7 +52,7 @@ export default function(){
    * @function publication friends.requests
    * @param {object} options
    */
-  Meteor.publish('friends.requests', function(options){
+  Meteor.publishComposite('friends.requests', function(options){
     if(!this.userId){
       return this.ready()
     }
@@ -61,18 +61,18 @@ export default function(){
 
     check(options, publicationOptionsSchema)
 
-    this.relations({
-      handle: this,
-      collection: Meteor.requests,
-      filter: {userId:this.userId, denied:{$exists:false}, ignored:{$exists:false}},
-      options:options,
-      mappings: [{
-        foreign_key: 'requesterId',
-        collection: Meteor.users,
-        options:{fields:{username:true}}
-      }]
-    })
-    this.ready()
+    return {
+      find: function(){
+        return Meteor.requests.find({userId: this.userId, denied: {$exists: false}, ignored: {$exists: false}}, options)
+      },
+      children: [
+        {
+          find: function(request){
+            return Meteor.users.find({_id: request.requesterId}, {fields: {username: 1}})
+          }
+        }
+      ]
+    }
   })
 
   /**
@@ -80,7 +80,7 @@ export default function(){
    * @function publication friends.requests.ignored
    * @param {object} options
    */
-  Meteor.publish('friends.requests.ignored', function(options){
+  Meteor.publishComposite('friends.requests.ignored', function(options){
     if(!this.userId){
       return this.ready()
     }
@@ -89,18 +89,18 @@ export default function(){
 
     check(options, publicationOptionsSchema)
 
-    this.relations({
-      handle: this,
-      collection: Meteor.requests,
-      filter: {userId:this.userId, denied:{$exists:false}, ignored:{$exists:true}},
-      options:options,
-      mappings: [{
-        foreign_key: 'requesterId',
-        collection: Meteor.users,
-        options:{fields:{username:true}}
-      }]
-    })
-    this.ready()
+    return {
+      find: function(){
+        return Meteor.requests.find({userId: this.userId, denied: {$exists: false}, ignored: {$exists: true}}, options)
+      },
+      children: [
+        {
+          find: function(request){
+            return Meteor.users.find({_id: request.requesterId}, {fields: {username: 1}})
+          }
+        }
+      ]
+    }
   })
 
   /**
@@ -108,7 +108,7 @@ export default function(){
    * @function publication friends.requests.outgoing
    * @param {object} options
    */
-  Meteor.publish('friends.requests.outgoing', function(options){
+  Meteor.publishComposite('friends.requests.outgoing', function(options){
    if(!this.userId){
       return this.ready()
    }
@@ -117,17 +117,17 @@ export default function(){
 
    check(options, publicationOptionsSchema)
 
-   this.relations({
-     handle: this,
-     collection: Meteor.requests,
-     filter: {requesterId:this.userId, denied:{$exists:false}},
-     options:options,
-     mappings: [{
-       foreign_key: 'requesterId',
-       collection: Meteor.users,
-       options:{fields:{username:true}}
-     }]
-   })
-   this.ready()
+   return {
+     find: function(){
+       return Meteor.requests.find({requesterId: this.userId, denied: {$exists: false}}, options)
+     },
+     children: [
+       {
+         find: function(request){
+           return Meteor.users.find({_id: request.requesterId}, {fields: {username: 1}})
+         }
+       }
+     ]
+   }
   })
 }

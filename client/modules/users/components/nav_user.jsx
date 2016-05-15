@@ -4,9 +4,7 @@ export default class NavUser extends React.Component {
   componentDidMount(){
     //activate the menu
     $(".button-collapse").sideNav({menuWidth: 300, closeOnClick: true})
-    //this.refs.sideNavControl.sideNav({closeOnClick: true});
     $(".dropdown-button").dropdown()
-    //$('.modal-trigger').leanModal()
   }
 
   showAvatar(){

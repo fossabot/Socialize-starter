@@ -56,8 +56,8 @@ class UserRegister extends React.Component{
               <label htmlFor="password2">Repeat your password</label>
             </div>
             <div className="expanded button-group">
-              <a href={FlowRouter.path("login")} className="btn">Login</a>
-              <input type="submit" value="Create account" className="btn"></input>
+              <a href={FlowRouter.path("login")} className="waves-effect waves-teal btn-flat">Login</a>
+              <input type="submit" value="Create account" className="btn waves-effect"></input>
             </div>
           </form>
         </div>

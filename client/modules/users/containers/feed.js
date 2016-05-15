@@ -19,14 +19,14 @@ export const composer = ({context, userId, clearErrors}, onData) => {
       const posts = Meteor.posts.find({posterId: userId}, {sort: {date: -1}}).fetch()
       onData(null, {posts, postLimit})
     } else {
-      onData()
+      //onData()
     }
   } else {
     if(Meteor.subscribe('feed', {limit: postLimit}).ready()) {
       const posts = Meteor.posts.find({}, {sort: {date: -1}}).fetch()
       onData(null, {posts, postLimit})
     } else {
-      onData()
+      //onData()
     }
   }
 }

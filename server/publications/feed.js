@@ -24,7 +24,7 @@ export default function(){
    * @param {object} options
    * @returns {pointer}
    */
-  Meteor.publish('feed', function(options) {
+  Meteor.publishComposite('feed', function(options){
     options = options || {}
 
     check(options, publicationOptionsSchema)
@@ -35,47 +35,39 @@ export default function(){
       return this.ready()
     }
 
+    //only allow the limit, skip and sort options
+    options = _.pick(options, "limit", "skip", "sort")
+
     friendMap = Meteor.friends.find({userId:this.userId}, {fields:{friendId:true}}).map(function(friend){
-      return friend.friendId;
+      return friend.friendId
     })
 
     friendMap.push(this.userId)
 
-    //only allow the limit, skip and sort options
-    options = _.pick(options, "limit", "skip", "sort")
-
-    this.relations({
-      handle: this,
-      collection: Meteor.posts,
-      filter: {$or:[{userId:{$in:friendMap}}, {posterId:{$in:friendMap}}]},
-      options:options,
-      mappings: [{
-        foreign_key: 'userId',
-        collection: Meteor.users,
-        options:{fields:{username:true}}
-      }, {
-        reverse: true,
-        foreign_key: 'linkedObjectId',
-        collection: Meteor.comments,
-        options:{sort:{date:-1}, limit:3},
-        mappings: [{
-          foreign_key: 'userId',
-          collection: Meteor.users,
-          options:{fields:{username:true}}
-        }]
-      }, {
-        reverse: true,
-        foreign_key: 'linkedObjectId',
-        collection: Meteor.likes,
-        options: {fields: {linkedObjectId: true, userId: true, date: true}},
-        mappings: [{
-          foreign_key: 'userId',
-          collection: Meteor.users,
-          options:{fields:{username:true}}
-        }]
-      }]
-    })
-    this.ready()
+    return {
+      find: function(){
+        return Meteor.posts.find({$or:[{userId:{$in:friendMap}}, {posterId:{$in:friendMap}}]}, options)
+      },
+      children: [
+        {
+          find: function(post){
+            return Meteor.comments.find({linkedObjectId: post._id} , {sort:{date:-1}, limit:3})
+          },
+          children: [
+            {
+              find: function(comment){
+                return Meteor.users.find({_id: comment.userId} , {fields:{username:true}})
+              }
+            }
+          ]
+        },
+        {
+          find: function(post){
+            return Meteor.likes.find({linkedObjectId: post._id} , {fields: {linkedObjectId: true, userId: true, date: true}})
+          }
+        }
+      ]
+    }
   })
 
   /**
@@ -85,7 +77,7 @@ export default function(){
    * @param {object} options
    * @returns {pointer}
    */
-  Meteor.publish('feed.posts', function(userId, options) {
+  Meteor.publishComposite('feed.posts', function(userId, options) {
     check(userId, String)
 
     options = options || {}
@@ -99,37 +91,29 @@ export default function(){
     //only allow the limit, skip and sort options
     options = _.pick(options, "limit", "skip", "sort")
 
-    this.relations({
-      handle: this,
-      collection: Meteor.posts,
-      filter: {$or:[{userId: userId}, {posterId: userId}]},
-      options:options,
-      mappings: [{
-        foreign_key: 'userId',
-        collection: Meteor.users,
-        options:{fields:{username:true}}
-      }, {
-        reverse: true,
-        foreign_key: 'linkedObjectId',
-        collection: Meteor.comments,
-        options:{sort:{date:-1}, limit:3},
-        mappings: [{
-          foreign_key: 'userId',
-          collection: Meteor.users,
-          options:{fields:{username:true}}
-        }]
-      }, {
-        reverse: true,
-        foreign_key: 'linkedObjectId',
-        collection: Meteor.likes,
-        options: {fields: {linkedObjectId: true, userId: true, date: true}},
-        mappings: [{
-          foreign_key: 'userId',
-          collection: Meteor.users,
-          options:{fields:{username:true}}
-        }]
-      }]
-    })
-    this.ready()
+    return {
+      find: function(){
+        return Meteor.posts.find({$or:[{userId:userId}, {posterId:userId}]}, options)
+      },
+      children: [
+        {
+          find: function(post){
+            return Meteor.comments.find({linkedObjectId: post._id} , {sort:{date:-1}, limit:3})
+          },
+          children: [
+            {
+              find: function(comment){
+                return Meteor.users.find({_id: comment.userId} , {fields:{username:true}})
+              }
+            }
+          ]
+        },
+        {
+          find: function(post){
+            return Meteor.likes.find({linkedObjectId: post._id} , {fields: {linkedObjectId: true, userId: true, date: true}})
+          }
+        }
+      ]
+    }
   })
 }

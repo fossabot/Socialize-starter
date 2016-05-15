@@ -17,7 +17,7 @@ class UserLogin extends React.Component{
           <div className="col s12">{error ? <div className="red darken-2"><p className="white-text">{error}</p></div> : null}</div>
           <form onSubmit={this.login.bind(this)}>
             <div className="input-field col s12 left-align">
-              <input className="validate" type="text" id="email" name="email" required />
+              <input className="validate" type="email" id="email" name="email" required />
               <label htmlFor="email">E-mail</label>
             </div>
             <div className="input-field col s12 left-align">
@@ -26,7 +26,7 @@ class UserLogin extends React.Component{
             </div>
             <div className="left-align"><a href={FlowRouter.path("forgot-password")}>Forgot password?</a></div>
             <div className="expanded button-group">
-              <a href={FlowRouter.path("register")} className="btn waves-effect waves-teal">Register</a>
+              <a href={FlowRouter.path("register")} className="waves-effect waves-teal btn-flat">Register</a>
               <input type="submit" value="Login" className="btn waves-effect waves-light"></input>
             </div>
           </form>

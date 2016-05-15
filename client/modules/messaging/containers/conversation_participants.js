@@ -10,7 +10,7 @@ export const composer = ({context, conversationId}, onData) => {
 
     onData(null, {conversation})
   } else {
-    onData()
+    //onData()
   }
 }
 

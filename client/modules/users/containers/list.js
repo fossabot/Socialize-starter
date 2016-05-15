@@ -13,7 +13,7 @@ export const composer = ({context, page}, onData) => {
     Meteor.call("users.count", (error, result)=>{
       if(error){
         console.log(error)
-        onData()
+        //onData()
       }
       if(result){
         const totalUsers = result
@@ -21,7 +21,7 @@ export const composer = ({context, page}, onData) => {
       }
     })
   } else {
-    onData()
+    //onData()
   }
 
 }

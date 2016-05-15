@@ -31,7 +31,7 @@ export const composer = ({context, user, clearErrors}, onData) => {
       onData(null, {profile})
     }
   } else {
-    onData()
+    //onData()
   }
 }
 

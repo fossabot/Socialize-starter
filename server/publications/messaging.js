@@ -32,48 +32,45 @@ export default function(){
   /**
    * Gets the specified conversation
    */
-  Meteor.publish("conversation", function(conversationId){
+  Meteor.publishComposite("conversation", function(conversationId){
     check(conversationId, String)
-
-    let options = {}
 
     if(!this.userId){
       return this.ready()
     }
 
-    this.relations({
-        handle: this,
-        collection: Meteor.participants,
-        options: options,
-        filter: {conversationId: conversationId, deleted:{$exists:false}},
-        mappings: [{
-            foreign_key: 'conversationId',
-            collection: Meteor.conversations,
-            mappings:[{
-                foreign_key: "conversationId",
-                key: "conversationId",
-                collection: Meteor.participants,
-                filter: {userId:{$ne:this.userId}}
-            },{
-                foreign_key: "conversationId",
-                key: "conversationId",
-                collection: Meteor.messages,
-                options:{limit:1, sort:{date:-1}}
-            }]
-        },{
-            foreign_key: "userId",
-            collection:Meteor.users,
-            options:{fields:{username:true}}
-        }]
-    })
-    this.ready()
+    return {
+      find: function(){
+        return Meteor.conversations.find({_id: conversationId}, {limit: 1})
+      },
+      children: [
+        {
+          find: function(conversation){
+            return Meteor.participants.find({conversationId: conversation._id, deleted: {$exists: false}})
+          },
+          children: [
+            {
+              find: function(participant){
+                return Meteor.users.find({_id: participant.userId}, {fields :{username: true}})
+              }
+            }
+          ]
+        },
+        {
+          find: function(conversation){
+            //TODO make messages limit changeable
+            return Meteor.messages.find({conversationId: conversation._id}, {limit: 10, sort: {date: -1}})
+          }
+        }
+      ]
+    }
   })
 
   /**
    * The following are publish options from the official package + fix for #8
    * These will be activated once the socialize package is updated to exclude these.
    */
-  Meteor.publish("conversations", function (options) {
+  Meteor.publishComposite("conversations", function (options) {
      let currentUser
 
      if(!this.userId){
@@ -88,66 +85,78 @@ export default function(){
 
      options.sort = {date:-1}
 
-     this.relations({
-         handle: this,
-         collection: Meteor.participants,
-         options: options,
-         filter: {userId: this.userId, deleted:{$exists:false}},
-         mappings: [{
-             foreign_key: 'conversationId',
-             collection: Meteor.conversations,
-             mappings:[{
-                 key: "conversationId",
-                 collection: Meteor.participants,
-                 filter: {userId:{$ne:this.userId}}
-             }]
-         },{
-             key: "conversationdId",
-             foreign_key: "conversationdId",
-             collection: Meteor.messages,
-             options:{sort:{date:-1}} // TODO limit: 1 seems to cause problems
-         },{
-             foreign_key: "userId",
-             collection:Meteor.users,
-             options:{fields:{username:true}}
-         }]
-     })
-     this.ready()
+     return {
+       find: function(){
+         return Meteor.participants.find({userId: this.userId, deleted:{$exists:false}}, options)
+       },
+       children: [
+         {
+           find: function(participant){
+             return Meteor.conversations.find({_id: participant.conversationId})
+           },
+           children: [
+             {
+               find: function(conversation){
+                 return Meteor.participants.find({conversationId: conversation._id, deleted: {$exists: false}})
+               },
+               children: [
+                 {
+                   find: function(participant){
+                     return Meteor.users.find({_id: participant.userId}, {fields:{username:true}})
+                   }
+                 }
+               ]
+             },
+             {
+               find: function(conversation){
+                 return Meteor.messages.find({conversationId: conversation._id}, {limit: 1, sort: {date: -1}})
+               }
+             }
+           ]
+         }
+       ]
+     }
   })
 
   /**
-  * Publish conversations that have not been read yet by the user
-  */
-  Meteor.publish("conversations.unread", function(){
+   * Publish conversations that have not been read yet by the user
+   */
+  Meteor.publishComposite("conversations.unread", function(){
      if(!this.userId){
-         return this.ready();
+         return this.ready()
      }
 
-     this.relations({
-         handle: this,
-         collection: Meteor.participants,
-         filter: {userId:this.userId, deleted:{$exists:false}, read:false},
-         mappings: [{
-             foreign_key: 'conversationId',
-             collection: Meteor.conversations,
-             mappings:[{
-                 foreign_key: "conversationId",
-                 key: "conversationId",
-                 collection: Meteor.participants,
-                 options:{limit:1, sort:{date:-1}}
-             },{
-                 foreign_key: "conversationId",
-                 key: "conversationId",
-                 collection: Meteor.messages,
-                 options:{limit:1, sort:{date:-1}}
-             }]
-         },{
-             foreign_key: "userId",
-             collection:Meteor.users,
-             options:{fields:{username:true}}
-         }]
-     })
-     this.ready()
+     return {
+       find: function(){
+         return Meteor.participants.find({userId: this.userId, deleted: {$exists: false}, read: false})
+       },
+       children: [
+         {
+           find: function(participant){
+             return Meteor.conversations.find({_id: participant.conversationId})
+           },
+           children: [
+             {
+               find: function(conversation){
+                 return Meteor.participants.find({conversationId: conversation._id, deleted: {$exists: false}})
+               },
+               children: [
+                 {
+                   find: function(participant){
+                     return Meteor.users.find({_id: participant.userId}, {fields:{username:true}})
+                   }
+                 }
+               ]
+             },
+             {
+               find: function(conversation){
+                 return Meteor.messages.find({conversationId: conversation._id}, {limit: 1, sort: {date: -1}})
+               }
+             }
+           ]
+         }
+       ]
+     }
   })
 
   /**

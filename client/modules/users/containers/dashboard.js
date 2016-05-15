@@ -9,7 +9,7 @@ export const composer = ({context, clearErrors}, onData) => {
     const friendRequests = Meteor.requests.find({userId: Meteor.userId()}).fetch()
     onData(null, {friendRequests})
   } else {
-    onData()
+    //onData()
   }
 }
 

@@ -27,7 +27,7 @@ export const composer = ({context, conversationId}, onData) => {
         FlowRouter.go("pmOverview")
       }
     } else {
-      onData()
+      //onData()
     }
   } else {
     FlowRouter.go("pmOverview")

@@ -138,25 +138,31 @@ export default class UserNewConversation extends React.Component{
     let users = this.state.users
     check(msg, String)
     check(users, Array)
+    if(users.length > 0){
+      //create conversation
+      let converstation = new Conversation().save()
 
-    //create conversation
-    let converstation = new Conversation().save()
+      //add participants
+      users.forEach((user) => {
+        converstation.addParticipant(user)
+      })
 
-    //add participants
-    users.forEach((user) => {
-      converstation.addParticipant(user)
-    })
+      //sanitize
+      msg = sanitizeHtml(msg)
+      if(msg.length > 0){
+        //send the message
+        converstation.sendMessage(msg)
 
-    //sanitize
-    msg = sanitizeHtml(msg)
+        Materialize.toast("Converstaion created!", 3000)
 
-    //send the message
-    converstation.sendMessage(msg)
-
-    Materialize.toast("Converstaion created!", 3000)
-
-    //close modal or redirect to the conversation
-    $('#newConversation').closeModal()
+        //close modal or redirect to the conversation
+        $('#newConversation').closeModal()
+      } else {
+        Materialize.toast("You should really say something...", 5000)
+      }
+    } else {
+      Materialize.toast("You need to add at least one other user!", 5000)
+    }
   }
 
   openModal(e){

@@ -21,7 +21,6 @@ export default class ForgotPassword extends React.Component{
         Materialize.toast("E-mail was send", 5000)
         FlowRouter.go("/")
       } else {
-        console.log(result);
         //Materialize.toast("User not found!", 5000) //NOTE don't show any message as not to help scammers
         e.target.reset()
       }

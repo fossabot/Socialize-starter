@@ -47,7 +47,7 @@ class UserChangePassword extends React.Component{
         <fieldset>
           <legend>Change password</legend>
             <div className="input-field col s12">
-              <input type="password" name="old"></input>
+              <input className="validate" type="password" name="old"></input>
               <label htmlFor="old">Current password</label>
             </div>
             <div className="input-field col s12">

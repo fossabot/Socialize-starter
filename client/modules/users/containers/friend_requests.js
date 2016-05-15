@@ -11,7 +11,7 @@ export const composer = ({context, clearErrors}, onData, user) => {
 
     onData(null, {requests})
   } else {
-    onData()
+    //onData()
   }
 }
 
