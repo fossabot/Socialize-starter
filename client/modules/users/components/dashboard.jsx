@@ -86,7 +86,7 @@ export default class UserDashboard extends React.Component{
 
         <div className="col s6 m4 l3 center-align">
           <div className="card hoverable indigo darken-4 waves-effect waves-block waves-light">
-            <a href={FlowRouter.path("pm-overview")}>
+            <a href={FlowRouter.path("pmOverview")}>
               <div className="card-image">
                 <i className="material-icons white-text">mail</i>
               </div>
