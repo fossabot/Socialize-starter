@@ -38,7 +38,7 @@ export default class NavUser extends React.Component {
         </div>
         <ul id="slide-out" className="side-nav">
           <li><a href={FlowRouter.path("dashboard")}>Dashboard</a></li>
-          <li><a href={FlowRouter.path("pm-overview")}>Messages</a></li>
+          <li><a href={FlowRouter.path("pm")}>Messages</a></li>
           <li><a href={FlowRouter.path("user-settings")}>Settings</a></li>
           <li><a href={FlowRouter.path("logout")}>Logout</a></li>
         </ul>
