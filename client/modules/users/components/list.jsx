@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router'
 
 export default class UserListing extends React.Component{
   constructor(props){
@@ -7,7 +8,7 @@ export default class UserListing extends React.Component{
 
   render(){
     let list = this.props.users.map((user)=>{
-      return <a key={user._id} href={FlowRouter.path("profilePublic", {username: user.username})} className="collection-item"><i className="material-icons">account_circle</i> {user.username}</a>
+      return <Link to={"users/"+user.username} key={user._id} className="collection-item"><i className="material-icons">account_circle</i> {user.username}</Link>
     })
 
     let {page, totalUsers} = this.props
@@ -30,8 +31,8 @@ export default class UserListing extends React.Component{
         {list}
       </div>
       <ul className="pagination">
-        <li className={previousPage}><a href={FlowRouter.path("userListing", {page: page - 1})}><i className="material-icons">chevron_left</i></a></li>
-        <li className={nextPage}><a href={FlowRouter.path("userListing", {page: page + 1})}><i className="material-icons">chevron_right</i></a></li>
+        <li className={previousPage}><Link to={"users?page="+ page--}><i className="material-icons">chevron_left</i></Link></li>
+        <li className={nextPage}><Link to={"users?page="+ page++}><i className="material-icons">chevron_right</i></Link></li>
       </ul>
     </div>
   }

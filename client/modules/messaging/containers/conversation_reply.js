@@ -1,8 +1,9 @@
-import Component from '../components/conversation_reply.jsx'
-import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
+import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
+
+import ConversationReply from '../components/conversation_reply.jsx';
 
 export const composer = ({context, conversationId}, onData) => {
-  const {Meteor, Collections, MessagesSubs, LocalState} = context()
+  const {Meteor, MessagesSubs, LocalState} = context()
 
   if(conversationId){
     if(MessagesSubs.subscribe("conversation", conversationId).ready()){
@@ -22,13 +23,17 @@ export const composer = ({context, conversationId}, onData) => {
       } else {
         //console.log("Access denied!")
         //redirect back
-        FlowRouter.go("pmOverview")
+        //FlowRouter.go("pmOverview")
       }
     }
   }
-}
+};
+
+export const depsMapper = (context, actions) => ({
+  context: () => context
+});
 
 export default composeAll(
   composeWithTracker(composer),
-  useDeps()
-)(Component)
+  useDeps(depsMapper)
+)(ConversationReply);

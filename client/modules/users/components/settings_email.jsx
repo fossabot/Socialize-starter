@@ -1,5 +1,6 @@
 import React from 'react'
 import {Materialize} from 'meteor/poetic:materialize-scss'
+import Error from '../../core/components/error.jsx'
 
 /**
  * @class component UserEmail
@@ -23,9 +24,9 @@ export default class UserEmail extends React.Component{
         if(email.verified){
           verified = (<i className="material-icons green-text">check</i>)
         } else {
-          verified = (<div className="chip red darken-1"><a href="#!" onClick={this.verification.bind(this, email.address)}>not verified</a></div>)
+          verified = (<div className="chip red darken-1"><span className="link" onClick={this.verification.bind(this, email.address)}>not verified</span></div>)
         }
-        return (<li key={email.address} className="collection-item">{email.address} {verified}<div className="secondary-content"><a href="#!" onClick={this.removeEmail}><i id={email.address} className="material-icons">delete</i></a></div></li>)
+        return (<li key={email.address} className="collection-item">{email.address} {verified}<div className="secondary-content"><span className="link" onClick={this.removeEmail.bind(this, email.address)}><i id={email.address} className="material-icons">delete</i></span></div></li>)
       })
     } else {
       // TODO add Loader here
@@ -36,21 +37,10 @@ export default class UserEmail extends React.Component{
   /**
    * Removes the particular e-mail that was clicked
    * @access private
-   * @param {event} e Click event
    */
-  removeEmail(e){
-    e.preventDefault()
-    //TODO figure out a better way that doesn't uses jquery
-    email = e.target.id
-    Meteor.call("accounts.email.remove", email, function(error, result){
-      if(error || result === false){
-        Materialize.toast(error.reason, 4000)
-        console.log("error", error)
-      }
-      if(result){
-         Materialize.toast(email + " has been removed.", 4000)
-      }
-    })
+  removeEmail(email){
+    const {removeEmail} = this.props
+    removeEmail(email)
   }
 
   /**
@@ -61,42 +51,17 @@ export default class UserEmail extends React.Component{
   addEmail(e){
     e.preventDefault()
     let email = e.target.email.value
-    if(email.length > 6){
-      Meteor.call("accounts.email.add", email, (error, result)=>{
-        if(error){
-          Materialize.toast("There has been an error!", 5000)
-          console.log("error", error)
-        }
-        if(result === false){
-          Materialize.toast(email + " is already associated with another account.", 5000)
-        } else {
-          Materialize.toast(email + " has been added.", 4000)
-          this.verification(email)
-        }
-      })
-      e.target.reset()
-    } else {
-      Materialize.toast("That is not a valid e-mail address!", 4000)
-    }
+    const {addEmail} = this.props
+    addEmail(email)
+    e.target.reset()
   }
 
   /**
    * @access private
-   * @param {event} e Click event
    */
   verification(email){
-    /** TODO make Mantra work here
     const {verify} = this.props
     verify(email)
-    */
-    Meteor.call("accounts.email.verify.send", email, function(error, result){
-      if(error){
-        console.log(error)
-      } else {
-        Materialize.toast("Verification e-mail send.", 5000)
-      }
-    })
-
   }
 
   /**
@@ -109,6 +74,7 @@ export default class UserEmail extends React.Component{
       <form method="post" className="row" ref="emailForm" onSubmit={this.addEmail.bind(this)}>
         <fieldset>
           <legend>E-mails</legend>
+          <Error error={this.props.error} success={this.props.success} />
           <ul className="collection with-header col s12">
             <li className="collection-header">E-mails associated with your account</li>
             {this.getEmails(this.props.emails)}

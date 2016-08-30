@@ -1,20 +1,20 @@
 import {Meteor} from 'meteor/meteor'
 import {Accounts} from 'meteor/accounts-base'
-import {FlowRouter} from 'meteor/kadira:flow-router-ssr'
+import {createHref} from 'react-router'
 
 export default function(){
   Accounts.urls.resetPassword = function(token){
     //return Meteor.absoluteUrl('reset-password?token='+token)
-    return FlowRouter.url('reset-password', null, {token: token})
+    return createHref('user/reset-password', {token: token})
   }
 
   Accounts.urls.verifyEmail = function(token){
      //return Meteor.absoluteUrl('user/verify-email?token='+token)
-     return FlowRouter.url('/user/verify-email', null, {token: token})
+     return createHref('user/verify-email', {token: token})
   }
 
   Accounts.urls.enrollAccount = function(token){
-    return Meteor.absoluteUrl('enroll?token='+token)
+    return createHref('user/enroll', {token: token})
   }
 
   Meteor.startup(function(){

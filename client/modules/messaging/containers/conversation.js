@@ -1,10 +1,9 @@
-import {
-  useDeps, composeWithTracker, composeAll
-} from 'mantra-core'
-import Component from '../components/conversation.jsx'
+import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
+
+import UserConversation from '../components/conversation.jsx';
 
 export const composer = ({context, conversationId}, onData) => {
-  const {Meteor, Collections, MessagesSubs} = context()
+  const {Meteor, MessagesSubs} = context()
 
   if(conversationId){
     MessagesSubs.subscribe("conversation", conversationId)
@@ -24,18 +23,19 @@ export const composer = ({context, conversationId}, onData) => {
         onData(null, {conversation})
       } else {
         // unauthorized access
-        FlowRouter.go("pmOverview")
+        //FlowRouter.go("pmOverview")
       }
-    } else {
-      //onData()
     }
   } else {
-    FlowRouter.go("pmOverview")
+    //FlowRouter.go("pmOverview")
   }
+};
 
-}
+export const depsMapper = (context, actions) => ({
+  context: () => context
+});
 
 export default composeAll(
   composeWithTracker(composer),
-  useDeps()
-)(Component)
+  useDeps(depsMapper)
+)(UserConversation);

@@ -1,7 +1,11 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 
 const Homepage = () => (
   <div>
+    <Helmet
+      title="Home"
+    />
     <h1>Socialize starter</h1>
     <p>A starter for Meteor apps.</p>
     <section className="row">

@@ -1,8 +1,10 @@
-//import configs from './configs'
-import actions from './actions'
-import routes from './routes.jsx'
+import actions from './actions';
+import reducer from './configs/reducer.js';
 
 export default {
-  routes,
-  actions
-}
+  actions,
+  load(context) {
+    
+  },
+  reducer
+};

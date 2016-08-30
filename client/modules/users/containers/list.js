@@ -1,8 +1,10 @@
-import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
-import Component from '../components/list.jsx'
+import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
+
+import UserList from '../components/list.jsx';
 
 export const composer = ({context, page}, onData) => {
   const {Meteor, UserSubs} = context()
+  // TODO: Make sure that page prop is properly recieved
   let limit = 10
   let pg = Number(page)
 
@@ -17,16 +19,17 @@ export const composer = ({context, page}, onData) => {
       }
       if(result){
         const totalUsers = result
-        onData(null, {users, totalUsers})
+        onData(null, {users, totalUsers, page})
       }
     })
-  } else {
-    //onData()
   }
+};
 
-}
+export const depsMapper = (context, actions) => ({
+  context: () => context
+});
 
 export default composeAll(
   composeWithTracker(composer),
-  useDeps()
-)(Component)
+  useDeps(depsMapper)
+)(UserList);

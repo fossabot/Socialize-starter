@@ -1,20 +1,26 @@
-import {
-  useDeps, composeWithTracker, composeAll
-} from 'mantra-core'
-import Component from '../components/settings_bio.jsx'
+import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
+
+import SettingsBio from '../components/settings_bio.jsx';
 
 export const composer = ({context, clearErrors}, onData) => {
-  const {Meteor, Collections} = context()
+  const {Meteor, LocalState} = context()
+  // TODO: Limit to getting only the biography data
   if(Meteor.subscribe('profile.for', Meteor.userId()).ready()){
     const profile = Meteor.profiles.findOne({userId: Meteor.userId()})
-
-    onData(null, {profile})
-  } else {
-    //onData()
+    let error = LocalState.get('ACCOUNTS_ERROR_BIO_UPDATE')
+    let success = LocalState.get('ACCOUNTS_SUCCESS_BIO_UPDATE')
+    onData(null, {profile, error, success})
+    return clearErrors()
   }
-}
+};
+
+export const depsMapper = (context, actions) => ({
+  context: () => context,
+  bioUpdate: actions.settings.bioUpdate,
+  clearErrors: actions.settings.clearErrors
+});
 
 export default composeAll(
   composeWithTracker(composer),
-  useDeps()
-)(Component)
+  useDeps(depsMapper)
+)(SettingsBio);

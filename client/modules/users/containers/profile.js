@@ -1,10 +1,9 @@
-import {
-  useDeps, composeWithTracker, composeAll
-} from 'mantra-core'
-import Component from '../components/profile.jsx'
+import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
+
+import UserProfile from '../components/profile.jsx';
 
 export const composer = ({context, user, clearErrors}, onData) => {
-  const {Meteor, Collections} = context()
+  const {Meteor} = context();
 
   if(!user){
     user = Meteor.userId()
@@ -30,12 +29,14 @@ export const composer = ({context, user, clearErrors}, onData) => {
     } else {
       onData(null, {profile})
     }
-  } else {
-    //onData()
   }
-}
+};
+
+export const depsMapper = (context, actions) => ({
+  context: () => context
+});
 
 export default composeAll(
   composeWithTracker(composer),
-  useDeps()
-)(Component)
+  useDeps(depsMapper)
+)(UserProfile);

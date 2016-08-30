@@ -1,10 +1,10 @@
 import React from 'react'
 
-import UserChangeUsernane from './settings_username.jsx'
+import UserChangeUsernane from '../containers/settings_username.js'
 import UserChangeName from '../containers/settings_name.js'
 import UserChangeBio from '../containers/settings_bio.js'
 import UserEmail from '../containers/settings_email.js'
-import UserChangePassword from './settings_password.jsx'
+import UserChangePassword from '../containers/settings_password.js'
 
 /**
  * @class component UserSettings

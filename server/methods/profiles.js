@@ -1,5 +1,6 @@
 import {Meteor} from 'meteor/meteor'
 import sanitizeHtml from 'sanitize-html'
+import {check} from 'meteor/check'
 
 export default function(){
   Meteor.methods({
@@ -11,8 +12,8 @@ export default function(){
      */
     'profile.avatar.update'(avatar){
       check(avatar, String)
-      let profile = Meteor.profiles.findOne({userId: Meteor.userId()}).update({$set: {avatar: avatar}})
-      if(profile === undefined){
+      let result = Meteor.profiles.update({userId: Meteor.userId()}, {$set: {avatar: avatar}})
+      if(result){
         return true
       } else {
         return false
@@ -27,16 +28,12 @@ export default function(){
     'profile.biography.update'(bio){
       check(bio, String)
       bio = sanitizeHtml(bio)
-      let profile = Meteor.profiles.update({userId: Meteor.userId()}, {$set: {biography: bio}})
-      if(profile === undefined){
+      let result = Meteor.profiles.update({userId: Meteor.userId()}, {$set: {biography: bio}})
+      if(result){
         return true
       } else {
         return false
       }
-
-      //profile.set('biography', bio)
-      //let save = profile.save()
-      //console.log(save);
     },
     /**
      * Updates user's name

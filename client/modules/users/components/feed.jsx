@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import NewFeedPost from '../components/feed_new_post.jsx'
+import {Link} from 'react-router'
 
 class UserFeed extends React.Component{
 /*
@@ -9,17 +10,13 @@ class UserFeed extends React.Component{
   }
 */
 
-  postForm(){
-    if(this.props.userId === Meteor.userId()){
-      return <NewFeedPost />
-    }
-  }
-
   liking(post){
+    const {likePost, unlikePost} = this.props
+
     if(post.isLikedBy(Meteor.user())){
-      post.unlike()
+      unlikePost(post._id)
     } else {
-      post.like()
+      likePost(post._id)
     }
   }
 
@@ -34,16 +31,16 @@ class UserFeed extends React.Component{
         return posts.map((post)=>{
           return <div key={post._id} className="row card-panel hoverable">
             <div className="col s2 center-align">
-              <a href={FlowRouter.path("profilePublic", {username: post.poster().username})} >
+              <Link to={"users/"+ post.poster().username} >
                 <i className="material-icons">account_circle</i><br />
                 {post.poster().username}
-              </a>
+              </Link>
             </div>
             <div className="col s7">{post.body}</div>
             <div className="col s3">
               {moment(post.date).fromNow()}<br />
-            <a href="" onClick={this.liking.bind(this, post)}>{post.likeCount()} <i className="material-icons">favorite</i></a>
-              </div>
+              <span className="link" onClick={this.liking.bind(this, post)}>{post.likeCount()} <i className="material-icons">favorite</i></span>
+            </div>
           </div>
         })
       } else {
@@ -73,7 +70,6 @@ class UserFeed extends React.Component{
     }
 
     return <div>
-      {this.postForm()}
       {this.listPost()}
       {addToLimit}
     </div>

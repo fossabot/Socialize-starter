@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router'
 /**
  * @class component ConversationParticipants
  * @classdesc Lists conversation participants
@@ -13,10 +14,10 @@ export default class ConversationParticipants extends React.Component{
     let participants = this.props.conversation.participants().map((participant)=>{
       // get username and avatar
       return <li className="collection-item avatar" key={participant._id}>
-        <a href={FlowRouter.path("profilePublic", {username: participant.user().username})}>
+        <Link to={"/users" + participant.user().username}>
           <i className="material-icons circle">person</i>
           <span className="title">{participant.user().username}</span>
-        </a>
+        </Link>
       </li>
     })
 

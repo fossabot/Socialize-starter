@@ -12,26 +12,26 @@ export const composer = ({context, userId, clearErrors}, onData) => {
   }
 
   // it loads twice
-  // TODO fix
-  // Possibly page 49 of Meteor+React ???
   if(userId){
     if(Meteor.subscribe('feed.posts', userId, {limit: postLimit}).ready()) {
       const posts = Meteor.posts.find({posterId: userId}, {sort: {date: -1}}).fetch()
       onData(null, {posts, postLimit})
-    } else {
-      //onData()
     }
   } else {
     if(Meteor.subscribe('feed', {limit: postLimit}).ready()) {
       const posts = Meteor.posts.find({}, {sort: {date: -1}}).fetch()
       onData(null, {posts, postLimit})
-    } else {
-      //onData()
     }
   }
 }
 
+export const depsMapper = (context, actions) => ({
+  context: () => context,
+  likePost: actions.feed.like,
+  unlikePost: actions.feed.unlike
+});
+
 export default composeAll(
   composeWithTracker(composer),
-  useDeps()
+  useDeps(depsMapper)
 )(Component)

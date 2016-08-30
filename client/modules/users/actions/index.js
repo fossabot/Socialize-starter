@@ -1,11 +1,9 @@
-import users from './users'
-import feed from './feed'
-import email from './email'
+import user from './user';
+import feed from './feed';
+import settings from './settings';
 
-const actions = {
-  users,
-  email,
-  feed
-}
-
-export default actions
+export default {
+  user,
+  feed,
+  settings
+};
