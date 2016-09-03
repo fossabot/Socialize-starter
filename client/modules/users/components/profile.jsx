@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import Helmet from 'react-helmet'
 
 import UserFeed from '../containers/feed.js'
 import NewFeedPost from '../containers/feed_new_post.js'
@@ -131,6 +132,9 @@ export default class UserProfile extends React.Component{
     }
 
     return (<div className="profile-header-bg">
+      <Helmet
+        title={profile.username}
+      />
       <section className="card-panel">
           <span className="profile-picture-box">{this.showAvatar()}</span>
           <h1 className="profile-username">{profile.username}</h1>

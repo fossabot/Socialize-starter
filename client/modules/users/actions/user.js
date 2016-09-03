@@ -51,11 +51,41 @@ export default {
       }
     })
   },
+  betaSignUp({Meteor, LocalState}, name, username, email, reason){
+    Meteor.call("app.beta.email.unique", email, function(error, result){
+      if(error){
+        LocalState.set('ACCOUNTS_ERROR_BETA_SIGNUP', error.reason)
+      }
+      if(result){
+        Meteor.call("app.beta.username.unique", username, function(error, result){
+          if(error){
+            LocalState.set('ACCOUNTS_ERROR_BETA_SIGNUP', error.reason)
+          }
+          if(result){
+            Meteor.call('app.beta.signup', name, username, email, reason, (error, result)=>{
+              if(error){
+                LocalState.set('ACCOUNTS_ERROR_BETA_SIGNUP', error.reason)
+              }
+              if(result){
+                LocalState.set('ACCOUNTS_SUCCESS_BETA_SIGNUP', result)
+              }
+            })
+          } else {
+            LocalState.set('ACCOUNTS_ERROR_BETA_SIGNUP', "This username has already been reserved.")
+          }
+        })
+      } else {
+        LocalState.set('ACCOUNTS_ERROR_BETA_SIGNUP', "This email has already been registered.")
+      }
+    })
+  },
   clearErrors({LocalState}) {
     LocalState.set('CREATE_USER_ERROR', null)
     LocalState.set('LOGIN_ERROR', null)
     LocalState.set('ACCOUNTS_ERROR_PASSWORD_UPDATE', null)
     LocalState.set('ACCOUNTS_SUCCESS_PASSWORD_UPDATE', null)
+    LocalState.set('ACCOUNTS_ERROR_BETA_SIGNUP', null)
+    LocalState.set('ACCOUNTS_SUCCESS_BETA_SIGNUP', null)
     return LocalState.set('SAVING_ERROR', null)
   }
 }

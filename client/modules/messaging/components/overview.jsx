@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
+import Helmet from 'react-helmet'
 
 import UserNewConversation from './conversation_new.jsx'
 
@@ -51,6 +52,9 @@ export default class UserConversationOverview extends React.Component{
   render(){
     let {conversations} = this.props
     return <div>
+      <Helmet
+        title="Your messages"
+      />
       <section className="row valign-wrapper">
         <h1 className="col m11 l11"><Link to={"/dashboard"}><i className="material-icons">arrow_back</i></Link> Messages</h1>
         <div className="col m1 l1">

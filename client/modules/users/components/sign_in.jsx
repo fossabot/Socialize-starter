@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
+import Helmet from 'react-helmet'
 import Error from '../../core/components/error.jsx'
 
 /**
@@ -13,6 +14,9 @@ class UserLogin extends React.Component{
    */
   render(){
     return (<div className="row">
+        <Helmet
+          title="Login"
+        />
         <div className="col s12 m8 offset-m2 l4 offset-l4 center-align">
           <h1>Login</h1>
           <Error error={this.props.error} />

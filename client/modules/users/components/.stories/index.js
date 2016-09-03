@@ -18,3 +18,4 @@ import settings_bio from './settings_bio';
 import list from './list';
 import profile from './profile';
 import friend_requests from './friend_requests';
+import sign_up_beta from './sign_up_beta';

@@ -1,4 +1,5 @@
 import React from 'react'
+import Helmet from "react-helmet"
 
 import ConversationParticipants from '../containers/conversation_participants.js'
 import ConversationMessages from '../containers/conversation_messages.js'
@@ -91,6 +92,9 @@ export default class UserConversation extends React.Component{
     }
 
     return (<div>
+      <Helmet
+        title="Conversation"
+      />
       <div className="row">
         <div className="col s12 m10 l10">
           <div className="card-panel chatWindow">

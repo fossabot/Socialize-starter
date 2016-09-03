@@ -77,7 +77,7 @@ export default function (injectDeps, {Store}) {
         </Route>
         <Route path="/users" component={MainLayoutCtx} >
           <IndexRoute component={UserList} onEnter={requireAuth} />
-          /*<Route path="" component={UserList} onEnter={requireAuth} /> this should be query `?page=2` to get pagination */
+          <Route path="?page=:page" component={UserList} onEnter={requireAuth} />
           <Route path=":username" component={Profile} onEnter={requireAuth} />
         </Route>
         <Route path="/user" component={MainLayoutCtx}>

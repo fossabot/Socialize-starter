@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router'
 import Error from '../../core/components/error.jsx'
+import Helmet from 'react-helmet'
 
 /**
  * @class component UserRegister
@@ -31,6 +32,9 @@ class UserRegister extends React.Component{
   render(){
     return (
       <div className="row">
+        <Helmet
+          title="Register"
+        />
         <div className="col s12 m8 offset-m2 l4 offset-l4 center-align">
           <h1>Register</h1>
           <Error error={this.prop.error} />

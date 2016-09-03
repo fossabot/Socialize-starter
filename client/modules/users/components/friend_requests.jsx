@@ -1,6 +1,7 @@
 import React from 'react'
 import {Materialize} from 'meteor/poetic:materialize-scss'
 import {Link} from 'react-router'
+import Helmet from 'react-helmet'
 
 /**
  * @class component UserFriendsRequests
@@ -58,6 +59,9 @@ export default class UserFriendsRequests extends React.Component{
    */
   render(){
     return (<div>
+      <Helmet
+        title="Friend requests"
+      />
       <h1><a href={FlowRouter.path("/")}><i className="material-icons">arrow_back</i></a> Friendships requests</h1>
       <ul className="collection">
         {this.request()}
