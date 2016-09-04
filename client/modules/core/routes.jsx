@@ -6,6 +6,7 @@ import {Router, Route, IndexRoute, browserHistory} from 'react-router'
 import {syncHistoryWithStore} from 'react-router-redux'
 
 import MainLayout from './components/main_layout.jsx'
+import NotFount from './components/not_found.jsx'
 
 // pages
 import Homepage from '../pages/components/homepage.jsx'
@@ -74,6 +75,7 @@ export default function (injectDeps, {Store}) {
           <Route path="login" component={SignIn} onEnter={anonOnly} />
           <Route path="register" component={SignUp} onEnter={anonOnly} />
           <Route path="logout" component={Homepage} onEnter={logout} />
+          <Route path="*" component={NotFount} />
         </Route>
         <Route path="/users" component={MainLayoutCtx} >
           <IndexRoute component={UserList} onEnter={requireAuth} />
