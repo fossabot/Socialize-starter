@@ -2,16 +2,17 @@ import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
 
 import SettingsPasswordSet from '../components/settings_password_set.jsx';
 
-export const composer = ({context, clearErrors}, onData) => {
+export const composer = ({context, clearErrors, location}, onData) => {
   //const {} = context();
-
-  onData(null, {});
+  let {token} = location.query
+  onData(null, {token});
   return clearErrors()
 };
 
 export const depsMapper = (context, actions) => ({
   context: () => context,
-  clearErrors: actions.settings.clearErrors
+  resetPassword: actions.users.resetPassword,
+  clearErrors: actions.users.clearErrors
 });
 
 export default composeAll(

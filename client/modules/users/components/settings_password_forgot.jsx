@@ -1,4 +1,5 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 import Error from '../../core/components/error.jsx'
 
 /**
@@ -6,32 +7,28 @@ import Error from '../../core/components/error.jsx'
  * @classdesc A form to fill in e-mail to send reset password link to.
  */
 export default class ForgotPassword extends React.Component{
+  constructor(props){
+    super(props)
+    this.sendReset = this.sendReset.bing(this)
+  }
+
   sendReset(e){
     e.preventDefault()
 
     let email = e.target.email.value
 
-    check(email, String)
-
-    Meteor.call("accounts.password.reset.email.send", email, (error, result)=>{
-      if(error){
-        console.log(error)
-        Materialize.toast(error.reason, 5000)
-      }
-      if(result){
-        Materialize.toast("E-mail was send", 5000)
-        FlowRouter.go("/")
-      } else {
-        //Materialize.toast("User not found!", 5000) //NOTE don't show any message as not to help scammers
-        e.target.reset()
-      }
-    })
+    const {resetPasswordEmail} = this.props
+    resetPasswordEmail(email)
+    e.target.reset()
   }
 
   render(){
-    return <form method="post" onSubmit={this.sendReset.bind(this)} className="row">
+    return <form method="post" onSubmit={this.sendReset} className="row">
+      <Helmet
+        title="Forgot password"
+      />
       <h2 className="center-align">Reset password</h2>
-      <Error error={this.props.error} />
+      <Error error={this.props.error} success={this.props.success} />
       <div className="input-field col s12 m10">
         <i className="material-icons prefix">mail</i>
         <input type="email" name="email" className="validate" />

@@ -1,4 +1,5 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 import {Accounts} from 'meteor/accounts-base'
 import {Materialize} from 'meteor/poetic:materialize-scss'
 import Error from '../../core/components/error.jsx'
@@ -7,6 +8,12 @@ import Error from '../../core/components/error.jsx'
  * @classdesc Component where users can reset their password.
  */
 export default class SetPassword extends React.Component{
+  constructor(props){
+    super(props)
+
+    this.setPassword = this.setPassword.bind(this)
+  }
+
   setPassword(e){
     e.preventDefault()
 
@@ -23,17 +30,12 @@ export default class SetPassword extends React.Component{
         if(token[0] === "3" && token[1] === "D"){
           token = token.substr(2)
         }
-        Accounts.resetPassword(token, pass1, function(error){
-          if(error){
-            console.log(error)
-            Materialize.toast(error.reason, 5000)
-          } else {
-            Materialize.toast("Passwords set!", 5000)
-            FlowRouter.go('dashboard')
-          }
-        })
+        
+        const {resetPassword} = this.props
+
+        resetPassword(token, pass1)
       }
-      // for future actions like enrollment
+      // TODO for future actions like enrollment
 
     } else {
       Materialize.toast("Passwords don't match!", 5000)
@@ -41,7 +43,10 @@ export default class SetPassword extends React.Component{
     }
   }
   render(){
-    return <form method="post" onSubmit={this.setPassword.bind(this)}>
+    return <form method="post" onSubmit={this.setPassword}>
+      <Helmet
+        title="Set your password"
+      />
       <Error error={this.props.error} />
       <div className="input-field">
         <input type="password" name="pass1" className="validate" />

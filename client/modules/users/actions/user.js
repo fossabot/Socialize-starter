@@ -79,6 +79,35 @@ export default {
       }
     })
   },
+  resetPassword({LocalState}, token, password){
+    Accounts.resetPassword(token, password, function(error){
+      if(error){
+        LocalState.set('ACCOUNTS_ERROR_RESET_PASSWORD', error.reason)
+      } else {
+        browserHistory.push('dashboard')
+      }
+    })
+  },
+  resetPasswordEmail({Meteor, LocalState}, email){
+    Meteor.call("accounts.password.reset.email.send", email, (error, result)=>{
+      if(error){
+        LocalState.set('ACCOUNTS_ERROR_RESET_PASSWORD', error.reason)
+      }
+      if(result){
+        LocalState.set('ACCOUNTS_SUCCESS_RESET_PASSWORD', 'E-mail was send')
+        browserHistory.push('/')
+      }
+    })
+  },
+  verifyEmail({LocalState}, token){
+    Accounts.verifyEmail(token, function(error){
+      if (error){
+        LocalState.set('ACCOUNTS_ERROR_EMAIL_VERIFYCATION', error.reason)
+      } else {
+        LocalState.set('ACCOUNTS_SUCCESS_EMAIL_VERIFYCATION', true)
+      }
+    })
+  },
   clearErrors({LocalState}) {
     LocalState.set('CREATE_USER_ERROR', null)
     LocalState.set('LOGIN_ERROR', null)
@@ -86,6 +115,10 @@ export default {
     LocalState.set('ACCOUNTS_SUCCESS_PASSWORD_UPDATE', null)
     LocalState.set('ACCOUNTS_ERROR_BETA_SIGNUP', null)
     LocalState.set('ACCOUNTS_SUCCESS_BETA_SIGNUP', null)
+    LocalState.set('ACCOUNTS_ERROR_RESET_PASSWORD', null)
+    LocalState.set('ACCOUNTS_SUCCESS_RESET_PASSWORD', null)
+    LocalState.set('ACCOUNTS_ERROR_EMAIL_VERIFYCATION', null)
+    LocalState.set('ACCOUNTS_SUCCESS_EMAIL_VERIFYCATION', null)
     return LocalState.set('SAVING_ERROR', null)
   }
 }

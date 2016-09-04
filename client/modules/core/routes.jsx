@@ -19,6 +19,10 @@ import Settings from '../users/components/settings.jsx'
 import UserList from '../users/containers/list.js'
 import Profile from '../users/containers/profile.js'
 import FriendRequests from '../users/containers/friend_requests.js'
+import SetPassword from '../users/containers/settings_password_set.js'
+import ForgotPassword from '../users/containers/settings_password_forgot.js'
+import EmailVerify from '../users/containers/email_verify.js'
+import UserSearch from '../users/containers/user_search.js'
 
 // messaging
 import UserConversationOverview from '../messaging/containers/overview.js'
@@ -80,12 +84,16 @@ export default function (injectDeps, {Store}) {
         <Route path="/users" component={MainLayoutCtx} >
           <IndexRoute component={UserList} onEnter={requireAuth} />
           <Route path="?page=:page" component={UserList} onEnter={requireAuth} />
+          <Route path="search" component={UserSearch} onEnter={requireAuth} />
           <Route path=":username" component={Profile} onEnter={requireAuth} />
         </Route>
         <Route path="/user" component={MainLayoutCtx}>
           <IndexRoute component={Profile} onEnter={requireAuth} />
           <Route path="settings" component={Settings} onEnter={requireAuth} />
           <Route path="friends" component={FriendRequests} onEnter={requireAuth} />
+          <Route path="reset-password" component={SetPassword} />
+          <Route path="forgot-password" component={ForgotPassword} />
+          <Route path="verify-email" component={EmailVerify} />
         </Route>
         <Route path="/pm" component={MainLayoutCtx}>
           <IndexRoute component={UserConversationOverview} onEnter={requireAuth} />
