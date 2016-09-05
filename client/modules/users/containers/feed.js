@@ -4,7 +4,7 @@ import {
 import Component from '../components/feed.jsx'
 
 export const composer = ({context, userId, clearErrors}, onData) => {
-  const {LocalState, Meteor, Collections} = context()
+  const {LocalState, Meteor} = context()
 
   let postLimit = LocalState.get('USER_FEED_POST_LIMIT')
   if(postLimit === undefined){

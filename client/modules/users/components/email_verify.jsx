@@ -15,13 +15,14 @@ export default class EmailVerify extends React.Component{
     if (success) {
       // TODO add link to settings/dashboard
       message = <p className="flow-text">Your e-mail has been verified!</p>
+    } else if (!success && error) {
+      message = <Error error={error} />
     }
 
     return <div>
       <Helmet
         title="E-mail verification"
       />
-      <Error error={error} />
       {message}
     </div>
   }

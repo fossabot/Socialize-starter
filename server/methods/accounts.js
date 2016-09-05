@@ -10,7 +10,7 @@ export default function(){
      */
     'accounts.username'(newUsername){
       check(newUsername, String)
-      return Accounts.setUsername(Meteor.userId(), newUsername)
+      return Accounts.setUsername(this.userId, newUsername)
     },
     /**
      * Associate a new e-mail with the user
@@ -18,7 +18,7 @@ export default function(){
      */
     'accounts.email.add'(newEmail){
       check(newEmail, String)
-      return Accounts.addEmail(Meteor.userId(), newEmail)
+      return Accounts.addEmail(this.userId, newEmail)
     },
     /**
      * Remove the given e-mail from the user
@@ -31,7 +31,7 @@ export default function(){
       if(user[0].emails.length < 2){
         throw new Meteor.Error("last-email", "You can't delete your last e-mail.")
       } else {
-        return Accounts.removeEmail(Meteor.userId(), email)
+        return Accounts.removeEmail(this.userId, email)
       }
     },
     /**
@@ -40,8 +40,8 @@ export default function(){
      */
     'accounts.email.verify.send'(email){
       check(email, String)
-      return Meteor.defer(function(){
-        return Accounts.sendVerificationEmail(Meteor.userId(), email)
+      return Meteor.defer(() => {
+        return Accounts.sendVerificationEmail(this.userId, email)
       })
     },
     /**
@@ -57,7 +57,7 @@ export default function(){
       check(user, String)
 
       if(user !== null){
-        return Meteor.defer(function(){
+        return Meteor.defer(() => {
           return Accounts.sendResetPasswordEmail(user, email)
         })
       } else {

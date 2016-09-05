@@ -3,7 +3,7 @@ import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
 import UserSearch from '../components/user_search.jsx';
 
 export const composer = ({context}, onData) => {
-  const {Meteor, Collections} = context();
+  //const {Meteor, Collections} = context();
 
   onData(null, {});
 };

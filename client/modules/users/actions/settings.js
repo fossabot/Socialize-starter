@@ -4,6 +4,9 @@ export default {
       if(error){
         LocalState.set('ACCOUNTS_ERROR_EMAIL', error.reason)
       }
+      if(result === undefined){
+        LocalState.set('ACCOUNTS_SUCCESS_EMAIL', 'Verification e-mail has been send.')
+      }
     })
   },
   emailAdd({Meteor, LocalState}, email){
@@ -15,9 +18,6 @@ export default {
         }
         if(result === false){
           LocalState.set('ACCOUNTS_ERROR_EMAIL', email + " is already associated with another account.")
-        } else {
-          LocalState.set('ACCOUNTS_SUCCESS_EMAIL', 'E-mail has been added.')
-          this.emailVerify(email)
         }
       })
     } else {

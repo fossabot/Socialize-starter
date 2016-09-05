@@ -29,7 +29,7 @@ import UserConversationOverview from '../messaging/containers/overview.js'
 import UserConversation from '../messaging/containers/conversation.js'
 
 
-function getRootNode(rootId: string) {
+function getRootNode(rootId) {
   const rootNode = document.getElementById(rootId);
 
   if (rootNode) {
@@ -73,14 +73,6 @@ export default function (injectDeps, {Store}) {
   ReactDOM.render(
     <Provider store={Store}>
       <Router history={history} onUpdate={ () => window.scrollTo(0,0) }>
-        <Route path="/" component={MainLayoutCtx}>
-          <IndexRoute component={Homepage} onEnter={anonOnly} />
-          <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
-          <Route path="login" component={SignIn} onEnter={anonOnly} />
-          <Route path="register" component={SignUp} onEnter={anonOnly} />
-          <Route path="logout" component={Homepage} onEnter={logout} />
-          <Route path="*" component={NotFount} />
-        </Route>
         <Route path="/users" component={MainLayoutCtx} >
           <IndexRoute component={UserList} onEnter={requireAuth} />
           <Route path="?page=:page" component={UserList} onEnter={requireAuth} />
@@ -98,6 +90,14 @@ export default function (injectDeps, {Store}) {
         <Route path="/pm" component={MainLayoutCtx}>
           <IndexRoute component={UserConversationOverview} onEnter={requireAuth} />
           <Route path=":conversationId" component={UserConversation} onEnter={requireAuth} />
+        </Route>
+        <Route path="/" component={MainLayoutCtx}>
+          <IndexRoute component={Homepage} onEnter={anonOnly} />
+          <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
+          <Route path="login" component={SignIn} onEnter={anonOnly} />
+          <Route path="register" component={SignUp} onEnter={anonOnly} />
+          <Route path="logout" component={Homepage} onEnter={logout} />
+          <Route path="*" component={NotFount} />
         </Route>
       </Router>
     </Provider>,

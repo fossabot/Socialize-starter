@@ -51,8 +51,21 @@ export default class UserEmail extends React.Component{
   addEmail(e){
     e.preventDefault()
     let email = e.target.email.value
-    const {addEmail} = this.props
-    addEmail(email)
+    const {addEmail, verify, emails} = this.props
+
+    let exists = false
+    for (let i=0; i < emails.length; i++) {
+      if (emails[i].address === email) {
+        exists = true
+        break;
+      }
+    }
+
+    if (!exists) {
+      addEmail(email)
+      verify(email)
+    }
+    
     e.target.reset()
   }
 
