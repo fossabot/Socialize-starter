@@ -1,5 +1,6 @@
 import React from 'react'
 import {Materialize} from 'meteor/poetic:materialize-scss'
+import Error from '../../core/components/error.jsx'
 
 export default class UserChangeName extends React.Component{
   /**
@@ -20,20 +21,8 @@ export default class UserChangeName extends React.Component{
     let given = e.target.given.value
     let family = e.target.family.value
 
-    // check
-    check(given, String)
-    check(family, String)
-
-    // TODO reconsider this approach instead of using the Socialize way
-    Meteor.call("profile.name.update", {given: given, family: family}, function(error, result){
-      if(error){
-        console.log("error", error);
-        Materialize.toast(error.reason, 5000)
-      }
-      if(result){
-        Materialize.toast("Saved!", 3000)
-      }
-    })
+    const {nameUpdate} = this.props
+    nameUpdate(given, family)
   }
 
   /**
@@ -42,17 +31,13 @@ export default class UserChangeName extends React.Component{
    * @returns {jsx}
    */
   render(){
-    let givenName, familyName = null
-
-    if(this.props.profile.givenName || this.props.profile.familyName){
-      givenName = this.props.profile.givenName
-      familyName = this.props.profile.familyName
-    }
+    let {givenName, familyName} = this.props.profile
 
     return (
       <form method="post" className="row section" ref="usernameForm" onSubmit={this.changeName.bind(this)}>
         <fieldset>
           <legend>Real name</legend>
+            <Error error={this.props.error} success={this.props.success} />
             <div className="input-field col s12 m6">
               <input type="text" name="given" className="validate" defaultValue={givenName}></input>
               <label htmlFor="given" className="active">Given Name</label>

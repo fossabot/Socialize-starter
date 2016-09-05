@@ -1,25 +1,29 @@
 import React from 'react'
-import {Accounts} from 'meteor/accounts-base'
+import Helmet from 'react-helmet'
+import Error from '../../core/components/error.jsx'
 
 export default class EmailVerify extends React.Component{
-  constructor(props){
-    super(props)
-  }
-
   render(){
-    let {token} = this.props
-    if(token[0] === "3" && token[1] === "D"){
-      token = token.substr(2)
+    let message
+    let {success, error} = this.props
+    
+    // TODO improve the look
+    if (!success && !error) {
+      message = <p className="flow-text">Veryfing your e-mail. This will take just a moment...</p>
     }
-    return Accounts.verifyEmail(token, function(error){
-      if(error){
-        return <div>
-          <h3>There was an error!</h3>
-          <p>{error.reason}</p>
-        </div>
-      } else {
-        FlowRouter.go('user-settings')
-      }
-    })
+
+    if (success) {
+      // TODO add link to settings/dashboard
+      message = <p className="flow-text">Your e-mail has been verified!</p>
+    } else if (!success && error) {
+      message = <Error error={error} />
+    }
+
+    return <div>
+      <Helmet
+        title="E-mail verification"
+      />
+      {message}
+    </div>
   }
 }

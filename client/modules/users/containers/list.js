@@ -1,32 +1,37 @@
-import {useDeps, composeWithTracker, composeAll} from 'mantra-core'
-import Component from '../components/list.jsx'
+import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
 
-export const composer = ({context, page}, onData) => {
+import UserList from '../components/list.jsx';
+
+export const composer = ({context, location}, onData) => {
   const {Meteor, UserSubs} = context()
-  let limit = 10
-  let pg = Number(page)
+  let page = 1
+  if(typeof location.query.page !== "undefined"){
+    page = Number(location.query.page)
+  }
+  const limit = 10
 
-  if(UserSubs.subscribe("users.list", pg, 10).ready()){
-    let skip = (pg - 1) * limit
-    const users =  Meteor.users.find({_id: {$nin: [Meteor.userId()]}}, {fields: {username: 1, createdAt: 1}, limit: limit, skip: skip})
+  if(UserSubs.subscribe("users.list", page, limit).ready()){
+    let skip = (page - 1) * limit
+    // This will get 10 users without the current user
+    const users =  Meteor.users.find({_id: {$nin: [Meteor.userId()]}}, {fields: {username: 1, createdAt: 1}, limit: limit, skip: skip}).fetch()
 
-    Meteor.call("users.count", (error, result)=>{
+    Meteor.call("users.count", (error, result) => {
       if(error){
         console.log(error)
-        //onData()
       }
       if(result){
         const totalUsers = result
-        onData(null, {users, totalUsers})
+        onData(null, {users, totalUsers, page, limit})
       }
     })
-  } else {
-    //onData()
   }
+};
 
-}
+export const depsMapper = (context, actions) => ({
+  context: () => context
+});
 
 export default composeAll(
   composeWithTracker(composer),
-  useDeps()
-)(Component)
+  useDeps(depsMapper)
+)(UserList);

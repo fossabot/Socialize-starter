@@ -1,0 +1,61 @@
+import {Meteor} from 'meteor/meteor'
+import {check, Match} from 'meteor/check'
+import sanitizeHtml from 'sanitize-html'
+import BetaSignup from '/lib/collections/beta_signup.js'
+import {Accounts} from 'meteor/accounts-base'
+
+export default function(){
+  Meteor.methods({
+    /**
+     * User requested to be added on a waiting list for the BETA
+     * @param {String} name
+     * @param {String} email
+     * @param {String} reason
+     */
+    'app.beta.signup':function(name, username, email, reason){
+       check(name, String)
+       check(username, String)
+       check(email, String)
+       check(reason, Match.Maybe(String))
+
+       // create the object
+       let object = {
+         name: name,
+         username: username,
+         email: email
+       }
+
+       if(reason){
+         object.reason = sanitizeHtml(reason)
+       }
+
+       return Meteor.betaSignups.insert(object)
+    },
+    /**
+     * Check if the username is already in the DB
+     * @param {String} username
+     */
+    'app.beta.username.unique':function(username){
+      check(username, String)
+      let match = Meteor.betaSignups.find({username: username}).fetch()
+      if(match.length > 0){
+        return false
+      } else {
+        return true
+      }
+    },
+    /**
+     * Check if the email is already in the DB
+     * @param {String} email
+     */
+    'app.beta.email.unique':function(email){
+      check(email, String)
+      let match = Meteor.betaSignups.find({email: email}).fetch()
+      if(match.length > 0){
+        return false
+      } else {
+        return true
+      }
+    }
+  })
+}

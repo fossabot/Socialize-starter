@@ -14,6 +14,10 @@ export default class ConversationReply extends React.Component{
     }
   }
 
+  componentWillUnmount(){
+    this.state.typing.stop()
+  }
+
   isTyping(){
     this.setState({
       typing: Meteor.subscribe("typing", this.props.conversationId)

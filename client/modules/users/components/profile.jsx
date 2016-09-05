@@ -1,7 +1,9 @@
 import React from 'react'
 import moment from 'moment'
+import Helmet from 'react-helmet'
 
 import UserFeed from '../containers/feed.js'
+import NewFeedPost from '../containers/feed_new_post.js'
 // NOTE This was creating a very strange behavior where it would redirect user to a conversation (right after component mounted)
 //import UserNewConversation from '../../messaging/components/conversation.jsx'
 
@@ -69,19 +71,19 @@ export default class UserProfile extends React.Component{
 
     //if friend request pending show cancel request button
     if(profileUser.hasRequestFrom(currentUser)){
-      return <a href="#!" onClick={this.cancelFriendshipRequest.bind(this)} className="btn waves-effect">Cancel friendship request</a>
+      return <button onClick={this.cancelFriendshipRequest.bind(this)} className="btn waves-effect">Cancel friendship request</button>
     }
 
     //if friendship request from this user show accept or deny button
     if(currentUser.hasRequestFrom(profileUser)){
-      return <span><a href="#!" onClick={this.acceptFriendshipRequest.bind(this)} className="btn waves-effect">Accept friendship request</a><a href="#!" onClick={this.denyFriendshipRequest.bind(this)} className="btn waves-effect">Deny friendship</a></span>
+      return <span><button onClick={this.acceptFriendshipRequest.bind(this)} className="btn waves-effect">Accept friendship request</button><button onClick={this.denyFriendshipRequest.bind(this)} className="btn waves-effect">Deny friendship</button></span>
     }
 
     //if friends show unfriend button
     if(currentUser.isFriendsWith(profileUser)){
-      return <a href="#!" onClick={this.unfriend.bind(this)} className="btn waves-effect">Unfriend</a>
+      return <button onClick={this.unfriend.bind(this)} className="btn waves-effect">Unfriend</button>
     } else {
-      return <a href="#!" onClick={this.requestFriendship.bind(this)} className="btn waves-effect">Add to friends</a>
+      return <button onClick={this.requestFriendship.bind(this)} className="btn waves-effect">Add to friends</button>
     }
   }
 
@@ -95,10 +97,10 @@ export default class UserProfile extends React.Component{
       //has user been blocked by the current user?
       if(false){
         //show unblock button
-        return <a href="#!" onClick={this.unblock.bind(this)} className="btn waves-effect">Unblock</a>
+        return <button onClick={this.unblock.bind(this)} className="btn waves-effect">Unblock</button>
       } else {
         //show block button
-        return <a href="#!" onClick={this.block.bind(this)} className="btn waves-effect">Block</a>
+        return <button onClick={this.block.bind(this)} className="btn waves-effect">Block</button>
       }
     }
   }
@@ -111,7 +113,7 @@ export default class UserProfile extends React.Component{
         return (<div className="card-action">
           {this.friendshipOption()}
           {this.blockOption()}
-          <a onClick={this.reportUser.bind(this)} className="btn waves-effect">Report</a>
+          <button onClick={this.reportUser.bind(this)} className="btn waves-effect">Report</button>
         </div>)
       }
     }
@@ -124,7 +126,15 @@ export default class UserProfile extends React.Component{
    */
   render(){
     let {profile} = this.props
+    let newPost = null
+    if(profile.userId === Meteor.userId()){
+      newPost = <NewFeedPost />
+    }
+
     return (<div className="profile-header-bg">
+      <Helmet
+        title={profile.username}
+      />
       <section className="card-panel">
           <span className="profile-picture-box">{this.showAvatar()}</span>
           <h1 className="profile-username">{profile.username}</h1>
@@ -135,6 +145,7 @@ export default class UserProfile extends React.Component{
         <div className="col s12 m10 l9">
           <div className="card-panel">
             <h4>Stream</h4>
+            {newPost}
             <UserFeed userId={profile.userId} />
           </div>
         </div>

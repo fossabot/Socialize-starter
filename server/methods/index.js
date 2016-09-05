@@ -1,9 +1,13 @@
-import accounts from './accounts.js'
-import profiles from './profiles.js'
-import messaging from './messaging.js'
+import accounts from './accounts';
+import profiles from './profiles';
+import messaging from './messaging';
+import feed from './feed';
+import betaSignup from './beta_signup';
 
 export default function(){
-  accounts()
-  profiles()
-  messaging()
+  accounts();
+  profiles();
+  messaging();
+  feed();
+  betaSignup();
 }

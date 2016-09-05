@@ -21,7 +21,7 @@ export default function(){
   Meteor.publish("users.list", function(page, limit){
     check(page, Number)
     check(limit, Number)
-
+    
     let skip = (page - 1) * limit
 
     return Meteor.users.find({}, {fields: {username: 1, createdAt: 1}, limit: limit, skip: skip})

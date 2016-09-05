@@ -1,4 +1,6 @@
 import React from 'react'
+import Error from '../../core/components/error.jsx'
+import {Materialize} from 'meteor/poetic:materialize-scss'
 
 /**
  * @class component UserChangePassword
@@ -18,19 +20,17 @@ class UserChangePassword extends React.Component{
     let newPassword = event.target.new.value
     let newPasswordConfirm = event.target.repeat.value
 
-    check(oldPassword, String)
-    check(newPassword, String)
-    check(newPasswordConfirm, String)
+    const {changePassword} = this.props
 
     if(newPassword === newPasswordConfirm){
-      Accounts.changePassword(oldPassword, newPassword, function(error){
-        if(error !== undefined){
-          Materialize.toast('Wrong old password.', 5000)
-        } else {
-          Materialize.toast('Password changed successfully!', 4000)
-        }
-      })
+      if(newPassword.length > 3 && oldPassword.length > 3){
+        changePassword(oldPassword, newPassword)
+      } else {
+        // TODO: Display as error
+        Materialize.toast('Password must be at least 4 characters long.', 5000)  
+      }
     } else {
+      // TODO: Display as error
       Materialize.toast('New password does not match!', 5000)
     }
 
@@ -46,6 +46,7 @@ class UserChangePassword extends React.Component{
       <form method="post" className="row" ref="passwordForm" onSubmit={this.changePassword.bind(this)}>
         <fieldset>
           <legend>Change password</legend>
+            <Error error={this.props.error} success={this.props.success} />
             <div className="input-field col s12">
               <input className="validate" type="password" name="old"></input>
               <label htmlFor="old">Current password</label>

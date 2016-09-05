@@ -1,23 +1,31 @@
-import {createApp} from 'mantra-core'
-import initContext from './configs/context'
+import {createApp} from 'mantra-core';
+import initContext from './configs/context';
+// Redux
+import {combineReducers} from 'redux';
+import {routerReducer} from 'react-router-redux';
 
 // modules
-import coreModule from './modules/core'
-import pagesModule from './modules/pages'
-import usersModule from './modules/users'
-import messagingModule from './modules/messaging'
+import coreModule from './modules/core';
+import usersModule from './modules/users';
+import messagingModule from './modules/messaging';
+import pagesModule from './modules/pages';
 
-// initialize context
-const context = initContext()
+// Combine Reducers
+const reducer = combineReducers({
+  ...coreModule.reducer,
+  ...usersModule.reducer,
+  ...messagingModule.reducer,
+  ...pagesModule.reducer,
+  routing: routerReducer
+});
 
-// create the app
-const app = createApp(context)
+// init context
+const context = initContext({reducer});
 
-// load the modules
-app.loadModule(coreModule)
-app.loadModule(pagesModule)
-app.loadModule(usersModule)
-app.loadModule(messagingModule)
-
-// initialize
-app.init()
+// create app
+const app = createApp(context);
+app.loadModule(coreModule);
+app.loadModule(usersModule);
+app.loadModule(messagingModule);
+app.loadModule(pagesModule);
+app.init();

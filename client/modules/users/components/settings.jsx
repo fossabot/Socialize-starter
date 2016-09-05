@@ -1,10 +1,11 @@
 import React from 'react'
+import Helmet from "react-helmet"
 
-import UserChangeUsernane from './settings_username.jsx'
+import UserChangeUsernane from '../containers/settings_username.js'
 import UserChangeName from '../containers/settings_name.js'
 import UserChangeBio from '../containers/settings_bio.js'
 import UserEmail from '../containers/settings_email.js'
-import UserChangePassword from './settings_password.jsx'
+import UserChangePassword from '../containers/settings_password.js'
 
 /**
  * @class component UserSettings
@@ -22,6 +23,9 @@ class UserSettings extends React.Component{
    */
   render(){
     return (<div className="container">
+    <Helmet
+      title="Your settings"
+    />
     <div className="row">
       <h1>Settings</h1>
       <div className="col s12">

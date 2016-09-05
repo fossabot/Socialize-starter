@@ -1,5 +1,6 @@
 import React from 'react'
 import {Materialize} from 'meteor/poetic:materialize-scss'
+import Error from '../../core/components/error.jsx'
 
 /**
  * @class component UserChangeBio
@@ -26,17 +27,8 @@ export default class UserChangeBio extends React.Component{
     e.preventDefault()
     let bio = e.target.userBio.value
 
-    check(bio, String)
-
-    Meteor.call("profile.biography.update", bio, (error, result)=>{
-      if(error){
-        Materialize.toast(error.reason, 5000)
-        console.log(error);
-      }
-      if(result){
-        Materialize.toast("Saved!", 3000)
-      }
-    })
+    const {bioUpdate} = this.props
+    bioUpdate(bio)
   }
 
   /**
@@ -45,20 +37,16 @@ export default class UserChangeBio extends React.Component{
    * @returns {jsx}
    */
   render(){
-    let bio = null
-    if(this.props.profile.biography){
-      bio = this.props.profile.biography
-    }
-
     return (
       <form method="post" className="row" ref="bioForm" onSubmit={this.changeBio.bind(this)}>
         <fieldset>
           <legend>Biography</legend>
-            <div className="input-field col s12">
-              <textarea id="userBio" name="userBio" className="materialize-textarea" defaultValue={bio}></textarea>
-              <label htmlFor="userBio" className="active">A little bit about yourself</label>
-              <input type="submit" value="Change" className="btn waves-effect"></input>
-            </div>
+          <Error error={this.props.error} success={this.props.success} />
+          <div className="input-field col s12">
+            <textarea id="userBio" name="userBio" className="materialize-textarea" defaultValue={this.props.profile.biography}></textarea>
+            <label htmlFor="userBio" className="active">A little bit about yourself</label>
+            <input type="submit" value="Change" className="btn waves-effect"></input>
+          </div>
         </fieldset>
       </form>)
   }

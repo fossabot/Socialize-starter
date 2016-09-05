@@ -2,6 +2,7 @@ import React from 'react'
 import {Materialize} from 'meteor/poetic:materialize-scss'
 import sanitizeHtml from 'sanitize-html'
 import {check} from 'meteor/check'
+import {Link} from 'react-router'
 
 /**
  * @class component UserNewConversation
@@ -64,10 +65,10 @@ export default class UserNewConversation extends React.Component{
   populateSuggestions(){
     if(this.state.search){
       return this.state.search.map((user)=>{
-        return <a href="#!" key={"SUG"+user._id} className="suggestion-item avatar" onClick={this.addUser.bind(this, user)}>
+        return <button key={"SUG"+user._id} className="suggestion-item avatar" onClick={this.addUser.bind(this, user)}>
           <i className="material-icons circle">account_circle</i>
           <span className="title">{user.username}</span>
-        </a>
+        </button>
       })
     } else {
       //TODO fix that this displays
@@ -122,9 +123,9 @@ export default class UserNewConversation extends React.Component{
     if(this.state.users.length > 0){
       return this.state.users.map((user)=>{
         //NOTE: can't add the close tag since Materialize fires the event to remove the element before the function is called
-        return <a href="#!" onClick={this.removeUser.bind(this, user)} key={user._id} className="chip">
+        return <button onClick={this.removeUser.bind(this, user)} key={user._id} className="chip">
                 {user.username}
-              </a>
+              </button>
       })
     }
   }
@@ -196,7 +197,7 @@ export default class UserNewConversation extends React.Component{
 
     return (
       <div>
-        <a className={buttonClass} onClick={this.openModal.bind(this)}>{buttonText}</a>
+        <button className={buttonClass} onClick={this.openModal.bind(this)}>{buttonText}</button>
         <div id="newConversation" className="modal">
           <div className="modal-content">
             <form method="post" onSubmit={this.sendMessage.bind(this)}>

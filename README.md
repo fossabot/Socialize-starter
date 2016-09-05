@@ -34,19 +34,17 @@ The app will now be available on `localhost:3000`.
 ## Technology
 
 Please refer to [Meteor Documentation](http://docs.meteor.com/#/full/) and [Meteor Guide](http://guide.meteor.com/)
-on how to get started with Meteor and best practices.
+on how to get started with Meteor and best practices. In addition this app follows the [Mantra recommendations](https://github.com/kadirahq/mantra).
+
+[This article](http://tech.myemma.com/iifes-javascript-control-variable-scope/) supposedly helps to understand some Mantra code.
 
 ### React
 
-React is used for the client.
+React is used for the client using Mantra recommendations.
 
-Templates are located in `client/layouts/`.
+The user dashboard is in `client/modules/users/dashboard.jsx`.
 
-Navigation/menus and footer are in `client/navigation/`
-
-Edit the home page look in `client/HomePage.jsx`.
-
-The user dashboard is in `client/modules/users/Dashboard.jsx`.
+Homepage is in `client/modules/pages/homepage.jsx`
 
 ### Materialize CSS
 
@@ -56,8 +54,8 @@ This allows you to use scss to change the theme easily.
 
 ### Routing
 
-We are using `kadira:flow-router` for routing.
-You can find the routes in `lib/routes.jsx`
+We are using `react-router` for routing.
+You can find the routes in core module routes file.
 
 ### Roles
 
@@ -78,9 +76,10 @@ Basic "user" role is added to each user after they register.
 
 What is coming in the future?
 
+*   React Storybook for all components
+*   Default settings and other reusable components settings for all components
 *   Improve existing functionality
-*   Testing
-*   Update to Meteor 1.3 and move closer to Mantra
+*   Testing (Jest?)
 *   Blogs
 *   Badges
 *   User search / listing

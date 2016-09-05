@@ -1,20 +1,21 @@
-import {
-  useDeps, composeWithTracker, composeAll
-} from 'mantra-core'
-import Component from '../components/overview.jsx'
+import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
 
-export const composer = ({context, clearErrors}, onData) => {
-  const {Meteor, Collections, MessagesSubs} = context()
+import UserConversationOverview from '../components/overview.jsx';
+
+export const composer = ({context}, onData) => {
+  const {Meteor,MessagesSubs} = context()
   if(MessagesSubs.subscribe('conversations').ready()){
     const conversations = Meteor.conversations.find().fetch()
 
     onData(null, {conversations})
-  } else {
-    //onData()
   }
-}
+};
+
+export const depsMapper = (context, actions) => ({
+  context: () => context
+});
 
 export default composeAll(
   composeWithTracker(composer),
-  useDeps()
-)(Component)
+  useDeps(depsMapper)
+)(UserConversationOverview);

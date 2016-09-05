@@ -1,5 +1,7 @@
 import React from 'react'
 import {Materialize} from 'meteor/poetic:materialize-scss'
+import {Link} from 'react-router'
+import Helmet from 'react-helmet'
 
 /**
  * @class component UserFriendsRequests
@@ -42,9 +44,9 @@ export default class UserFriendsRequests extends React.Component{
         return (<li key={requester._id} className="collection-item avatar">
           <i className="material-icons circle">user</i>
           <span className="title">{requester.username}</span>
-          <p><a href="#!" onClick={this.accept.bind(this, requester)} ><i className="material-icons">check</i></a>
-          <a href="#!" onClick={this.deny.bind(this, requester)} ><i className="material-icons">cancel</i></a></p>
-          <a href={FlowRouter.path("profilePublic", {username: requester.username})} className="secondary-content"><i className="material-icons">send</i></a>
+          <p><button onClick={this.accept.bind(this, requester)} ><i className="material-icons">check</i></button>
+          <button onClick={this.deny.bind(this, requester)} ><i className="material-icons">cancel</i></button></p>
+          <Link to={"users/" + requester.username} className="secondary-content"><i className="material-icons">send</i></Link>
         </li>)
       })
     }
@@ -57,6 +59,9 @@ export default class UserFriendsRequests extends React.Component{
    */
   render(){
     return (<div>
+      <Helmet
+        title="Friend requests"
+      />
       <h1><a href={FlowRouter.path("/")}><i className="material-icons">arrow_back</i></a> Friendships requests</h1>
       <ul className="collection">
         {this.request()}

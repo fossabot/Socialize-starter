@@ -1,5 +1,6 @@
 export default {
-  clearErrors({LocalState}){
-    LocalState.set('PM_MSG_LIMIT', null)
+  sendMessage(){},
+  clearErrors({LocalState}) {
+    return LocalState.set('MESSAGING_ERROR', null)
   }
 }

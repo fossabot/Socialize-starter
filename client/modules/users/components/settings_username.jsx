@@ -1,5 +1,6 @@
 import React from 'react'
 import {Materialize} from 'meteor/poetic:materialize-scss'
+import Error from '../../core/components/error.jsx'
 
 /**
  * @class component UserChangeUsername
@@ -14,20 +15,8 @@ export default class UserChangeUsernane extends React.Component{
   changeUsername(e){
     e.preventDefault()
     let username = e.target.username.value
-    check(username, String)
-    Meteor.call("accounts.username", username, function(error, result){
-      if(error){
-        Materialize.toast(error.reason, 5000)
-        console.log("error", error)
-      }
-      if(result === false){
-        e.target.reset()
-        //TODO test
-        Materialize.toast("That username exists already.", 5000)
-      } else {
-        Materialize.toast("Username has been changed.", 4000)
-      }
-    })
+    const {changeUsername} = this.props
+    changeUsername(username)
   }
   /**
    * Actual content to be displayed when user data are available.
@@ -39,8 +28,9 @@ export default class UserChangeUsernane extends React.Component{
       <form method="post" className="row" ref="usernameForm" onSubmit={this.changeUsername.bind(this)}>
         <fieldset>
           <legend>Change Username</legend>
+          <Error error={this.props.error} success={this.props.success} />
           <div className="input-field col s12">
-            <input type="text" className="validate" name="username" defaultValue={Meteor.user().username}></input>
+            <input type="text" className="validate" name="username" defaultValue={this.props.currentUsername}></input>
             <label htmlFor="username" className="active">Username</label>
             <input type="submit" value="Change" className="btn waves-effect"></input>
           </div>

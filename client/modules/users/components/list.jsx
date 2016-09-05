@@ -1,4 +1,6 @@
 import React from 'react'
+import {Link} from 'react-router'
+import Helmet from 'react-helmet'
 
 export default class UserListing extends React.Component{
   constructor(props){
@@ -7,31 +9,33 @@ export default class UserListing extends React.Component{
 
   render(){
     let list = this.props.users.map((user)=>{
-      return <a key={user._id} href={FlowRouter.path("profilePublic", {username: user.username})} className="collection-item"><i className="material-icons">account_circle</i> {user.username}</a>
+      return <Link to={"users/" + user.username} key={user._id} className="collection-item"><i className="material-icons">account_circle</i> {user.username}</Link>
     })
 
-    let {page, totalUsers} = this.props
+    let {page, totalUsers, limit} = this.props
     let previousPage, nextPage
-    let perPage = 10
 
     page = Number(page)
 
-    if(page <= 1){
-      previousPage = "disabled"
+    if(page > 1){
+      previousPage = <li><Link to={"users?page=" + (page-1)}><i className="material-icons">chevron_left</i></Link></li>
     }
 
-    if(totalUsers >= (page - 1) * perPage ){
-      nextPage = "disabled"
+    if(totalUsers >= (page * limit)){
+      nextPage = <li><Link to={"users?page=" + (page+1)}><i className="material-icons">chevron_right</i></Link></li>
     }
 
     return <div>
+      <Helmet
+        title="Users"
+      />
       <h1>User listing</h1>
       <div className="collection">
         {list}
       </div>
       <ul className="pagination">
-        <li className={previousPage}><a href={FlowRouter.path("userListing", {page: page - 1})}><i className="material-icons">chevron_left</i></a></li>
-        <li className={nextPage}><a href={FlowRouter.path("userListing", {page: page + 1})}><i className="material-icons">chevron_right</i></a></li>
+        {previousPage}
+        {nextPage}
       </ul>
     </div>
   }

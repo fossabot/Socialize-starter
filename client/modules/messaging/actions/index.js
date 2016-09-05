@@ -1,9 +1,5 @@
-import messages from './messages'
-import search from './search'
+import messages from './messages';
 
-const actions = {
-  messages,
-  search
-}
-
-export default actions
+export default {
+  messages
+};

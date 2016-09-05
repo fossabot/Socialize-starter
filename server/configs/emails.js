@@ -1,23 +1,21 @@
 import {Meteor} from 'meteor/meteor'
 import {Accounts} from 'meteor/accounts-base'
-import {FlowRouter} from 'meteor/kadira:flow-router-ssr'
 
 export default function(){
   Accounts.urls.resetPassword = function(token){
-    //return Meteor.absoluteUrl('reset-password?token='+token)
-    return FlowRouter.url('reset-password', null, {token: token})
+    return Meteor.absoluteUrl('user/reset-password?token='+token)
   }
 
   Accounts.urls.verifyEmail = function(token){
-     //return Meteor.absoluteUrl('user/verify-email?token='+token)
-     return FlowRouter.url('/user/verify-email', null, {token: token})
+     return Meteor.absoluteUrl('user/verify-email?token='+token)
   }
 
   Accounts.urls.enrollAccount = function(token){
-    return Meteor.absoluteUrl('enroll?token='+token)
+    return Meteor.absoluteUrl('user/enroll?token='+token)
   }
 
   Meteor.startup(function(){
+    // TODO Don't forget to set the mailing url
     //process.env.MAIL_URL = Meteor.settings.mailUrl
 
     /**

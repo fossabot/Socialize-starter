@@ -1,1 +1,3 @@
-This module is for elements that are shared across all modules like templates.
+# Core module
+
+This module configures the basics of the app like routes and stores all the common components.
