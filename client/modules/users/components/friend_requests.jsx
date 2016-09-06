@@ -62,7 +62,7 @@ export default class UserFriendsRequests extends React.Component{
       <Helmet
         title="Friend requests"
       />
-      <h1><a href={FlowRouter.path("/")}><i className="material-icons">arrow_back</i></a> Friendships requests</h1>
+      <h1><Link to={"/dashboard")}><i className="material-icons">arrow_back</i></Link> Friendships requests</h1>
       <ul className="collection">
         {this.request()}
       </ul>

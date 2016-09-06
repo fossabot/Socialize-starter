@@ -5,7 +5,6 @@ export default class NavPublic extends React.Component {
   componentDidMount(){
     //activate the menu
     $(".button-collapse").sideNav({menuWidth: 300, closeOnClick: true})
-    $(".dropdown-button").dropdown()
   }
 
   render(){

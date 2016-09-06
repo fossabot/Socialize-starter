@@ -10,6 +10,7 @@ import NotFount from './components/not_found.jsx'
 
 // pages
 import Homepage from '../pages/components/homepage.jsx'
+import About from '../pages/components/about.jsx'
 
 // user pages
 import Dashboard from '../users/components/dashboard.jsx'
@@ -97,6 +98,7 @@ export default function (injectDeps, {Store}) {
           <Route path="login" component={SignIn} onEnter={anonOnly} />
           <Route path="register" component={SignUp} onEnter={anonOnly} />
           <Route path="logout" component={Homepage} onEnter={logout} />
+          <Route path="about" component={About} />
           <Route path="*" component={NotFount} />
         </Route>
       </Router>
