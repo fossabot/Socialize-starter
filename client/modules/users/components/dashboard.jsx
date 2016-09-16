@@ -10,7 +10,7 @@ import DashboardFriends from '../containers/dashboard_friends.js'
 export default class UserDashboard extends React.Component {
   render(){
     return(<div>
-      <Helmet title="dashboard" />
+      <Helmet title="Dashboard" />
       <section className="row">
         <div className="col s6 m4 l3 center-align">
           <div className="card hoverable indigo lighten-1 waves-effect waves-block waves-light">

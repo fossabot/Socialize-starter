@@ -37,7 +37,7 @@ class UserRegister extends React.Component{
         />
         <div className="col s12 m8 offset-m2 l4 offset-l4 center-align">
           <h1>Register</h1>
-          <Error error={this.prop.error} />
+          <Error error={this.props.error} />
           <form onSubmit={this.register.bind(this)}>
             <div className="input-field col s12 left-align">
               <input className="validate" type="text" id="username" name="username" required />
