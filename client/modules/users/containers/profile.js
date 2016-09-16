@@ -2,11 +2,13 @@ import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
 
 import UserProfile from '../components/profile.jsx';
 
-export const composer = ({context, user, clearErrors}, onData) => {
+export const composer = ({context, params, clearErrors}, onData) => {
   const {Meteor} = context();
+  
+  let user = params.username;
 
   if(!user){
-    user = Meteor.userId()
+    user = Meteor.userId();
   }
 
   if(Meteor.subscribe('profile.for', user).ready()){
