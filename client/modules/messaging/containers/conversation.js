@@ -3,31 +3,31 @@ import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
 import UserConversation from '../components/conversation.jsx';
 
 export const composer = ({context, conversationId}, onData) => {
-  const {Meteor, MessagesSubs} = context()
+  const {Meteor, MessagesSubs} = context();
 
-  if(conversationId){
-    MessagesSubs.subscribe("conversation", conversationId)
-    if(MessagesSubs.ready()){
-      const conversation = Meteor.conversations.findOne({_id: conversationId})
+  if (conversationId) {
+    MessagesSubs.subscribe('conversation', conversationId);
+    if (MessagesSubs.ready()) {
+      const conversation = Meteor.conversations.findOne({_id: conversationId});
 
-      //confirm that user can view the conversation
-      let access = false
+      // confirm that user can view the conversation
+      let access = false;
 
       conversation._participants.forEach((p) => {
-        if(p === Meteor.userId()){
-          access = true
+        if (p === Meteor.userId()) {
+          access = true;
         }
-      })
+      });
 
-      if(access){
-        onData(null, {conversation})
+      if (access) {
+        onData(null, {conversation});
       } else {
         // unauthorized access
-        //FlowRouter.go("pmOverview")
+        // FlowRouter.go("pmOverview")
       }
     }
   } else {
-    //FlowRouter.go("pmOverview")
+    // FlowRouter.go("pmOverview")
   }
 };
 

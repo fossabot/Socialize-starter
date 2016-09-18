@@ -1,6 +1,6 @@
 export default {
-  sendMessage(){},
+  sendMessage() {},
   clearErrors({LocalState}) {
-    return LocalState.set('MESSAGING_ERROR', null)
+    return LocalState.set('MESSAGING_ERROR', null);
   }
-}
+};

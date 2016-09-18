@@ -1,6 +1,5 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-import {Accounts} from 'meteor/accounts-base'
 import {Materialize} from 'meteor/poetic:materialize-scss'
 import Error from '../../core/components/error.jsx'
 /**

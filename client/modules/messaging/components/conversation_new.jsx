@@ -1,7 +1,6 @@
 import React from 'react'
 import {Materialize} from 'meteor/poetic:materialize-scss'
 import sanitizeHtml from 'sanitize-html'
-import {check} from 'meteor/check'
 import {Link} from 'react-router'
 
 /**
@@ -35,7 +34,6 @@ export default class UserNewConversation extends React.Component{
    */
   lookupUser(event){
     let query = event.target.value
-    //check(query, String)
 
     //first wait for at least three characters to by typed before doing anything
     if(query.length > 2){
@@ -137,8 +135,6 @@ export default class UserNewConversation extends React.Component{
     e.preventDefault()
     let msg = e.target.msg.value
     let users = this.state.users
-    check(msg, String)
-    check(users, Array)
     if(users.length > 0){
       //create conversation
       let converstation = new Conversation().save()

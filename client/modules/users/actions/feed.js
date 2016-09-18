@@ -1,4 +1,3 @@
-import Meteor from 'meteor/meteor'
 import sanitizeHtml from 'sanitize-html'
 
 export default {

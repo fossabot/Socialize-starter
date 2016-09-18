@@ -3,27 +3,27 @@ import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
 import ConversationReply from '../components/conversation_reply.jsx';
 
 export const composer = ({context, conversationId}, onData) => {
-  const {Meteor, MessagesSubs, LocalState} = context()
+  const {Meteor, MessagesSubs, LocalState} = context();
 
-  if(conversationId){
-    if(MessagesSubs.subscribe("conversation", conversationId).ready()){
-      let conversation = Meteor.conversations.findOne({_id: conversationId})
+  if (conversationId) {
+    if (MessagesSubs.subscribe('conversation', conversationId).ready()) {
+      let conversation = Meteor.conversations.findOne({_id: conversationId});
 
-      //confirm that user can view the conversation
-      let access = false
+      // confirm that user can view the conversation
+      let access = false;
 
       conversation._participants.forEach((p) => {
-        if(p === Meteor.userId()){
-          access = true
+        if (p === Meteor.userId()) {
+          access = true;
         }
-      })
+      });
 
-      if(access){
-        onData(null, {conversation})
+      if (access) {
+        onData(null, {conversation});
       } else {
-        //console.log("Access denied!")
-        //redirect back
-        //FlowRouter.go("pmOverview")
+        // console.log("Access denied!")
+        // redirect back
+        // FlowRouter.go("pmOverview")
       }
     }
   }

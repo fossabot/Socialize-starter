@@ -31,11 +31,6 @@
   },
   "devDependencies": {
     "@kadira/storybook": "^2.x.x",
-    "enzyme": "^2.4.0",
-    "jsdom": "^8.0.4",
-    "eslint": "2.7.x",
-    "eslint-plugin-react": "4.3.x",
-    "eslint-plugin-meteor": "^3.6.x",
     "babel-core": "6.x.x",
     "babel-plugin-react-require": "2.x.x",
     "babel-polyfill": "6.x.x",
@@ -44,12 +39,18 @@
     "babel-preset-react": "6.x.x",
     "babel-preset-stage-2": "6.x.x",
     "babel-root-slash-import": "1.x.x",
-    "sinon": "1.17.x",
     "chai": "3.x.x",
+    "enzyme": "^2.4.0",
+    "eslint": "2.7.x",
+    "eslint-plugin-meteor": "^3.6.x",
+    "eslint-plugin-react": "4.3.x",
+    "jsdom": "^8.0.4",
     "mantra-lint": "^0.0.1",
     "mocha": "3.x.x",
-    "react-addons-test-utils": "^15.0.0",
+    "proxyquire": "^1.7.10",
     "raw-loader": "^0.5.1",
+    "react-addons-test-utils": "^15.0.0",
+    "sinon": "1.17.x",
     "style-loader": "^0.13.1"
   }
 }
