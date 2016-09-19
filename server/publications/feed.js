@@ -65,6 +65,11 @@ export default function(){
           find: function(post){
             return Meteor.likes.find({linkedObjectId: post._id} , {fields: {linkedObjectId: true, userId: true, date: true}})
           }
+        },
+        {
+          find: function(post) {
+            return Meteor.users.find({ _id: post.posterId }, { fields: { username: true } })
+          }
         }
       ]
     }
@@ -111,6 +116,11 @@ export default function(){
         {
           find: function(post){
             return Meteor.likes.find({linkedObjectId: post._id} , {fields: {linkedObjectId: true, userId: true, date: true}})
+          }
+        },
+        {
+          find: function(post) {
+            return Meteor.users.find({ _id: post.posterId }, { fields: { username: true } })
           }
         }
       ]
