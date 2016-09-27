@@ -6,27 +6,28 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "lint": "eslint ./lib ./client ./server --ext .js",
+    "lint": "./node_modules/.bin/eslint ./lib ./client ./server --ext .js,.jsx",
     "lintfix": "npm run lint -- --fix",
     "testonly": "mocha .scripts/mocha_boot.js client/**/tests/**/*.js --compilers js:babel-core/register",
     "test": "npm run lint && npm run testonly",
     "test-watch": "npm run testonly -- --watch --watch-extensions js",
-    "storybook": "start-storybook -p 9001"
+    "storybook": "start-storybook -p 9001",
+    "test-storybook": "storyshots"
   },
   "author": "Jan Dvorak",
   "dependencies": {
     "bcrypt": "^0.8.7",
     "mantra-core": "^1.2.0",
     "meteor-node-stubs": "^0.2.3",
-    "moment": "^2.14.1",
+    "moment": "^2.15.0",
     "react": "^15.3.0",
     "react-dom": "^15.0.0",
     "react-helmet": "^3.1.0",
     "react-redux": "^4.4.5",
-    "react-router": "^2.6.1",
+    "react-router": "^2.8.1",
     "react-router-redux": "^4.0.5",
     "react-simple-di": "^1.0.1",
-    "redux": "^3.5.2",
+    "redux": "^3.6.0",
     "sanitize-html": "^1.13.0"
   },
   "devDependencies": {
