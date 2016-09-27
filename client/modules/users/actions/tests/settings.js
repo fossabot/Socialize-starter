@@ -1,6 +1,6 @@
-const {describe, it} = global;
-import {expect} from 'chai';
-import {spy, stub} from 'sinon';
+const { describe, it } = global;
+import { expect } from 'chai';
+import { spy, stub } from 'sinon';
 import actions from '../settings';
 
 describe('users.actions.settings', () => {

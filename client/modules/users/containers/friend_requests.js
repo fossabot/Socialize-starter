@@ -1,19 +1,19 @@
-import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
 
 import FriendRequests from '../components/friend_requests.jsx';
 
-export const composer = ({context}, onData) => {
-  const {Meteor} = context();
+export const composer = ({ context }, onData) => {
+  const { Meteor } = context();
 
-  if(Meteor.subscribe('friends.requests').ready()){
-    const requests = Meteor.requests.find({userId: Meteor.userId()}).fetch()
+  if (Meteor.subscribe('friends.requests').ready()) {
+    const requests = Meteor.requests.find({ userId: Meteor.userId() }).fetch();
 
-    onData(null, {requests})
+    onData(null, { requests });
   }
 };
 
 export const depsMapper = (context, actions) => ({
-  context: () => context
+  context: () => context,
 });
 
 export default composeAll(

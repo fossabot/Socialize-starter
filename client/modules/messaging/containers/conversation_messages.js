@@ -1,21 +1,21 @@
-import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
 
 import ConversationMessages from '../components/conversation_messages.jsx';
 
-export const composer = ({context}, onData) => {
-  const {Meteor, LocalState, MessagesSubs} = context();
+export const composer = ({ context }, onData) => {
+  const { Meteor, LocalState, MessagesSubs } = context();
 
   if (!msgLimit) {
     msgLimit = 10;
   }
 
   if (conversationId) {
-    MessagesSubs.subscribe('messages.for', conversationId, {limit: msgLimit, skip: 0});
+    MessagesSubs.subscribe('messages.for', conversationId, { limit: msgLimit, skip: 0 });
     MessagesSubs.subscribe('conversation', conversationId);
 
     if (MessagesSubs.ready()) {
-      let messages = Meteor.messages.find({conversationId: conversationId}, {sort: {date: 1}}).fetch();
-      let conversation = Meteor.conversations.findOne({_id: conversationId});
+      const messages = Meteor.messages.find({ conversationId }, { sort: { date: 1 } }).fetch();
+      const conversation = Meteor.conversations.findOne({ _id: conversationId });
 
       // confirm that user can view the conversation
       let access = false;
@@ -27,7 +27,7 @@ export const composer = ({context}, onData) => {
       });
 
       if (access) {
-        onData(null, {messages});
+        onData(null, { messages });
       } else {
         // unsubscribe
         MessagesSubs.stop();
@@ -43,7 +43,7 @@ export const composer = ({context}, onData) => {
 };
 
 export const depsMapper = (context, actions) => ({
-  context: () => context
+  context: () => context,
 });
 
 export default composeAll(

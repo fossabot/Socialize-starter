@@ -1,11 +1,10 @@
-const {describe, it} = global;
-import {expect} from 'chai';
-import {stub, spy} from 'sinon';
-import {composer} from '../user_search';
+const { describe, it } = global;
+import { expect } from 'chai';
+import { stub, spy } from 'sinon';
+import { composer } from '../user_search';
 
 describe('users.containers.user_search', () => {
   describe('composer', () => {
-
 //    const Tracker = {nonreactive: cb => cb()};
 //    const getCollections = (post) => {
 //      const Collections = {

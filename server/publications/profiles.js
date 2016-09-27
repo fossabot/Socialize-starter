@@ -1,37 +1,37 @@
-import {Meteor} from 'meteor/meteor'
-import {check} from 'meteor/check'
-import {SimpleSchema} from 'meteor/aldeed:simple-schema'
+import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-export default function(){
+export default function () {
   /**
    * DB Schema for Profile
    */
   Profile.appendSchema({
-    "biography": {
+    biography: {
       type: String,
-      optional: true
+      optional: true,
     },
-    "avatar": {
+    avatar: {
       type: String,
-      optional: true
+      optional: true,
     },
-    "givenName": {
+    givenName: {
       type: String,
-      optional: true
+      optional: true,
     },
-    "familyName": {
+    familyName: {
       type: String,
-      optional: true
-    }
-  })
+      optional: true,
+    },
+  });
 
   /**
    * Get a profile for the specified user.
    * @param {String} userIdOrUsername
    * @return {MongoDB pointer}
    */
-  Meteor.publish("profile.for", function(userIdOrUsername){
-    check(userIdOrUsername, String)
-    return Profile.collection.find({$or:[{userId:userIdOrUsername}, {username:userIdOrUsername}]})
-  })
+  Meteor.publish('profile.for', (userIdOrUsername) => {
+    check(userIdOrUsername, String);
+    return Profile.collection.find({ $or: [{ userId: userIdOrUsername }, { username: userIdOrUsername }] });
+  });
 }

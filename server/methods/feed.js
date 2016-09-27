@@ -1,30 +1,30 @@
-import {Meteor} from 'meteor/meteor';
-import {check} from 'meteor/check';
+import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
 
 export default function () {
   Meteor.methods({
-    'feed.add'(text) {
-      check(text, String)
-      
-      Meteor.user(this.userId).feed().addPost(text)
+    'feed.add': function (text) {
+      check(text, String);
+
+      Meteor.user(this.userId).feed().addPost(text);
     },
-    'feed.post.like'(postId) {
-      check(postId, String)
+    'feed.post.like': function (postId) {
+      check(postId, String);
 
-      let post = Meteor.posts.find({_id: postId}).fetch()[0]
+      const post = Meteor.posts.find({ _id: postId }).fetch()[0];
 
-      post.like()
+      post.like();
     },
-    'feed.post.unlike'(postId){
-      check(postId, String)
+    'feed.post.unlike': function (postId) {
+      check(postId, String);
 
-      let post = Meteor.posts.find({_id: postId}).fetch()[0]
+      const post = Meteor.posts.find({ _id: postId }).fetch()[0];
 
-      post.unlike()
+      post.unlike();
     },
-    'feed.post.comment'(postId, text) {
-      check(postId, String)
-      check(postId, String)
-    }
+    'feed.post.comment': function (postId, text) {
+      check(postId, String);
+      check(postId, String);
+    },
   });
 }

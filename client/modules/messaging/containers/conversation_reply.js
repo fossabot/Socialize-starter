@@ -1,13 +1,13 @@
-import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
 
 import ConversationReply from '../components/conversation_reply.jsx';
 
-export const composer = ({context, conversationId}, onData) => {
-  const {Meteor, MessagesSubs, LocalState} = context();
+export const composer = ({ context, conversationId }, onData) => {
+  const { Meteor, MessagesSubs, LocalState } = context();
 
   if (conversationId) {
     if (MessagesSubs.subscribe('conversation', conversationId).ready()) {
-      let conversation = Meteor.conversations.findOne({_id: conversationId});
+      const conversation = Meteor.conversations.findOne({ _id: conversationId });
 
       // confirm that user can view the conversation
       let access = false;
@@ -19,7 +19,7 @@ export const composer = ({context, conversationId}, onData) => {
       });
 
       if (access) {
-        onData(null, {conversation});
+        onData(null, { conversation });
       } else {
         // console.log("Access denied!")
         // redirect back
@@ -30,7 +30,7 @@ export const composer = ({context, conversationId}, onData) => {
 };
 
 export const depsMapper = (context, actions) => ({
-  context: () => context
+  context: () => context,
 });
 
 export default composeAll(

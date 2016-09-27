@@ -4,7 +4,7 @@ import messaging from './messaging';
 import feed from './feed';
 import betaSignup from './beta_signup';
 
-export default function(){
+export default function () {
   accounts();
   profiles();
   messaging();

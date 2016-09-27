@@ -1,21 +1,21 @@
-import React from 'react'
-import {Materialize} from 'meteor/poetic:materialize-scss'
-import Error from '../../core/components/error.jsx'
+import React from 'react';
+import { Materialize } from 'meteor/poetic:materialize-scss';
+import Error from '../../core/components/error.jsx';
 
 /**
  * @class component UserChangeBio
  * @classdesc Change user biography
  */
-export default class UserChangeBio extends React.Component{
-  constructor(props){
-    super(props)
-    $("#userBio").trigger('autoresize')
-    Materialize.updateTextFields()
+export default class UserChangeBio extends React.Component {
+  constructor(props) {
+    super(props);
+    $('#userBio').trigger('autoresize');
+    Materialize.updateTextFields();
   }
 
-  componentDidUpdate(){
-    $("#userBio").trigger('autoresize')
-    Materialize.updateTextFields()
+  componentDidUpdate() {
+    $('#userBio').trigger('autoresize');
+    Materialize.updateTextFields();
   }
 
   /**
@@ -23,12 +23,12 @@ export default class UserChangeBio extends React.Component{
    * @access private
    * @param {event} e Submit event from form
    */
-  changeBio(e){
-    e.preventDefault()
-    let bio = e.target.userBio.value
+  changeBio(e) {
+    e.preventDefault();
+    const bio = e.target.userBio.value;
 
-    const {bioUpdate} = this.props
-    bioUpdate(bio)
+    const { bioUpdate } = this.props;
+    bioUpdate(bio);
   }
 
   /**
@@ -36,18 +36,18 @@ export default class UserChangeBio extends React.Component{
    * @access private
    * @returns {jsx}
    */
-  render(){
+  render() {
     return (
       <form method="post" className="row" ref="bioForm" onSubmit={this.changeBio.bind(this)}>
         <fieldset>
           <legend>Biography</legend>
           <Error error={this.props.error} success={this.props.success} />
           <div className="input-field col s12">
-            <textarea id="userBio" name="userBio" className="materialize-textarea" defaultValue={this.props.profile.biography}></textarea>
+            <textarea id="userBio" name="userBio" className="materialize-textarea" defaultValue={this.props.profile.biography} />
             <label htmlFor="userBio" className="active">A little bit about yourself</label>
-            <input type="submit" value="Change" className="btn waves-effect"></input>
+            <input type="submit" value="Change" className="btn waves-effect" />
           </div>
         </fieldset>
-      </form>)
+      </form>);
   }
 }

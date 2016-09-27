@@ -1,94 +1,94 @@
-import React from 'react'
-import Helmet from "react-helmet"
+import React from 'react';
+import Helmet from 'react-helmet';
 
-import ConversationParticipants from '../containers/conversation_participants.js'
-import ConversationMessages from '../containers/conversation_messages.js'
-import ConversationReply from '../containers/conversation_reply.js'
+import ConversationParticipants from '../containers/conversation_participants.js';
+import ConversationMessages from '../containers/conversation_messages.js';
+import ConversationReply from '../containers/conversation_reply.js';
 
 /**
  * @class component UserConversation
  * @classdesc Component to display a full user conversation.
  */
-export default class UserConversation extends React.Component{
-  constructor(props){
-    super(props)
+export default class UserConversation extends React.Component {
+  constructor(props) {
+    super(props);
 
-    let totalMessages
+    let totalMessages;
     // get the total number of documents from server
-    Meteor.call("pm.conversation.count", this.props.conversationId, (error, result)=>{
-      if(error){
-        console.log(error)
+    Meteor.call('pm.conversation.count', this.props.conversationId, (error, result) => {
+      if (error) {
+        console.log(error);
       }
-      if(result){
-        totalMessages = result
+      if (result) {
+        totalMessages = result;
       }
-    })
+    });
 
     this.state = {
       viewing: null,
       typing: null,
       msgLimit: 10,
-      msgTotal: 1
-    }
+      msgTotal: 1,
+    };
   }
 
-  showOlder(){
+  showOlder() {
     this.setState({
-      msgLimit: this.state.msgLimit + 10
-    })
+      msgLimit: this.state.msgLimit + 10,
+    });
   }
 
-  getMessages(){
-    let {messages} = this.props
-    return messages.map((msg)=>{
-      let user = msg.user()
+  getMessages() {
+    const { messages } = this.props;
+    return messages.map((msg) => {
+      const user = msg.user();
 
-      return <div key={msg._id} className="row">
+      return (<div key={msg._id} className="row">
         <div className="col s10"><strong>{user.username}:</strong> {msg.body}</div>
         <div className="col s2">{moment(msg.date).fromNow()}</div>
-      </div>
-    })
+      </div>);
+    });
   }
 
-  sendMessage(e){
-    e.preventDefault()
-    //get message
-    let msg = $('#messageToSend').val()
+  sendMessage(e) {
+    e.preventDefault();
+    // get message
+    let msg = $('#messageToSend').val();
 
-    //sanitize
-    msg = sanitizeHtml(msg)
+    // sanitize
+    msg = sanitizeHtml(msg);
 
-    //send the message
-    let send = this.props.conversation.sendMessage(msg)
+    // send the message
+    const send = this.props.conversation.sendMessage(msg);
 
-    //increase the limit so the current conversation stays on the screen
+    // increase the limit so the current conversation stays on the screen
     this.setState({
-      msgLimit: this.state.msgLimit + 1
-    })
+      msgLimit: this.state.msgLimit + 1,
+    });
 
-    //reset the text field
-    $('#messageToSend').val("")
+    // reset the text field
+    $('#messageToSend').val('');
 
-    //update the total message count
-    //TODO: figure a better way that is not too taxing on the servers to count messages whenever any user adds a message
-    //currently this is not very accurate if the user doesn't post much and the other post a lot
-    Meteor.call("pm.conversation.count", this.props.conversationId, (error, result)=>{
-      if(error){
-        console.log(error)
+    // update the total message count
+    // TODO: figure a better way that is not too taxing on the servers to count messages whenever any user adds a message
+    // currently this is not very accurate if the user doesn't post much and the other post a lot
+    Meteor.call('pm.conversation.count', this.props.conversationId, (error, result) => {
+      if (error) {
+        console.log(error);
       }
-      if(result){
+      if (result) {
         this.setState({
-          msgTotal: result
-        })
+          msgTotal: result,
+        });
       }
-    })
+    });
   }
 
-  render(){
-    let showOlder
+  render() {
+    let showOlder;
 
-    if(this.state.msgTotal > this.state.msgLimit){
-      showOlder = <a className="center-align" href="#!" onClick={this.showOlder.bind(this)}>Show older messages.</a>
+    if (this.state.msgTotal > this.state.msgLimit) {
+      showOlder = <a className="center-align" href="#!" onClick={this.showOlder.bind(this)}>Show older messages.</a>;
     }
 
     return (<div>
@@ -108,11 +108,11 @@ export default class UserConversation extends React.Component{
       </div>
 
       <ConversationReply conversationId={this.props.conversationId} />
-    </div>)
+    </div>);
   }
 }
 
 
 UserConversation.propTypes = {
-  conversationId: React.PropTypes.string
-}
+  conversationId: React.PropTypes.string,
+};

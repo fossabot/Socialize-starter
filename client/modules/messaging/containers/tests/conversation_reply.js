@@ -1,11 +1,10 @@
-const {describe, it} = global;
-import {expect} from 'chai';
-import {stub, spy} from 'sinon';
-import {composer} from '../conversation_reply';
+const { describe, it } = global;
+import { expect } from 'chai';
+import { stub, spy } from 'sinon';
+import { composer } from '../conversation_reply';
 
 describe('messaging.containers.conversation_reply', () => {
   describe('composer', () => {
-
 //    const Tracker = {nonreactive: cb => cb()};
 //    const getCollections = (post) => {
 //      const Collections = {

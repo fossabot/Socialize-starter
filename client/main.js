@@ -1,8 +1,8 @@
-import {createApp} from 'mantra-core';
+import { createApp } from 'mantra-core';
 import initContext from './configs/context';
 // Redux
-import {combineReducers} from 'redux';
-import {routerReducer} from 'react-router-redux';
+import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 
 // modules
 import coreModule from './modules/core';
@@ -16,11 +16,11 @@ const reducer = combineReducers({
   ...usersModule.reducer,
   ...messagingModule.reducer,
   ...pagesModule.reducer,
-  routing: routerReducer
+  routing: routerReducer,
 });
 
 // init context
-const context = initContext({reducer});
+const context = initContext({ reducer });
 
 // create app
 const app = createApp(context);

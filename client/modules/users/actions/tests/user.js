@@ -1,14 +1,14 @@
-const {describe, it} = global;
-import {expect} from 'chai';
+const { describe, it } = global;
+import { expect } from 'chai';
 import proxyquire from 'proxyquire';
-import {spy, stub} from 'sinon';
+import { spy, stub } from 'sinon';
 
-const Accounts = stub()
+const Accounts = stub();
 
 // Get the component
-const {actions} = proxyquire('../user', {
-  'meteor/accounts-base' : {Accounts, '@noCallThru': true},
-})
+const { actions } = proxyquire('../user', {
+  'meteor/accounts-base': { Accounts, '@noCallThru': true },
+});
 
 describe('users.actions.user', () => {
   it('should do something');

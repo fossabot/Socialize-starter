@@ -1,18 +1,18 @@
-import React from 'react'
-import {Link} from 'react-router'
-import Helmet from 'react-helmet'
-import Error from '../../core/components/error.jsx'
+import React from 'react';
+import { Link } from 'react-router';
+import Helmet from 'react-helmet';
+import Error from '../../core/components/error.jsx';
 
 /**
  * @class component UserLogin
  * @classdesc Shows user login form
  */
-class UserLogin extends React.Component{
+class UserLogin extends React.Component {
   /**
    * Renders the login form
    * @access private
    */
-  render(){
+  render() {
     return (<div className="row">
         <Helmet
           title="Login"
@@ -29,14 +29,14 @@ class UserLogin extends React.Component{
               <input className="validate" type="password" name="password" required />
               <label htmlFor="email">Your password</label>
             </div>
-            <div className="left-align"><Link to={"forgot-password"}>Forgot password?</Link></div>
+            <div className="left-align"><Link to={'forgot-password'}>Forgot password?</Link></div>
             <div className="expanded button-group">
-              <Link to={"register"} className="waves-effect waves-teal btn-flat">Register</Link>
-              <input type="submit" value="Login" className="btn waves-effect waves-light"></input>
+              <Link to={'register'} className="waves-effect waves-teal btn-flat">Register</Link>
+              <input type="submit" value="Login" className="btn waves-effect waves-light" />
             </div>
           </form>
         </div>
-      </div>)
+      </div>);
   }
 
   /**
@@ -44,15 +44,15 @@ class UserLogin extends React.Component{
    * @access private
    * @param {event} e Submit event from the form
    */
-  login(e){
-    e.preventDefault()
+  login(e) {
+    e.preventDefault();
 
-    let email = e.target.email.value
-    let password = e.target.password.value
+    const email = e.target.email.value;
+    const password = e.target.password.value;
 
-    const {loginUser} = this.props
-    loginUser(email, password)
+    const { loginUser } = this.props;
+    loginUser(email, password);
   }
 }
 
-export default UserLogin
+export default UserLogin;

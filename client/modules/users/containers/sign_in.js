@@ -1,19 +1,19 @@
-import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
 
 import SignIn from '../components/sign_in.jsx';
 
-export const composer = ({context, clearErrors}, onData) => {
-  const {LocalState} = context()
-  const error = LocalState.get('LOGIN_ERROR')
-  onData(null, {error})
+export const composer = ({ context, clearErrors }, onData) => {
+  const { LocalState } = context();
+  const error = LocalState.get('LOGIN_ERROR');
+  onData(null, { error });
 
-  return clearErrors()
+  return clearErrors();
 };
 
 export const depsMapper = (context, actions) => ({
   loginUser: actions.user.login,
   clearErrors: actions.user.clearErrors,
-  context: () => context
+  context: () => context,
 });
 
 export default composeAll(

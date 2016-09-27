@@ -1,17 +1,17 @@
-const {describe, it} = global;
-import {expect} from 'chai';
-import {shallow} from 'enzyme';
+const { describe, it } = global;
+import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import proxyquire from 'proxyquire';
-import {spy, stub} from 'sinon';
+import { spy, stub } from 'sinon';
 
 const Materialize = {
-  toast: spy()
-}
+  toast: spy(),
+};
 
 // Get the component
-const {SettungsEmail} = proxyquire('../settings_email', {
-  'meteor/poetic:materialize-scss' : {Materialize, '@noCallThru': true},
-})
+const { SettungsEmail } = proxyquire('../settings_email', {
+  'meteor/poetic:materialize-scss': { Materialize, '@noCallThru': true },
+});
 
 describe('users.components.settings_email', () => {
   it('should do something');

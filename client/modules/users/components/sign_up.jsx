@@ -1,35 +1,35 @@
-import React from 'react'
-import {Link} from 'react-router'
-import Error from '../../core/components/error.jsx'
-import Helmet from 'react-helmet'
+import React from 'react';
+import { Link } from 'react-router';
+import Error from '../../core/components/error.jsx';
+import Helmet from 'react-helmet';
 
 /**
  * @class component UserRegister
  * @classdesc User registration form.
  */
-class UserRegister extends React.Component{
+class UserRegister extends React.Component {
   /**
    * Registers a new user in the system.
    * @access private
    * @param {event} e Submit event from form
    */
-  register(e){
-    e.preventDefault()
-    //get the data
-    let username = e.target.username.value
-    let email = e.target.email.value
-    let password = e.target.password.value
-    let password2 = e.target.password2.value
+  register(e) {
+    e.preventDefault();
+    // get the data
+    const username = e.target.username.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const password2 = e.target.password2.value;
 
-    const {create} = this.props
+    const { create } = this.props;
 
-    create(username, email, password, password2)
+    create(username, email, password, password2);
   }
   /**
    * Render the registration form.
    * @access private
    */
-  render(){
+  render() {
     return (
       <div className="row">
         <Helmet
@@ -56,13 +56,13 @@ class UserRegister extends React.Component{
               <label htmlFor="password2">Repeat your password</label>
             </div>
             <div className="expanded button-group">
-              <Link to={"login"} className="waves-effect waves-teal btn-flat">Login</Link>
-              <input type="submit" value="Create account" className="btn waves-effect"></input>
+              <Link to={'login'} className="waves-effect waves-teal btn-flat">Login</Link>
+              <input type="submit" value="Create account" className="btn waves-effect" />
             </div>
           </form>
         </div>
-      </div>)
+      </div>);
   }
 }
 
-export default UserRegister
+export default UserRegister;

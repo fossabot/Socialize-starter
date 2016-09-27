@@ -1,32 +1,32 @@
-import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
 
 import EmailVerify from '../components/email_verify.jsx';
 
-export const composer = ({context, location, verify, clearErrors}, onData) => {
-  const {LocalState} = context();
+export const composer = ({ context, location, verify, clearErrors }, onData) => {
+  const { LocalState } = context();
 
-  let {token} = location.query
+  let { token } = location.query;
 
   // TODO figure out why we get invalid 3D at the beginning of every token
-  if(token[0] === "3" && token[1] === "D"){
-    token = token.substr(2)
+  if (token[0] === '3' && token[1] === 'D') {
+    token = token.substr(2);
   }
 
-  verify(token)
-  
-  let error = LocalState.get('ACCOUNTS_ERROR_EMAIL_VERIFYCATION')
-  let success = LocalState.get('ACCOUNTS_SUCCESS_EMAIL_VERIFYCATION')
+  verify(token);
 
-  onData(null, {success, error});
+  const error = LocalState.get('ACCOUNTS_ERROR_EMAIL_VERIFYCATION');
+  const success = LocalState.get('ACCOUNTS_SUCCESS_EMAIL_VERIFYCATION');
+
+  onData(null, { success, error });
   if (!success && !error) {
-    return clearErrors()
+    return clearErrors();
   }
 };
 
 export const depsMapper = (context, actions) => ({
   context: () => context,
   verify: actions.user.verifyEmail,
-  clearErrors: actions.user.clearErrors
+  clearErrors: actions.user.clearErrors,
 });
 
 export default composeAll(

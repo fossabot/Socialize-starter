@@ -1,22 +1,22 @@
-import React from 'react'
-import moment from 'moment'
-import NewFeedPost from '../components/feed_new_post.jsx'
-import {Link} from 'react-router'
+import React from 'react';
+import moment from 'moment';
+import NewFeedPost from '../components/feed_new_post.jsx';
+import { Link } from 'react-router';
 
-class UserFeed extends React.Component{
+class UserFeed extends React.Component {
 /*
   propTypes:{
     userId: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.bool])
   }
 */
 
-  liking(post){
-    const {likePost, unlikePost} = this.props
+  liking(post) {
+    const { likePost, unlikePost } = this.props;
 
-    if(post.isLikedBy(Meteor.user())){
-      unlikePost(post._id)
+    if (post.isLikedBy(Meteor.user())) {
+      unlikePost(post._id);
     } else {
-      likePost(post._id)
+      likePost(post._id);
     }
   }
 
@@ -24,14 +24,14 @@ class UserFeed extends React.Component{
    * List individual post
    * @access private
    */
-  listPost(){
-    let {posts} = this.props
-    if(posts !== undefined && posts !== null){
-      if(posts.length > 0){
-        return posts.map((post)=>{
-          return <div key={post._id} className="row card-panel hoverable">
+  listPost() {
+    const { posts } = this.props;
+    if (posts !== undefined && posts !== null) {
+      if (posts.length > 0) {
+        return posts.map((post) => {
+          return (<div key={post._id} className="row card-panel hoverable">
             <div className="col s2 center-align">
-              <Link to={"users/"+ post.poster().username} >
+              <Link to={'users/' + post.poster().username} >
                 <i className="material-icons">account_circle</i><br />
                 {post.poster().username}
               </Link>
@@ -41,10 +41,10 @@ class UserFeed extends React.Component{
               {moment(post.date).fromNow()}<br />
               <span className="link" onClick={this.liking.bind(this, post)}>{post.likeCount()} <i className="material-icons">favorite</i></span>
             </div>
-          </div>
-        })
+          </div>);
+        });
       } else {
-        return <div>No entries in the feed.</div>
+        return <div>No entries in the feed.</div>;
       }
     }
   }
@@ -53,27 +53,27 @@ class UserFeed extends React.Component{
    * Show additional posts
    * @access private
    */
-  extendLimit(e){
-    let current = LocalState.get('USER_FEED_POST_LIMIT')
-    LocalState.set('USER_FEED_POST_LIMIT', current + 10)
+  extendLimit(e) {
+    const current = LocalState.get('USER_FEED_POST_LIMIT');
+    LocalState.set('USER_FEED_POST_LIMIT', current + 10);
   }
 
-  render(){
-    let addToLimit
-    let {posts} = this.props
-    if(posts !== undefined && posts !== null){
-      if(posts.length > 10){
-        addToLimit = <div className="align-center">
+  render() {
+    let addToLimit;
+    const { posts } = this.props;
+    if (posts !== undefined && posts !== null) {
+      if (posts.length > 10) {
+        addToLimit = (<div className="align-center">
           <a className="btn waves-effect waves-light" onClick={this.extendLimit}>Show more</a>
-        </div>
+        </div>);
       }
     }
 
-    return <div>
+    return (<div>
       {this.listPost()}
       {addToLimit}
-    </div>
+    </div>);
   }
 }
 
-export default UserFeed
+export default UserFeed;

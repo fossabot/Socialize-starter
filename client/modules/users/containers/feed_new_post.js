@@ -1,16 +1,16 @@
-import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
 
 import FeedNewPost from '../components/feed_new_post.jsx';
 
-export const composer = ({context}, onData) => {
-  const {LocalState} = context()
-  const error = LocalState.get('FEED_ADD_ERROR')
-  onData(null, {error});
+export const composer = ({ context }, onData) => {
+  const { LocalState } = context();
+  const error = LocalState.get('FEED_ADD_ERROR');
+  onData(null, { error });
 };
 
 export const depsMapper = (context, actions) => ({
   addPost: actions.feed.add,
-  context: () => context
+  context: () => context,
 });
 
 export default composeAll(

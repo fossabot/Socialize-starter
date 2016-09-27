@@ -1,29 +1,29 @@
-import React from 'react'
-import Helmet from 'react-helmet'
-import Error from '../../core/components/error.jsx'
+import React from 'react';
+import Helmet from 'react-helmet';
+import Error from '../../core/components/error.jsx';
 
 /**
  * @class component ForgotPassword
  * @classdesc A form to fill in e-mail to send reset password link to.
  */
-export default class ForgotPassword extends React.Component{
-  constructor(props){
-    super(props)
-    this.sendReset = this.sendReset.bing(this)
+export default class ForgotPassword extends React.Component {
+  constructor(props) {
+    super(props);
+    this.sendReset = this.sendReset.bing(this);
   }
 
-  sendReset(e){
-    e.preventDefault()
+  sendReset(e) {
+    e.preventDefault();
 
-    let email = e.target.email.value
+    const email = e.target.email.value;
 
-    const {resetPasswordEmail} = this.props
-    resetPasswordEmail(email)
-    e.target.reset()
+    const { resetPasswordEmail } = this.props;
+    resetPasswordEmail(email);
+    e.target.reset();
   }
 
-  render(){
-    return <form method="post" onSubmit={this.sendReset} className="row">
+  render() {
+    return (<form method="post" onSubmit={this.sendReset} className="row">
       <Helmet
         title="Forgot password"
       />
@@ -37,6 +37,6 @@ export default class ForgotPassword extends React.Component{
       <div className="input-field col s12 m2">
         <input type="submit" value="submit" className="btn waves-effect waves-light" />
       </div>
-    </form>
+    </form>);
   }
 }

@@ -1,31 +1,31 @@
-import React from 'react'
-import {Link} from 'react-router'
-import Helmet from 'react-helmet'
+import React from 'react';
+import { Link } from 'react-router';
+import Helmet from 'react-helmet';
 
-export default class UserListing extends React.Component{
-  constructor(props){
-    super(props)
+export default class UserListing extends React.Component {
+  constructor(props) {
+    super(props);
   }
 
-  render(){
-    let list = this.props.users.map((user)=>{
-      return <Link to={"users/" + user.username} key={user._id} className="collection-item"><i className="material-icons">account_circle</i> {user.username}</Link>
-    })
+  render() {
+    const list = this.props.users.map((user) => {
+      return <Link to={'users/' + user.username} key={user._id} className="collection-item"><i className="material-icons">account_circle</i> {user.username}</Link>;
+    });
 
-    let {page, totalUsers, limit} = this.props
-    let previousPage, nextPage
+    let { page, totalUsers, limit } = this.props;
+    let previousPage, nextPage;
 
-    page = Number(page)
+    page = Number(page);
 
-    if(page > 1){
-      previousPage = <li><Link to={"users?page=" + (page-1)}><i className="material-icons">chevron_left</i></Link></li>
+    if (page > 1) {
+      previousPage = <li><Link to={'users?page=' + (page - 1)}><i className="material-icons">chevron_left</i></Link></li>;
     }
 
-    if(totalUsers >= (page * limit)){
-      nextPage = <li><Link to={"users?page=" + (page+1)}><i className="material-icons">chevron_right</i></Link></li>
+    if (totalUsers >= (page * limit)) {
+      nextPage = <li><Link to={'users?page=' + (page + 1)}><i className="material-icons">chevron_right</i></Link></li>;
     }
 
-    return <div>
+    return (<div>
       <Helmet
         title="Users"
       />
@@ -37,6 +37,6 @@ export default class UserListing extends React.Component{
         {previousPage}
         {nextPage}
       </ul>
-    </div>
+    </div>);
   }
 }

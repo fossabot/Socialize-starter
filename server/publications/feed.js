@@ -1,22 +1,22 @@
-import {Meteor} from 'meteor/meteor'
-import {SimpleSchema} from 'meteor/aldeed:simple-schema'
-import {check} from 'meteor/check'
+import { Meteor } from 'meteor/meteor';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { check } from 'meteor/check';
 
-export default function(){
-  let publicationOptionsSchema = new SimpleSchema({
-    limit:{
+export default function () {
+  const publicationOptionsSchema = new SimpleSchema({
+    limit: {
       type: Number,
-      optional: true
+      optional: true,
     },
-    skip:{
+    skip: {
       type: Number,
-      optional: true
+      optional: true,
     },
-    sort:{
+    sort: {
       type: Number,
-      optional: true
-    }
-  })
+      optional: true,
+    },
+  });
 
   /**
    * Feed for the current user
@@ -24,56 +24,56 @@ export default function(){
    * @param {object} options
    * @returns {pointer}
    */
-  Meteor.publishComposite('feed', function(options){
-    options = options || {}
+  Meteor.publishComposite('feed', function (options) {
+    options = options || {};
 
-    check(options, publicationOptionsSchema)
+    check(options, publicationOptionsSchema);
 
-    let friendMap
+    let friendMap;
 
-    if(!this.userId){
-      return this.ready()
+    if (!this.userId) {
+      return this.ready();
     }
 
-    //only allow the limit, skip and sort options
-    options = _.pick(options, "limit", "skip", "sort")
+    // only allow the limit, skip and sort options
+    options = _.pick(options, 'limit', 'skip', 'sort');
 
-    friendMap = Meteor.friends.find({userId:this.userId}, {fields:{friendId:true}}).map(function(friend){
-      return friend.friendId
-    })
+    friendMap = Meteor.friends.find({ userId: this.userId }, { fields: { friendId: true } }).map((friend) => {
+      return friend.friendId;
+    });
 
-    friendMap.push(this.userId)
+    friendMap.push(this.userId);
 
     return {
-      find: function(){
-        return Meteor.posts.find({$or:[{userId:{$in:friendMap}}, {posterId:{$in:friendMap}}]}, options)
+      find() {
+        return Meteor.posts.find({ $or: [{ userId: { $in: friendMap } }, { posterId: { $in: friendMap } }] }, options);
       },
       children: [
         {
-          find: function(post){
-            return Meteor.comments.find({linkedObjectId: post._id} , {sort:{date:-1}, limit:3})
+          find(post) {
+            return Meteor.comments.find({ linkedObjectId: post._id }, { sort: { date: -1 }, limit: 3 });
           },
           children: [
             {
-              find: function(comment){
-                return Meteor.users.find({_id: comment.userId} , {fields:{username:true}})
-              }
-            }
-          ]
+              find(comment) {
+                return Meteor.users.find({ _id: comment.userId }, { fields: { username: true } });
+              },
+            },
+          ],
         },
         {
-          find: function(post){
-            return Meteor.likes.find({linkedObjectId: post._id} , {fields: {linkedObjectId: true, userId: true, date: true}})
-          }
+          find(post) {
+            return Meteor.likes.find({ linkedObjectId: post._id }, { fields: { linkedObjectId: true, userId: true, date: true } });
+          },
         },
         {
-          find: function(post) {
-            return Meteor.users.find({ _id: post.posterId }, { fields: { username: true } })
-          }
-        }
-      ]
-    }
-  })
+          find(post) {
+            return Meteor.users.find({ _id: post.posterId }, { fields: { username: true } });
+          },
+        },
+      ],
+    };
+  });
 
   /**
    * Post for a particular user
@@ -82,48 +82,48 @@ export default function(){
    * @param {object} options
    * @returns {pointer}
    */
-  Meteor.publishComposite('feed.posts', function(userId, options) {
-    check(userId, String)
+  Meteor.publishComposite('feed.posts', function (userId, options) {
+    check(userId, String);
 
-    options = options || {}
+    options = options || {};
 
-    check(options, publicationOptionsSchema)
+    check(options, publicationOptionsSchema);
 
-    if(!userId){
-      return this.ready()
+    if (!userId) {
+      return this.ready();
     }
 
-    //only allow the limit, skip and sort options
-    options = _.pick(options, "limit", "skip", "sort")
+    // only allow the limit, skip and sort options
+    options = _.pick(options, 'limit', 'skip', 'sort');
 
     return {
-      find: function(){
-        return Meteor.posts.find({$or:[{userId:userId}, {posterId:userId}]}, options)
+      find() {
+        return Meteor.posts.find({ $or: [{ userId }, { posterId: userId }] }, options);
       },
       children: [
         {
-          find: function(post){
-            return Meteor.comments.find({linkedObjectId: post._id} , {sort:{date:-1}, limit:3})
+          find(post) {
+            return Meteor.comments.find({ linkedObjectId: post._id }, { sort: { date: -1 }, limit: 3 });
           },
           children: [
             {
-              find: function(comment){
-                return Meteor.users.find({_id: comment.userId} , {fields:{username:true}})
-              }
-            }
-          ]
+              find(comment) {
+                return Meteor.users.find({ _id: comment.userId }, { fields: { username: true } });
+              },
+            },
+          ],
         },
         {
-          find: function(post){
-            return Meteor.likes.find({linkedObjectId: post._id} , {fields: {linkedObjectId: true, userId: true, date: true}})
-          }
+          find(post) {
+            return Meteor.likes.find({ linkedObjectId: post._id }, { fields: { linkedObjectId: true, userId: true, date: true } });
+          },
         },
         {
-          find: function(post) {
-            return Meteor.users.find({ _id: post.posterId }, { fields: { username: true } })
-          }
-        }
-      ]
-    }
-  })
+          find(post) {
+            return Meteor.users.find({ _id: post.posterId }, { fields: { username: true } });
+          },
+        },
+      ],
+    };
+  });
 }

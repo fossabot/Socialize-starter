@@ -1,5 +1,5 @@
-import React from 'react'
-import Helmet from 'react-helmet'
+import React from 'react';
+import Helmet from 'react-helmet';
 
 const Homepage = () => (
   <div>
@@ -45,7 +45,7 @@ const Homepage = () => (
           <p className="white-text">Facebook like feed to allow users post what they think and interact with others.</p>
         </div>
       </div>
-      
+
       <div className="col s12 m6">
         <div className="card-panel blue-grey darken-1">
           <h4 className="white-text">Beta signup</h4>
@@ -85,6 +85,6 @@ const Homepage = () => (
 
     </section>
   </div>
-)
+);
 
-export default Homepage
+export default Homepage;

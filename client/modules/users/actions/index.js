@@ -5,5 +5,5 @@ import settings from './settings';
 export default {
   user,
   feed,
-  settings
+  settings,
 };

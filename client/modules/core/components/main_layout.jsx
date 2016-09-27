@@ -3,16 +3,16 @@ import Helmet from 'react-helmet';
 import Footer from './footer.jsx';
 import Navigation from '../containers/navigation.js';
 
-const Layout = (props) => (
+const Layout = props => (
   <div id="app">
 
     <Helmet
       titleTemplate="Socialize - %s"
-      base={{"target": "_blank", "href": "http://localhost:3000/"}}
+      base={{ target: '_blank', href: 'http://localhost:3000/' }}
       meta={[
-        {"name": "description", "content": "Meteor starter app with social features."},
-        {"name": "author", "content": "Jan Dvorak IV."}
-      ]} 
+        { name: 'description', content: 'Meteor starter app with social features.' },
+        { name: 'author', content: 'Jan Dvorak IV.' },
+      ]}
     />
 
     <Navigation />

@@ -1,8 +1,8 @@
-import {Meteor} from 'meteor/meteor'
-import sanitizeHtml from 'sanitize-html'
-import {check} from 'meteor/check'
+import { Meteor } from 'meteor/meteor';
+import sanitizeHtml from 'sanitize-html';
+import { check } from 'meteor/check';
 
-export default function(){
+export default function () {
   Meteor.methods({
     /**
      * Updates user's avatar
@@ -10,13 +10,13 @@ export default function(){
      * @param {string} avatar
      * @returns {boolean}
      */
-    'profile.avatar.update'(avatar){
-      check(avatar, String)
-      let result = Meteor.profiles.update({userId: Meteor.userId()}, {$set: {avatar: avatar}})
-      if(result){
-        return true
+    'profile.avatar.update': function (avatar) {
+      check(avatar, String);
+      const result = Meteor.profiles.update({ userId: Meteor.userId() }, { $set: { avatar } });
+      if (result) {
+        return true;
       } else {
-        return false
+        return false;
       }
     },
     /**
@@ -25,14 +25,14 @@ export default function(){
      * @param {string} bio
      * @returns {boolean}
      */
-    'profile.biography.update'(bio){
-      check(bio, String)
-      bio = sanitizeHtml(bio)
-      let result = Meteor.profiles.update({userId: Meteor.userId()}, {$set: {biography: bio}})
-      if(result){
-        return true
+    'profile.biography.update': function (bio) {
+      check(bio, String);
+      bio = sanitizeHtml(bio);
+      const result = Meteor.profiles.update({ userId: Meteor.userId() }, { $set: { biography: bio } });
+      if (result) {
+        return true;
       } else {
-        return false
+        return false;
       }
     },
     /**
@@ -41,18 +41,18 @@ export default function(){
      * @param {object} names object containing the given and family name {given: "firstname", family: "surname"}
      * @returns {boolean}
      */
-    'profile.name.update'(names){
+    'profile.name.update': function (names) {
       check(names, {
         given: String,
-        family: String
-      })
+        family: String,
+      });
 
-      let result = Meteor.profiles.update({userId: Meteor.userId()}, {$set: {givenName: sanitizeHtml(names.given), familyName: sanitizeHtml(names.family)}})
+      const result = Meteor.profiles.update({ userId: Meteor.userId() }, { $set: { givenName: sanitizeHtml(names.given), familyName: sanitizeHtml(names.family) } });
 
-      if(result){
-        return true
+      if (result) {
+        return true;
       } else {
-        return false
+        return false;
       }
     },
     /**
@@ -60,8 +60,8 @@ export default function(){
      * @function call users.count
      * @returns {Number}
      */
-    'users.count'(){
-      return Meteor.users.find().count()
-    }
-  })
+    'users.count': function () {
+      return Meteor.users.find().count();
+    },
+  });
 }

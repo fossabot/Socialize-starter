@@ -6,5 +6,5 @@ export default {
   load(context) {
 
   },
-  reducer
+  reducer,
 };
