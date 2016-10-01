@@ -10,12 +10,18 @@ export default class NavUser extends React.Component {
 
   showAvatar() {
     // show user avatar
+    /*
     if (false) {
       // TODO show small version of user avatar
-      return (<img className="circle responsive-img" src="/images/avatars/{this.props.userAvatar}" />);
+      return (<img
+        className="circle responsive-img"
+        alt="Your avatar"
+        src={'/images/avatars/' + this.props.avatarUrl}
+      />);
     } else {
-      return (<i className="material-icons">account_circle</i>);
-    }
+    */
+    return (<i className="material-icons">account_circle</i>);
+    // }
   }
 
   render() {
@@ -23,13 +29,30 @@ export default class NavUser extends React.Component {
       <nav role="navigation">
         <div className="nav-wrapper container">
           <ul className="left">
-            <li><Link to={'#'} data-activates="slide-out" className="button-collapse show-on-large"><i className="material-icons">menu</i></Link></li>
+            <li>
+              <Link to={'#'} data-activates="slide-out" className="button-collapse show-on-large">
+                <i className="material-icons">menu</i>
+              </Link>
+            </li>
             <li><Link to={'/dashboard'} id="pageName" className="brand-logo">Socialize starter</Link></li>
           </ul>
           <ul className="right">
-            <li className="hide-on-small-only"><Link to={'/dashboard'} className="waves-effect"><i className="material-icons">dashboard</i></Link></li>
-            <li className="hide-on-med-and-down"><Link to={'/pm'} className="waves-effect"><i className="material-icons">mail</i></Link></li>
-            <li><a title="Options" className="dropdown-button waves-effect" data-activates="user-dropdown" href="#!">{this.showAvatar()}</a></li>
+            <li className="hide-on-small-only">
+              <Link to={'/dashboard'} className="waves-effect"><i className="material-icons">dashboard</i></Link>
+            </li>
+            <li className="hide-on-med-and-down">
+              <Link to={'/pm'} className="waves-effect"><i className="material-icons">mail</i></Link>
+            </li>
+            <li>
+              <a
+                title="Options"
+                className="dropdown-button waves-effect"
+                data-activates="user-dropdown"
+                href="#!"
+              >
+                {this.showAvatar()}
+              </a>
+            </li>
           </ul>
           <ul id="user-dropdown" className="dropdown-content">
             <li><Link className="waves-effect" to={'/user'}>Profile</Link></li>
@@ -44,6 +67,6 @@ export default class NavUser extends React.Component {
           <li><Link to={'/logout'}>Logout</Link></li>
         </ul>
       </nav>
-  </header>);
+    </header>);
   }
 }

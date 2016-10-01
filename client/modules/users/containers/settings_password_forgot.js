@@ -1,4 +1,4 @@
-import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker } from 'mantra-core';
 
 import SettingsPasswordForgot from '../components/settings_password_forgot.jsx';
 

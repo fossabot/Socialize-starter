@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { User } from 'meteor/socialize:user-model';
+import { Conversation } from 'meteor/socialize:messaging';
 
 export default function () {
   const publicationOptionsSchema = new SimpleSchema({
@@ -25,8 +27,17 @@ export default function () {
    */
   Meteor.publish('pm.users.search', (query, excluded) => {
     check(query, String);
-    check(excluded, [String]);
-    return Meteor.users.find({ username: { $regex: query, $options: 'i' }, _id: { $nin: excluded } }, { fields: { username: 1, roles: 1 }, limit: 10 });
+    check(excluded, [ String ]);
+    return Meteor.users.find({
+      username: { $regex: query, $options: 'i' },
+      _id: { $nin: excluded } },
+      { fields:
+        { username: 1,
+          roles: 1,
+        },
+        limit: 10,
+      }
+    );
   });
 
   /**
@@ -71,15 +82,13 @@ export default function () {
    * These will be activated once the socialize package is updated to exclude these.
    */
   Meteor.publishComposite('conversations', function (options) {
-    let currentUser;
-
     if (!this.userId) {
       return this.ready();
     }
 
     options = options || {};
 
-    options = _.pick(options, ['limit', 'skip']);
+    options = _.pick(options, [ 'limit', 'skip' ]);
 
     check(options, publicationOptionsSchema);
 

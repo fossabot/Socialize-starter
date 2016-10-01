@@ -1,9 +1,9 @@
-import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker } from 'mantra-core';
 
 import ConversationReply from '../components/conversation_reply.jsx';
 
 export const composer = ({ context, conversationId }, onData) => {
-  const { Meteor, MessagesSubs, LocalState } = context();
+  const { Meteor, MessagesSubs } = context();
 
   if (conversationId) {
     if (MessagesSubs.subscribe('conversation', conversationId).ready()) {
@@ -29,7 +29,7 @@ export const composer = ({ context, conversationId }, onData) => {
   }
 };
 
-export const depsMapper = (context, actions) => ({
+export const depsMapper = (context) => ({
   context: () => context,
 });
 

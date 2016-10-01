@@ -27,3 +27,8 @@ export default class EmailVerify extends React.Component {
     </div>);
   }
 }
+
+EmailVerify.propTypes = {
+  error: React.PropTypes.string,
+  success: React.PropTypes.string,
+};

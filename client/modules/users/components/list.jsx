@@ -9,20 +9,31 @@ export default class UserListing extends React.Component {
 
   render() {
     const list = this.props.users.map((user) => {
-      return <Link to={'users/' + user.username} key={user._id} className="collection-item"><i className="material-icons">account_circle</i> {user.username}</Link>;
+      return (<Link to={'users/' + user.username} key={user._id} className="collection-item">
+        <i className="material-icons">account_circle</i> {user.username}
+      </Link>);
     });
 
     let { page, totalUsers, limit } = this.props;
-    let previousPage, nextPage;
+    let previousPage;
+    let nextPage;
 
     page = Number(page);
 
     if (page > 1) {
-      previousPage = <li><Link to={'users?page=' + (page - 1)}><i className="material-icons">chevron_left</i></Link></li>;
+      previousPage = (<li>
+        <Link to={'users?page=' + (page - 1)}>
+          <i className="material-icons">chevron_left</i>
+        </Link>
+      </li>);
     }
 
     if (totalUsers >= (page * limit)) {
-      nextPage = <li><Link to={'users?page=' + (page + 1)}><i className="material-icons">chevron_right</i></Link></li>;
+      nextPage = (<li>
+        <Link to={'users?page=' + (page + 1)}>
+          <i className="material-icons">chevron_right</i>
+        </Link>
+      </li>);
     }
 
     return (<div>
@@ -40,3 +51,10 @@ export default class UserListing extends React.Component {
     </div>);
   }
 }
+
+UserListing.propTypes = {
+  limit: React.PropTypes.number.isRequired,
+  page: React.PropTypes.string, // comes in from url params as string
+  totalUsers: React.PropTypes.number.isRequired,
+  users: React.PropTypes.array,
+};

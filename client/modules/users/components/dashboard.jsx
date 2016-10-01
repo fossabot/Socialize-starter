@@ -11,6 +11,7 @@ export default class UserDashboard extends React.Component {
   render() {
     return (<div>
       <Helmet title="Dashboard" />
+
       <section className="row">
         <div className="col s6 m4 l3 center-align">
           <div className="card hoverable indigo lighten-1 waves-effect waves-block waves-light">
@@ -89,15 +90,15 @@ export default class UserDashboard extends React.Component {
             </Link>
           </div>
         </div>
-    </section>
+      </section>
 
-    <h5>What's new</h5>
-    <section className="row">
-      <DashboardFriends />
-    </section>
-    <hr />
-    <NewFeedPost />
-    <UserFeed userId={false} />
-  </div>);
+      <h5>What is new</h5>
+      <section className="row">
+        <DashboardFriends />
+      </section>
+      <hr />
+      <NewFeedPost />
+      <UserFeed userId={false} />
+    </div>);
   }
 }

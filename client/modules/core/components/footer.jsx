@@ -8,10 +8,10 @@ export default class Footer extends React.Component {
   render() {
     return (<footer className="page-footer">
       <div className="footer-copyright">
-          <div className="container">
+        <div className="container">
           © {this.thisYear()} All rights reserved, all texts belong to their respective authors.
-          </div>
         </div>
+      </div>
     </footer>);
   }
 }

@@ -1,12 +1,18 @@
-import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker } from 'mantra-core';
+import { browserHistory } from 'react-router';
 
 import ConversationMessages from '../components/conversation_messages.jsx';
 
-export const composer = ({ context }, onData) => {
+export const composer = ({ context, params, clearErrors }, onData) => {
   const { Meteor, LocalState, MessagesSubs } = context();
+
+  let msgLimit = LocalState.get('MESSAGING_LIMIT');
+
+  let conversationId = params.conversationId;
 
   if (!msgLimit) {
     msgLimit = 10;
+    LocalState.set('MESSAGING_LIMIT', 10);
   }
 
   if (conversationId) {
@@ -32,11 +38,11 @@ export const composer = ({ context }, onData) => {
         // unsubscribe
         MessagesSubs.stop();
         // redirect back
-        // FlowRouter.go("pmOverview")
+        browserHistory.push('/pm');
       }
     }
   } else {
-    // FlowRouter.go("pmOverview")
+    browserHistory.push('/pm');
   }
 
   return clearErrors;
@@ -44,6 +50,7 @@ export const composer = ({ context }, onData) => {
 
 export const depsMapper = (context, actions) => ({
   context: () => context,
+  clearErrors: actions.messages.clearErrors,
 });
 
 export default composeAll(

@@ -19,11 +19,15 @@ export default class UserSearch extends React.Component {
     e.preventDefault();
     const query = e.target.value;
     if (query.length > 2) {
-      const results = Meteor.subscribe('pm.users.search', query, [Meteor.userId()], () => {
+      const results = Meteor.subscribe('pm.users.search', query, [ Meteor.userId() ], () => {
         this.setState({
-          results: Meteor.users.find({ username: { $regex: query, $options: 'i' }, _id: { $nin: [Meteor.userId()] } }, { fields: { username: 1, roles: 1 } }).fetch(),
+          results: Meteor.users.find({
+            username: { $regex: query, $options: 'i' },
+            _id: { $nin: [ Meteor.userId() ] },
+          }, { fields: { username: 1, roles: 1 } }).fetch(),
         });
       });
+
       if (results.ready() === false) {
         this.setState({
           results: false,
@@ -45,7 +49,9 @@ export default class UserSearch extends React.Component {
 
     // no return back stuff
     return results.map((user) => {
-      return <Link key={user._id} to={'/users/' + user.username} className="collection-item"><i className="material-icons">account_circle</i> {user.username}</Link>;
+      return (<Link key={user._id} to={'/users/' + user.username} className="collection-item">
+        <i className="material-icons">account_circle</i> {user.username}
+      </Link>);
     });
   }
 
@@ -54,11 +60,11 @@ export default class UserSearch extends React.Component {
       <Helmet
         title="Search for users"
       />
-        <div className="input-field col s12">
-          <i className="material-icons prefix">search</i>
-          <input type="text" name="search" id="search" onKeyUp={this.search.bind(this)} />
-          <label htmlFor="search">Search</label>
-        </div>
+      <div className="input-field col s12">
+        <i className="material-icons prefix">search</i>
+        <input type="text" name="search" id="search" onKeyUp={this.search.bind(this)} />
+        <label htmlFor="search">Search</label>
+      </div>
       <div className="collection">
         {this.showResults()}
       </div>

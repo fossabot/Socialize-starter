@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { Profile } from 'meteor/socialize:user-profile';
 
 export default function () {
   /**
@@ -32,6 +32,6 @@ export default function () {
    */
   Meteor.publish('profile.for', (userIdOrUsername) => {
     check(userIdOrUsername, String);
-    return Profile.collection.find({ $or: [{ userId: userIdOrUsername }, { username: userIdOrUsername }] });
+    return Profile.collection.find({ $or: [ { userId: userIdOrUsername }, { username: userIdOrUsername } ] });
   });
 }

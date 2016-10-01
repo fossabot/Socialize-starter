@@ -16,9 +16,9 @@ export default {
     }
 
     Accounts.createUser({ email, username, password }, (error) => {
-      /* TODO: figure out why we are getting "Content is required" error here even though the user gets created successfully*/
+      /* TODO: figure out why we are getting "Content is required"
+      error here even though the user gets created successfully*/
       if (error) {
-        console.log(error);
         return LocalState.set('CREATE_USER_ERROR', error.reason);
       } else {
         browserHistory.push('dashboard');
@@ -35,7 +35,6 @@ export default {
 
     Meteor.loginWithPassword(email, password, (error) => {
       if (error !== undefined) {
-        console.log(error);
         LocalState.set('LOGIN_ERROR', error.reason);
       } else {
         browserHistory.push('dashboard');
@@ -57,17 +56,17 @@ export default {
         LocalState.set('ACCOUNTS_ERROR_BETA_SIGNUP', error.reason);
       }
       if (result) {
-        Meteor.call('app.beta.username.unique', username, (error, result) => {
-          if (error) {
-            LocalState.set('ACCOUNTS_ERROR_BETA_SIGNUP', error.reason);
+        Meteor.call('app.beta.username.unique', username, (err, res) => {
+          if (err) {
+            LocalState.set('ACCOUNTS_ERROR_BETA_SIGNUP', err.reason);
           }
-          if (result) {
-            Meteor.call('app.beta.signup', name, username, email, reason, (error, result) => {
-              if (error) {
-                LocalState.set('ACCOUNTS_ERROR_BETA_SIGNUP', error.reason);
+          if (res) {
+            Meteor.call('app.beta.signup', name, username, email, reason, (er, rst) => {
+              if (er) {
+                LocalState.set('ACCOUNTS_ERROR_BETA_SIGNUP', er.reason);
               }
-              if (result) {
-                LocalState.set('ACCOUNTS_SUCCESS_BETA_SIGNUP', result);
+              if (rst) {
+                LocalState.set('ACCOUNTS_SUCCESS_BETA_SIGNUP', rst);
               }
             });
           } else {

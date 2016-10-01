@@ -1,4 +1,4 @@
-import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker } from 'mantra-core';
 
 import FeedNewPost from '../components/feed_new_post.jsx';
 

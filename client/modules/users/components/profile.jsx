@@ -4,20 +4,26 @@ import Helmet from 'react-helmet';
 
 import UserFeed from '../containers/feed.js';
 import NewFeedPost from '../containers/feed_new_post.js';
-// NOTE This was creating a very strange behavior where it would redirect user to a conversation (right after component mounted)
+// NOTE This was creating a very strange behavior where
+// it would redirect user to a conversation (right after component mounted)
 // import UserNewConversation from '../../messaging/components/conversation.jsx'
 
 export default class UserProfile extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.addActions.bind(this);
+    this.addActions = this.addActions.bind(this);
+    this.showAvatar = this.showAvatar.bind(this);
   }
 
   showAvatar() {
     // show user avatar
-    if (false) {
-      return (<img className="profile-picture responsive-img" src="/images/avatars/{this.props.profile.avatar}" />);
+    if (this.props.profile.avatarUrl) {
+      return (<img
+        className="profile-picture responsive-img"
+        src="/images/avatars/{this.props.profile.avatarUrl}"
+        alt={'Avatar for ' + this.props.profile.username}
+      />);
     } else {
       return (<i className="material-icons profile-picture">account_circle</i>);
     }
@@ -71,12 +77,30 @@ export default class UserProfile extends React.Component {
 
     // if friend request pending show cancel request button
     if (profileUser.hasRequestFrom(currentUser)) {
-      return <button onClick={this.cancelFriendshipRequest.bind(this)} className="btn waves-effect">Cancel friendship request</button>;
+      return (<button
+        onClick={this.cancelFriendshipRequest.bind(this)}
+        className="btn waves-effect"
+      >
+        Cancel friendship request
+      </button>);
     }
 
     // if friendship request from this user show accept or deny button
     if (currentUser.hasRequestFrom(profileUser)) {
-      return <span><button onClick={this.acceptFriendshipRequest.bind(this)} className="btn waves-effect">Accept friendship request</button><button onClick={this.denyFriendshipRequest.bind(this)} className="btn waves-effect">Deny friendship</button></span>;
+      return (<span>
+        <button
+          onClick={this.acceptFriendshipRequest.bind(this)}
+          className="btn waves-effect"
+        >
+          Accept friendship request
+        </button>
+        <button
+          onClick={this.denyFriendshipRequest.bind(this)}
+          className="btn waves-effect"
+        >
+          Deny friendship
+        </button>
+      </span>);
     }
 
     // if friends show unfriend button
@@ -95,7 +119,7 @@ export default class UserProfile extends React.Component {
     // if friends don't display anything
     if (!currentUser.isFriendsWith(profileUser)) {
       // has user been blocked by the current user?
-      if (false) {
+      if (currentUser.blocksUser(profileUser)) {
         // show unblock button
         return <button onClick={this.unblock.bind(this)} className="btn waves-effect">Unblock</button>;
       } else {
@@ -136,10 +160,10 @@ export default class UserProfile extends React.Component {
         title={profile.username}
       />
       <section className="card-panel">
-          <span className="profile-picture-box">{this.showAvatar()}</span>
-          <h1 className="profile-username">{profile.username}</h1>
-          <hr />
-          {this.addActions()}
+        <span className="profile-picture-box">{this.showAvatar()}</span>
+        <h1 className="profile-username">{profile.username}</h1>
+        <hr />
+        {this.addActions()}
       </section>
       <section className="row">
         <div className="col s12 m10 l9">
@@ -160,3 +184,9 @@ export default class UserProfile extends React.Component {
     </div>);
   }
 }
+
+UserProfile.propTypes = {
+  currentUser: React.PropTypes.object.isRequired,
+  profile: React.PropTypes.object.isRequired,
+  profileUser: React.PropTypes.object.isRequired,
+};

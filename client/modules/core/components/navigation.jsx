@@ -11,3 +11,11 @@ export default class Navigation extends React.Component {
     }
   }
 }
+
+Navigation.propTypes = {
+  user: React.PropTypes.object,
+};
+
+Navigation.defaultProps = {
+  user: null,
+};

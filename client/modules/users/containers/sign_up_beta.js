@@ -1,4 +1,4 @@
-import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker } from 'mantra-core';
 
 import SignUpBeta from '../components/sign_up_beta.jsx';
 

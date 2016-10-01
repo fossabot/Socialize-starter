@@ -30,3 +30,7 @@ const Layout = props => (
 );
 
 export default Layout;
+
+Layout.propTypes = {
+  children: React.PropTypes.object.isRequired,
+};

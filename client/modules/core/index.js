@@ -5,7 +5,7 @@ import reducer from './configs/reducer.js';
 export default {
   routes,
   actions,
-  load(context) {
+  load() {
 
   },
   reducer,

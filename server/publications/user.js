@@ -9,7 +9,11 @@ export default function () {
    */
   Meteor.publish('user.get', (userIdOrUsername) => {
     check(userIdOrUsername, String);
-    return Meteor.users.find({ $or: [{ _id: userIdOrUsername }, { username: userIdOrUsername }] }, { fields: { username: 1, createdAt: 1 } });
+    return Meteor.users.find(
+      { $or: [ { _id: userIdOrUsername },
+      { username: userIdOrUsername } ] },
+      { fields: { username: 1, createdAt: 1 } }
+    );
   });
 
   /**

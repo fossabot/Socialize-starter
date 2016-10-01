@@ -33,9 +33,9 @@ export default class UserConversationOverview extends React.Component {
 
         return (<li className="collection-item avatar" key={conversation._id}>
           <Link to={'pm/' + conversation._id} >
-          <i className="material-icons circle">mail</i>
-          <span className="title">{users}</span>
-          <p className="flow-text truncate">{lastMessage.user().username}: {lastMessage.body}</p>
+            <i className="material-icons circle">mail</i>
+            <span className="title">{users}</span>
+            <p className="flow-text truncate">{lastMessage.user().username}: {lastMessage.body}</p>
           </Link>
         </li>);
       });
@@ -55,9 +55,16 @@ export default class UserConversationOverview extends React.Component {
         title="Your messages"
       />
       <section className="row valign-wrapper">
-        <h1 className="col m11 l11"><Link to={'/dashboard'}><i className="material-icons">arrow_back</i></Link> Messages</h1>
+        <h1 className="col m11 l11">
+          <Link to={'/dashboard'}>
+            <i className="material-icons">arrow_back</i>
+          </Link> Messages
+        </h1>
         <div className="col m1 l1">
-          <UserNewConversation buttonText={<i className="large material-icons">add</i>} buttonClass={'valign btn-floating btn-large waves-effect waves-light red'} />
+          <UserNewConversation
+            buttonText={<i className="large material-icons">add</i>}
+            buttonClass={'valign btn-floating btn-large waves-effect waves-light red'}
+          />
         </div>
       </section>
       <ul className="collection">
@@ -66,3 +73,7 @@ export default class UserConversationOverview extends React.Component {
     </div>);
   }
 }
+
+UserConversationOverview.propTypes = {
+  conversations: React.PropTypes.array,
+};

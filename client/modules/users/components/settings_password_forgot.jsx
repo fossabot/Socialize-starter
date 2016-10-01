@@ -40,3 +40,9 @@ export default class ForgotPassword extends React.Component {
     </form>);
   }
 }
+
+ForgotPassword.propTypes = {
+  error: React.PropTypes.string,
+  resetPasswordEmail: React.PropTypes.func.isRequired,
+  success: React.PropTypes.string,
+};

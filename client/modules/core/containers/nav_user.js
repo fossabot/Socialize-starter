@@ -1,14 +1,15 @@
-import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker } from 'mantra-core';
 
 import NavUser from '../components/nav_user.jsx';
 
 export const composer = ({ context }, onData) => {
-  const { Meteor, Collections } = context();
-  const user = Meteor.user();
-  onData(null, { user });
+  // const { Meteor } = context();
+  // TODO subscribe to profile and get the user avatar url
+  // const user = Meteor.user();
+  onData(null, {});
 };
 
-export const depsMapper = (context, actions) => ({
+export const depsMapper = (context) => ({
   context: () => context,
 });
 

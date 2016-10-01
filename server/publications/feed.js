@@ -29,8 +29,6 @@ export default function () {
 
     check(options, publicationOptionsSchema);
 
-    let friendMap;
-
     if (!this.userId) {
       return this.ready();
     }
@@ -38,7 +36,7 @@ export default function () {
     // only allow the limit, skip and sort options
     options = _.pick(options, 'limit', 'skip', 'sort');
 
-    friendMap = Meteor.friends.find({ userId: this.userId }, { fields: { friendId: true } }).map((friend) => {
+    const friendMap = Meteor.friends.find({ userId: this.userId }, { fields: { friendId: true } }).map((friend) => {
       return friend.friendId;
     });
 
@@ -46,7 +44,11 @@ export default function () {
 
     return {
       find() {
-        return Meteor.posts.find({ $or: [{ userId: { $in: friendMap } }, { posterId: { $in: friendMap } }] }, options);
+        return Meteor.posts.find(
+          { $or: [ { userId: { $in: friendMap } },
+          { posterId: { $in: friendMap } } ] },
+          options
+        );
       },
       children: [
         {
@@ -63,7 +65,10 @@ export default function () {
         },
         {
           find(post) {
-            return Meteor.likes.find({ linkedObjectId: post._id }, { fields: { linkedObjectId: true, userId: true, date: true } });
+            return Meteor.likes.find(
+              { linkedObjectId: post._id },
+              { fields: { linkedObjectId: true, userId: true, date: true },
+            });
           },
         },
         {
@@ -98,7 +103,7 @@ export default function () {
 
     return {
       find() {
-        return Meteor.posts.find({ $or: [{ userId }, { posterId: userId }] }, options);
+        return Meteor.posts.find({ $or: [ { userId }, { posterId: userId } ] }, options);
       },
       children: [
         {
@@ -114,8 +119,11 @@ export default function () {
           ],
         },
         {
-          find(post) {
-            return Meteor.likes.find({ linkedObjectId: post._id }, { fields: { linkedObjectId: true, userId: true, date: true } });
+          find: (post) => {
+            return Meteor.likes.find(
+              { linkedObjectId: post._id },
+              { fields: { linkedObjectId: true, userId: true, date: true },
+            });
           },
         },
         {

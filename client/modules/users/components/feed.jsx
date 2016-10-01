@@ -1,22 +1,37 @@
 import React from 'react';
 import moment from 'moment';
-import NewFeedPost from '../components/feed_new_post.jsx';
 import { Link } from 'react-router';
 
-class UserFeed extends React.Component {
-/*
-  propTypes:{
-    userId: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.bool])
+export default class UserFeed extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.likingDisplay = this.likingDisplay.bind(this);
+    this.extendLimit = this.extendLimit.bind(this);
   }
-*/
+
+  componentWillUnmount() {
+    const { resetLimit } = this.props;
+    resetLimit();
+  }
 
   liking(post) {
-    const { likePost, unlikePost } = this.props;
+    const { likePost, unlikePost, currentUser } = this.props;
 
-    if (post.isLikedBy(Meteor.user())) {
+    if (post.isLikedBy(currentUser)) {
       unlikePost(post._id);
     } else {
       likePost(post._id);
+    }
+  }
+
+  likingDisplay(post) {
+    if ( this.props.currentUser ) {
+      return (<span className="link" onClick={this.liking.bind(this, post)}>
+        {post.likeCount()} <i className="material-icons">favorite</i>
+      </span>);
+    } else {
+      return null;
     }
   }
 
@@ -39,7 +54,7 @@ class UserFeed extends React.Component {
             <div className="col s7">{post.body}</div>
             <div className="col s3">
               {moment(post.date).fromNow()}<br />
-              <span className="link" onClick={this.liking.bind(this, post)}>{post.likeCount()} <i className="material-icons">favorite</i></span>
+              {this.likingDisplay(post)}
             </div>
           </div>);
         });
@@ -53,9 +68,9 @@ class UserFeed extends React.Component {
    * Show additional posts
    * @access private
    */
-  extendLimit(e) {
-    const current = LocalState.get('USER_FEED_POST_LIMIT');
-    LocalState.set('USER_FEED_POST_LIMIT', current + 10);
+  extendLimit() {
+    const { increaseLimit } = this.props;
+    increaseLimit();
   }
 
   render() {
@@ -76,4 +91,11 @@ class UserFeed extends React.Component {
   }
 }
 
-export default UserFeed;
+UserFeed.propTypes = {
+  currentUser: React.PropTypes.oneOfType([ React.PropTypes.object, React.PropTypes.bool ]),
+  increaseLimit: React.PropTypes.func.isRequired,
+  likePost: React.PropTypes.func.isRequired,
+  posts: React.PropTypes.array,
+  resetLimit: React.PropTypes.func.isRequired,
+  unlikePost: React.PropTypes.func.isRequired,
+};

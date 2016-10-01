@@ -37,3 +37,10 @@ export default class UserChangeUsernane extends React.Component {
       </form>);
   }
 }
+
+UserChangeUsernane.propTypes = {
+  changeUsername: React.PropTypes.func.isRequired,
+  currentUsername: React.PropTypes.string,
+  error: React.PropTypes.string,
+  success: React.PropTypes.string,
+};

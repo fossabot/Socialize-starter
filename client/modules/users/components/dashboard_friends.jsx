@@ -5,8 +5,6 @@ export default class DashboardFriends extends React.Component {
   render() {
     const { user } = this.props;
     if (user) {
-      let friendships;
-
       // friends requests
       if (user.numRequests() > 0) {
         let msg;
@@ -35,3 +33,7 @@ export default class DashboardFriends extends React.Component {
     }
   }
 }
+
+DashboardFriends.propTypes = {
+  user: React.PropTypes.object.isRequired,
+};

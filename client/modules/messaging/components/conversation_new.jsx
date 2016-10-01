@@ -1,7 +1,7 @@
 import React from 'react';
 import { Materialize } from 'meteor/poetic:materialize-scss';
 import sanitizeHtml from 'sanitize-html';
-import { Link } from 'react-router';
+import { Conversation } from 'meteor/socialize:messaging';
 
 /**
  * @class component UserNewConversation
@@ -38,7 +38,7 @@ export default class UserNewConversation extends React.Component {
     // first wait for at least three characters to by typed before doing anything
     if (query.length > 2) {
       // exlude users that have already been added + current user
-      const excluded = [Meteor.userId()];
+      const excluded = [ Meteor.userId() ];
       this.state.users.forEach((user) => {
         excluded.push(user._id);
       });
@@ -47,7 +47,13 @@ export default class UserNewConversation extends React.Component {
       Meteor.subscribe('pm.users.search', query, excluded, () => {
         // onReady
         this.setState({
-          search: Meteor.users.find({ username: { $regex: query, $options: 'i' }, _id: { $nin: excluded } }, { limit: 10 }).fetch(),
+          search: Meteor.users.find(
+            {
+              username: { $regex: query, $options: 'i' },
+              _id: { $nin: excluded }
+            },
+            { limit: 10 }
+          ).fetch(),
         });
         this.showSuggestions();
       });
@@ -63,7 +69,11 @@ export default class UserNewConversation extends React.Component {
   populateSuggestions() {
     if (this.state.search) {
       return this.state.search.map((user) => {
-        return (<button key={'SUG' + user._id} className="suggestion-item avatar" onClick={this.addUser.bind(this, user)}>
+        return (<button
+          key={'SUG' + user._id}
+          className="suggestion-item avatar"
+          onClick={this.addUser.bind(this, user)}
+        >
           <i className="material-icons circle">account_circle</i>
           <span className="title">{user.username}</span>
         </button>);
@@ -80,13 +90,13 @@ export default class UserNewConversation extends React.Component {
 
   /**
    * Adds a user to the list of recipients
-   * @var user User Object
+   * @param user User Object
    */
   addUser(user) {
     // clear the searchbox
-    const test = $('#searchUsernames').val('');
+    $('#searchUsernames').val('');
 
-    users = this.state.users;
+    let users = this.state.users.filter( () => { return true; } );
     users.push(user);
 
     this.setState({
@@ -119,10 +129,11 @@ export default class UserNewConversation extends React.Component {
     // create a listing of users
     if (this.state.users.length > 0) {
       return this.state.users.map((user) => {
-        // NOTE: can't add the close tag since Materialize fires the event to remove the element before the function is called
+        // NOTE: can't add the close tag since Materialize fires the event
+        // to remove the element before the function is called
         return (<button onClick={this.removeUser.bind(this, user)} key={user._id} className="chip">
-                {user.username}
-              </button>);
+          {user.username}
+        </button>);
       });
     }
   }
@@ -183,7 +194,13 @@ export default class UserNewConversation extends React.Component {
     // the search element
     const search = (<div className="input-field">
       <i className="material-icons prefix">search</i>
-      <input id="searchUsernames" name="searchUsernames" type="text" className="validate" onInput={this.lookupUser.bind(this)} />
+      <input
+        id="searchUsernames"
+        name="searchUsernames"
+        type="text"
+        className="validate"
+        onInput={this.lookupUser.bind(this)}
+      />
       <label className="active" htmlFor="searchUsernames">Username</label>
       <div id="searchSuggestions" className="search-suggestions-box">
         {this.populateSuggestions()}
@@ -215,3 +232,9 @@ export default class UserNewConversation extends React.Component {
     );
   }
 }
+
+UserNewConversation.propTypes = {
+  buttonClass: React.PropTypes.string,
+  buttonText: React.PropTypes.string,
+  recipients: React.PropTypes.array,
+};

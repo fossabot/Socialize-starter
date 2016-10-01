@@ -37,17 +37,24 @@ export default class UserChangeName extends React.Component {
       <form method="post" className="row section" ref="usernameForm" onSubmit={this.changeName.bind(this)}>
         <fieldset>
           <legend>Real name</legend>
-            <Error error={this.props.error} success={this.props.success} />
-            <div className="input-field col s12 m6">
-              <input type="text" name="given" className="validate" defaultValue={givenName} />
-              <label htmlFor="given" className="active">Given Name</label>
-            </div>
-            <div className="input-field col s12 m6">
-              <input type="text" name="family" className="validate" defaultValue={familyName} />
-              <label htmlFor="family" className="active">Family Name</label>
-            </div>
+          <Error error={this.props.error} success={this.props.success} />
+          <div className="input-field col s12 m6">
+            <input type="text" name="given" className="validate" defaultValue={givenName} />
+            <label htmlFor="given" className="active">Given Name</label>
+          </div>
+          <div className="input-field col s12 m6">
+            <input type="text" name="family" className="validate" defaultValue={familyName} />
+            <label htmlFor="family" className="active">Family Name</label>
+          </div>
           <input type="submit" value="Change" className="btn waves-effect" />
         </fieldset>
       </form>);
   }
 }
+
+UserChangeName.propTypes = {
+  error: React.PropTypes.string,
+  nameUpdate: React.PropTypes.func.isRequired,
+  profile: React.PropTypes.object.isRequired,
+  success: React.PropTypes.string,
+};

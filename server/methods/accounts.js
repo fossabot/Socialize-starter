@@ -8,7 +8,7 @@ export default function () {
      * Change username for current logged in user
      * @param {string} newUsername
      */
-    'accounts.username': function (newUsername) {
+    'accounts.username'(newUsername) {
       check(newUsername, String);
       return Accounts.setUsername(this.userId, newUsername);
     },
@@ -16,7 +16,7 @@ export default function () {
      * Associate a new e-mail with the user
      * @param {string} newEmail
      */
-    'accounts.email.add': function (newEmail) {
+    'accounts.email.add'(newEmail) {
       check(newEmail, String);
       return Accounts.addEmail(this.userId, newEmail);
     },
@@ -24,12 +24,12 @@ export default function () {
      * Remove the given e-mail from the user
      * @param {string} email
      */
-    'accounts.email.remove': function (email) {
+    'accounts.email.remove'(email) {
       check(email, String);
       // double check that there will be an e-mail left if we remove
       const user = Meteor.users.find({ 'emails.address': email }).fetch();
       if (user[0].emails.length < 2) {
-        throw new Meteor.Error('last-email', "You can't delete your last e-mail.");
+        throw new Meteor.Error('last-email', 'You can\'t delete your last e-mail.');
       } else {
         return Accounts.removeEmail(this.userId, email);
       }
@@ -38,7 +38,7 @@ export default function () {
      * Sends a verification e-mail to the given e-mail
      * @param {string} email
      */
-    'accounts.email.verify.send': function (email) {
+    'accounts.email.verify.send'(email) {
       check(email, String);
       return Meteor.defer(() => {
         return Accounts.sendVerificationEmail(this.userId, email);
@@ -48,7 +48,7 @@ export default function () {
      * Send a reset password link to the given email.
      * @param {string} email
      */
-    'accounts.password.reset.email.send': function (email) {
+    'accounts.password.reset.email.send'(email) {
       check(email, String);
       let user = Accounts.findUserByEmail(email);
 

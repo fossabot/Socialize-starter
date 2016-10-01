@@ -63,7 +63,11 @@ export default function () {
 
     return {
       find() {
-        return Meteor.requests.find({ userId: this.userId, denied: { $exists: false }, ignored: { $exists: false } }, options);
+        return Meteor.requests.find({
+          userId: this.userId,
+          denied: { $exists: false },
+          ignored: { $exists: false },
+        }, options);
       },
       children: [
         {
@@ -91,7 +95,11 @@ export default function () {
 
     return {
       find() {
-        return Meteor.requests.find({ userId: this.userId, denied: { $exists: false }, ignored: { $exists: true } }, options);
+        return Meteor.requests.find({
+          userId: this.userId,
+          denied: { $exists: false },
+          ignored: { $exists: true },
+        }, options);
       },
       children: [
         {

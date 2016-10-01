@@ -1,4 +1,4 @@
-import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker } from 'mantra-core';
 
 import DashboardFriends from '../components/dashboard_friends.jsx';
 
@@ -10,7 +10,7 @@ export const composer = ({ context }, onData) => {
   }
 };
 
-export const depsMapper = (context, actions) => ({
+export const depsMapper = (context) => ({
   context: () => context,
 });
 

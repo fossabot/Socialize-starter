@@ -38,8 +38,7 @@ export default class ConversationMessage extends React.Component {
   }
 }
 
-
 ConversationMessage.propTypes = {
   conversationId: React.PropTypes.string,
-  msgLimit: React.PropTypes.number,
+  messages: React.PropTypes.array,
 };

@@ -43,7 +43,12 @@ export default class UserChangeBio extends React.Component {
           <legend>Biography</legend>
           <Error error={this.props.error} success={this.props.success} />
           <div className="input-field col s12">
-            <textarea id="userBio" name="userBio" className="materialize-textarea" defaultValue={this.props.profile.biography} />
+            <textarea
+              id="userBio"
+              name="userBio"
+              className="materialize-textarea"
+              defaultValue={this.props.profile.biography}
+            />
             <label htmlFor="userBio" className="active">A little bit about yourself</label>
             <input type="submit" value="Change" className="btn waves-effect" />
           </div>
@@ -51,3 +56,10 @@ export default class UserChangeBio extends React.Component {
       </form>);
   }
 }
+
+UserChangeBio.propTypes = {
+  bioUpdate: React.PropTypes.func.isRequired,
+  error: React.PropTypes.string,
+  profile: React.PropTypes.object.isRequired,
+  success: React.PropTypes.string,
+};

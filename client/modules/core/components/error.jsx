@@ -16,4 +16,7 @@ export default class Error extends React.Component {
   }
 }
 
-// TODO add reusable component details
+Error.propTypes = {
+  error: React.PropTypes.string,
+  success: React.PropTypes.string,
+};

@@ -1,4 +1,4 @@
-import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker } from 'mantra-core';
 
 import UserProfile from '../components/profile.jsx';
 
@@ -12,7 +12,7 @@ export const composer = ({ context, params, clearErrors }, onData) => {
   }
 
   if (Meteor.subscribe('profile.for', user).ready()) {
-    const profile = Meteor.profiles.findOne({ $or: [{ userId: user }, { username: user }] });
+    const profile = Meteor.profiles.findOne({ $or: [ { userId: user }, { username: user } ] });
 
     if (Meteor.userId() !== profile.userId) {
       if (
@@ -34,7 +34,7 @@ export const composer = ({ context, params, clearErrors }, onData) => {
   }
 };
 
-export const depsMapper = (context, actions) => ({
+export const depsMapper = (context) => ({
   context: () => context,
 });
 

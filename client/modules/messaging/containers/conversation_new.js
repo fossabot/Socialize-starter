@@ -1,4 +1,4 @@
-import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker } from 'mantra-core';
 
 import UserNewConversation from '../components/conversation_new.jsx';
 
@@ -16,7 +16,7 @@ export const composer = ({ context, recipients, clearErrors }, onData) => {
   }
 };
 
-export const depsMapper = (context, actions) => ({
+export const depsMapper = (context) => ({
   context: () => context,
 });
 

@@ -36,7 +36,7 @@ export default class SetPassword extends React.Component {
       }
       // TODO for future actions like enrollment
     } else {
-      Materialize.toast("Passwords don't match!", 5000);
+      Materialize.toast('Passwords don\'t match!', 5000);
       e.target.reset();
     }
   }
@@ -60,3 +60,9 @@ export default class SetPassword extends React.Component {
     </form>);
   }
 }
+
+SetPassword.propTypes = {
+  error: React.PropTypes.string,
+  resetPassword: React.PropTypes.func.isRequired,
+  token: React.PropTypes.string.isRequired,
+};

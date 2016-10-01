@@ -10,7 +10,7 @@ export default function () {
      * @param {string} avatar
      * @returns {boolean}
      */
-    'profile.avatar.update': function (avatar) {
+    'profile.avatar.update'(avatar) {
       check(avatar, String);
       const result = Meteor.profiles.update({ userId: Meteor.userId() }, { $set: { avatar } });
       if (result) {
@@ -25,7 +25,7 @@ export default function () {
      * @param {string} bio
      * @returns {boolean}
      */
-    'profile.biography.update': function (bio) {
+    'profile.biography.update'(bio) {
       check(bio, String);
       bio = sanitizeHtml(bio);
       const result = Meteor.profiles.update({ userId: Meteor.userId() }, { $set: { biography: bio } });
@@ -41,13 +41,18 @@ export default function () {
      * @param {object} names object containing the given and family name {given: "firstname", family: "surname"}
      * @returns {boolean}
      */
-    'profile.name.update': function (names) {
+    'profile.name.update'(names) {
       check(names, {
         given: String,
         family: String,
       });
 
-      const result = Meteor.profiles.update({ userId: Meteor.userId() }, { $set: { givenName: sanitizeHtml(names.given), familyName: sanitizeHtml(names.family) } });
+      const result = Meteor.profiles.update({ userId: Meteor.userId() }, {
+        $set: {
+          givenName: sanitizeHtml(names.given),
+          familyName: sanitizeHtml(names.family),
+        },
+      });
 
       if (result) {
         return true;
@@ -60,7 +65,7 @@ export default function () {
      * @function call users.count
      * @returns {Number}
      */
-    'users.count': function () {
+    'users.count'() {
       return Meteor.users.find().count();
     },
   });

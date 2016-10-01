@@ -1,8 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import sanitizeHtml from 'sanitize-html';
-import BetaSignup from '/lib/collections/beta_signup.js';
-import { Accounts } from 'meteor/accounts-base';
 
 export default function () {
   Meteor.methods({
@@ -12,7 +10,7 @@ export default function () {
      * @param {String} email
      * @param {String} reason
      */
-    'app.beta.signup': function (name, username, email, reason) {
+    'app.beta.signup'(name, username, email, reason) {
       check(name, String);
       check(username, String);
       check(email, String);
@@ -35,7 +33,7 @@ export default function () {
      * Check if the username is already in the DB
      * @param {String} username
      */
-    'app.beta.username.unique': function (username) {
+    'app.beta.username.unique'(username) {
       check(username, String);
       const match = Meteor.betaSignups.find({ username }).fetch();
       if (match.length > 0) {
@@ -48,7 +46,7 @@ export default function () {
      * Check if the email is already in the DB
      * @param {String} email
      */
-    'app.beta.email.unique': function (email) {
+    'app.beta.email.unique'(email) {
       check(email, String);
       const match = Meteor.betaSignups.find({ email }).fetch();
       if (match.length > 0) {

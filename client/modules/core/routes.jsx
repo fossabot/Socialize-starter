@@ -62,9 +62,13 @@ const anonOnly = (nextState, replace) => {
   }
 };
 
-const logout = () => {
+const logout = (nextState, replace) => {
   // TODO unsubscribe from all SubsManager subscriptions
   Meteor.logout();
+  replace({
+    pathname: '/',
+    state: { nextPathname: nextState.location.pathname },
+  });
 };
 
 export default function (injectDeps, { Store }) {

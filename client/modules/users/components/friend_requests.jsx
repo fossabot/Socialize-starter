@@ -44,9 +44,17 @@ export default class UserFriendsRequests extends React.Component {
         return (<li key={requester._id} className="collection-item avatar">
           <i className="material-icons circle">user</i>
           <span className="title">{requester.username}</span>
-          <p><a href="" onClick={(e) => { e.preventDefault(); this.accept.bind(this, requester); }} ><i className="material-icons">check</i></a>
-          <a href="" onClick={(e) => { e.preventDefault(); this.deny.bind(this, requester); }} ><i className="material-icons">cancel</i></a></p>
-          <Link to={'users/' + requester.username} className="secondary-content"><i className="material-icons">send</i></Link>
+          <p>
+            <a href="" onClick={(e) => { e.preventDefault(); this.accept.bind(this, requester); }} >
+              <i className="material-icons">check</i>
+            </a>
+            <a href="" onClick={(e) => { e.preventDefault(); this.deny.bind(this, requester); }} >
+              <i className="material-icons">cancel</i>
+            </a>
+          </p>
+          <Link to={'users/' + requester.username} className="secondary-content">
+            <i className="material-icons">send</i>
+          </Link>
         </li>);
       });
     }
@@ -69,3 +77,7 @@ export default class UserFriendsRequests extends React.Component {
     </div>);
   }
 }
+
+UserFriendsRequests.propTypes = {
+  requests: React.PropTypes.array,
+};

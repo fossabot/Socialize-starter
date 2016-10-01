@@ -7,7 +7,7 @@ import Helmet from 'react-helmet';
  * @class component UserRegister
  * @classdesc User registration form.
  */
-class UserRegister extends React.Component {
+export default class UserRegister extends React.Component {
   /**
    * Registers a new user in the system.
    * @access private
@@ -65,4 +65,7 @@ class UserRegister extends React.Component {
   }
 }
 
-export default UserRegister;
+UserRegister.propTypes = {
+  create: React.PropTypes.func.isRequired,
+  error: React.PropTypes.string,
+};

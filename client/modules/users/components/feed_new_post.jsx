@@ -35,3 +35,8 @@ export default class FeedNewPost extends React.Component {
     }
   }
 }
+
+FeedNewPost.propTypes = {
+  addPost: React.PropTypes.func.isRequired,
+  error: React.PropTypes.string,
+};

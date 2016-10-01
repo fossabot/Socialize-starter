@@ -23,20 +23,20 @@ class UserSettings extends React.Component {
    */
   render() {
     return (<div className="container">
-    <Helmet
-      title="Your settings"
-    />
-    <div className="row">
-      <h1>Settings</h1>
-      <div className="col s12">
-        {this.changeAvatar()}
-        <UserChangeUsernane />
-        <UserChangeName />
-        <UserChangeBio />
-        <UserEmail />
-        <UserChangePassword />
+      <Helmet
+        title="Your settings"
+      />
+      <div className="row">
+        <h1>Settings</h1>
+        <div className="col s12">
+          {this.changeAvatar()}
+          <UserChangeUsernane />
+          <UserChangeName />
+          <UserChangeBio />
+          <UserEmail />
+          <UserChangePassword />
+        </div>
       </div>
-    </div>
     </div>);
   }
 }

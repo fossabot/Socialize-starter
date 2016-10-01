@@ -1,5 +1,4 @@
 import React from 'react';
-import { Materialize } from 'meteor/poetic:materialize-scss';
 import Error from '../../core/components/error.jsx';
 
 /**
@@ -24,9 +23,18 @@ export default class UserEmail extends React.Component {
         if (email.verified) {
           verified = (<i className="material-icons green-text">check</i>);
         } else {
-          verified = (<div className="chip red darken-1"><span className="link" onClick={this.verification.bind(this, email.address)}>not verified</span></div>);
+          verified = (<div className="chip red darken-1">
+            <span className="link" onClick={this.verification.bind(this, email.address)}>not verified</span>
+          </div>);
         }
-        return (<li key={email.address} className="collection-item">{email.address} {verified}<div className="secondary-content"><span className="link" onClick={this.removeEmail.bind(this, email.address)}><i id={email.address} className="material-icons">delete</i></span></div></li>);
+        return (<li key={email.address} className="collection-item">
+          {email.address} {verified}
+          <div className="secondary-content">
+            <span className="link" onClick={this.removeEmail.bind(this, email.address)}>
+              <i id={email.address} className="material-icons">delete</i>
+            </span>
+          </div>
+        </li>);
       });
     } else {
       // TODO add Loader here
@@ -98,7 +106,15 @@ export default class UserEmail extends React.Component {
           </div>
           <input type="submit" className="btn waves-effect waves-light" value="Add" />
         </fieldset>
-
       </form>);
   }
 }
+
+UserEmail.propTypes = {
+  addEmail: React.PropTypes.func.isRequired,
+  emails: React.PropTypes.array.isRequired,
+  error: React.PropTypes.string,
+  removeEmail: React.PropTypes.func.isRequired,
+  success: React.PropTypes.string,
+  verify: React.PropTypes.func.isRequired,
+};

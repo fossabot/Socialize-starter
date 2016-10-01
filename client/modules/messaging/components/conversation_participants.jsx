@@ -26,5 +26,5 @@ export default class ConversationParticipants extends React.Component {
 }
 
 ConversationParticipants.propTypes = {
-  conversationId: React.PropTypes.string,
+  conversation: React.PropTypes.object.isRequired,
 };

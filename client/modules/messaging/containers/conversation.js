@@ -1,9 +1,10 @@
-import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core';
+import { useDeps, composeAll, composeWithTracker } from 'mantra-core';
+import { browserHistory } from 'react-router';
 
 import UserConversation from '../components/conversation.jsx';
 
 export const composer = ({ context, conversationId }, onData) => {
-  const { Meteor, MessagesSubs } = context();
+  const { Meteor, MessagesSubs, LocalState } = context();
 
   if (conversationId) {
     MessagesSubs.subscribe('conversation', conversationId);
@@ -20,19 +21,37 @@ export const composer = ({ context, conversationId }, onData) => {
       });
 
       if (access) {
-        onData(null, { conversation });
+        let totalMessages = 1;
+        Meteor.call('pm.conversation.count', this.props.conversationId, (error, result) => {
+          if (error) {
+            // console.log(error);
+          }
+          if (result) {
+            totalMessages = result;
+          }
+        });
+
+        let msgLimit = LocalState.get('MESSAGING_LIMIT');
+        if (!msgLimit) {
+          msgLimit = 10;
+          LocalState.set('MESSAGING_LIMIT', 10);
+        }
+
+        onData(null, { conversation, totalMessages, msgLimit });
       } else {
         // unauthorized access
-        // FlowRouter.go("pmOverview")
+        browserHistory.push('/pm');
       }
     }
   } else {
-    // FlowRouter.go("pmOverview")
+    browserHistory.push('/pm');
   }
 };
 
 export const depsMapper = (context, actions) => ({
   context: () => context,
+  increaseLimit: actions.messages.increaseLimit,
+  resetLimit: actions.messages.resetLimit,
 });
 
 export default composeAll(

@@ -37,7 +37,8 @@ export default class ConversationReply extends React.Component {
     msg = sanitizeHtml(msg);
 
     // send the message
-    const send = this.props.conversation.sendMessage(msg);
+    const send = this.props.conversation.sendMessage;
+    send(msg);
 
     // increase the limit so the current conversation stays on the screen
     this.setState({
@@ -50,20 +51,27 @@ export default class ConversationReply extends React.Component {
 
   render() {
     return (<form method="post" onSubmit={this.sendMessage.bind(this)}>
-        <fieldset>
-          <legend>Send message</legend>
-          <div className="input-field col s12">
-            <i className="material-icons prefix">mode_edit</i>
-            <textarea name="message" id="messageToSend" className="materialize-textarea" onFocus={this.isTyping.bind(this)} onBlur={this.isNotTyping.bind(this)} />
-            <label htmlFor="messageToSend">Message</label>
-          </div>
-          <input type="submit" value="send" className="btn pull-right waves-light waves-light" />
-        </fieldset>
-      </form>);
+      <fieldset>
+        <legend>Send message</legend>
+        <div className="input-field col s12">
+          <i className="material-icons prefix">mode_edit</i>
+          <textarea
+            name="message"
+            id="messageToSend"
+            className="materialize-textarea"
+            onFocus={this.isTyping.bind(this)}
+            onBlur={this.isNotTyping.bind(this)}
+          />
+          <label htmlFor="messageToSend">Message</label>
+        </div>
+        <input type="submit" value="send" className="btn pull-right waves-light waves-light" />
+      </fieldset>
+    </form>);
   }
 }
 
 
 ConversationReply.propTypes = {
+  conversation: React.PropTypes.object.isRequired,
   conversationId: React.PropTypes.string,
 };

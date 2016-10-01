@@ -6,7 +6,7 @@ import { Materialize } from 'meteor/poetic:materialize-scss';
  * @class component UserChangePassword
  * @classdesc Changes user password
  */
-class UserChangePassword extends React.Component {
+export default class UserChangePassword extends React.Component {
   /**
    * Changes user password
    * @access private
@@ -46,23 +46,27 @@ class UserChangePassword extends React.Component {
       <form method="post" className="row" ref="passwordForm" onSubmit={this.changePassword.bind(this)}>
         <fieldset>
           <legend>Change password</legend>
-            <Error error={this.props.error} success={this.props.success} />
-            <div className="input-field col s12">
-              <input className="validate" type="password" name="old" />
-              <label htmlFor="old">Current password</label>
-            </div>
-            <div className="input-field col s12">
-              <input className="validate" type="password" name="new" />
-              <label htmlFor="new">New password</label>
-            </div>
-            <div className="input-field col s12">
-              <input className="validate" type="password" name="repeat" />
-              <label htmlFor="repeat">Repeat new password</label>
-            </div>
-            <input className="btn waves-effect" value="Submit" type="submit" />
+          <Error error={this.props.error} success={this.props.success} />
+          <div className="input-field col s12">
+            <input className="validate" type="password" name="old" />
+            <label htmlFor="old">Current password</label>
+          </div>
+          <div className="input-field col s12">
+            <input className="validate" type="password" name="new" />
+            <label htmlFor="new">New password</label>
+          </div>
+          <div className="input-field col s12">
+            <input className="validate" type="password" name="repeat" />
+            <label htmlFor="repeat">Repeat new password</label>
+          </div>
+          <input className="btn waves-effect" value="Submit" type="submit" />
         </fieldset>
       </form>);
   }
 }
 
-export default UserChangePassword;
+UserChangePassword.propTypes = {
+  changePassword: React.PropTypes.func.isRequired,
+  error: React.PropTypes.string,
+  success: React.PropTypes.string,
+};
