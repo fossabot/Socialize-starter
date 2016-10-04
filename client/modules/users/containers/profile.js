@@ -29,12 +29,15 @@ export const composer = ({ context, params, clearErrors }, onData) => {
         onData(null, { profile, profileUser, currentUser, currentFriends, currentRequests });
       }
     } else {
-      onData(null, { profile });
+      // The user is visiting their own profile
+      const profileUser = Meteor.users.findOne({ _id: profile.userId });
+      const currentUser = profileUser;
+      onData(null, { profile, profileUser, currentUser });
     }
   }
 };
 
-export const depsMapper = (context) => ({
+export const depsMapper = context => ({
   context: () => context,
 });
 

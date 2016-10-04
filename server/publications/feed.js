@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { check } from 'meteor/check';
+import { Counter } from 'meteor/natestrauser:publish-performant-counts';
 
 export default function () {
   const publicationOptionsSchema = new SimpleSchema({
@@ -13,8 +14,9 @@ export default function () {
       optional: true,
     },
     sort: {
-      type: Number,
+      type: Object,
       optional: true,
+      blackbox: true,
     },
   });
 
@@ -102,17 +104,17 @@ export default function () {
     options = _.pick(options, 'limit', 'skip', 'sort');
 
     return {
-      find() {
+      find: () => {
         return Meteor.posts.find({ $or: [ { userId }, { posterId: userId } ] }, options);
       },
       children: [
         {
-          find(post) {
+          find: (post) => {
             return Meteor.comments.find({ linkedObjectId: post._id }, { sort: { date: -1 }, limit: 3 });
           },
           children: [
             {
-              find(comment) {
+              find: (comment) => {
                 return Meteor.users.find({ _id: comment.userId }, { fields: { username: true } });
               },
             },
@@ -127,11 +129,37 @@ export default function () {
           },
         },
         {
-          find(post) {
+          find: (post) => {
             return Meteor.users.find({ _id: post.posterId }, { fields: { username: true } });
           },
         },
       ],
     };
+  });
+
+  /**
+   * Return total number of posts in a given user feed
+   * @param userId {String} The owner of the stream
+   * @param author {Bool} Are we looking only for the posts authored by the user?
+   * @returns {Number}
+   */
+  Meteor.publish('feed.posts.count.all', function (userId, author) {
+    check(userId, String);
+    check(author, Boolean);
+
+    if (this.userId === userId && !author) {
+      const friendMap = Meteor.friends.find({ userId: this.userId }, { fields: { friendId: true } }).map((friend) => {
+        return friend.friendId;
+      });
+      friendMap.push(this.userId);
+
+      return new Counter('feed.count.for.user', Meteor.posts.find(
+          { $or: [ { userId: { $in: friendMap } },
+          { posterId: { $in: friendMap } } ] }
+        )
+      );
+    } else {
+      return new Counter('feed.count.by.author', Meteor.posts.find({ $or: [ { userId }, { posterId: userId } ] }));
+    }
   });
 }

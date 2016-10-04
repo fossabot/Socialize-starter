@@ -235,6 +235,9 @@ export default class UserNewConversation extends React.Component {
 
 UserNewConversation.propTypes = {
   buttonClass: React.PropTypes.string,
-  buttonText: React.PropTypes.string,
+  buttonText: React.PropTypes.oneOfType([
+    React.PropTypes.element,
+    React.PropTypes.string,
+  ]),
   recipients: React.PropTypes.array,
 };

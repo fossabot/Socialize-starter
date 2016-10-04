@@ -23,11 +23,11 @@ export default class FeedNewPost extends React.Component {
 
     if (Meteor.userId()) {
       return (<form id="postForm" method="post" className="row card-panel hoverable" onSubmit={this.addPost.bind(this)}>
-        <div className="input-field col s10 m11">
+        <div className="input-field col s10">
           <input type="text" className="validate" name="postText" />
           <label htmlFor="postText">New post</label>
         </div>
-        <div className="input-field col s2 m1">
+        <div className="input-field col s2">
           <input type="submit" className="btn" name="postSubmit" value="Post" />
         </div>
         {error}

@@ -32,6 +32,6 @@ export default function () {
    */
   Meteor.publish('profile.for', (userIdOrUsername) => {
     check(userIdOrUsername, String);
-    return Profile.collection.find({ $or: [ { userId: userIdOrUsername }, { username: userIdOrUsername } ] });
+    return Profile.find({ $or: [ { userId: userIdOrUsername }, { username: userIdOrUsername } ] });
   });
 }

@@ -17,14 +17,12 @@ export default {
   unlike({ Meteor, LocalState }, postId) {
     Meteor.call('feed.post.unlike', postId);
   },
-  clearErrors({ LocalState }) {
-    return LocalState.set('FEED_ERROR_POST', null);
-  },
   increaseLimit({ LocalState }) {
     const current = LocalState.get('USER_FEED_POST_LIMIT');
     LocalState.set('USER_FEED_POST_LIMIT', current + 10);
   },
-  resetLimit({ LocalState }) {
+  clearErrors({ LocalState }) {
     LocalState.set('USER_FEED_POST_LIMIT', null);
+    return LocalState.set('FEED_ERROR_POST', null);
   },
 };

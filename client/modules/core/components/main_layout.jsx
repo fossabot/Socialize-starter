@@ -8,7 +8,6 @@ const Layout = props => (
 
     <Helmet
       titleTemplate="Socialize - %s"
-      base={{ target: '_blank', href: 'http://localhost:3000/' }}
       meta={[
         { name: 'description', content: 'Meteor starter app with social features.' },
         { name: 'author', content: 'Jan Dvorak IV.' },

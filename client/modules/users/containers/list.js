@@ -1,4 +1,5 @@
 import { useDeps, composeAll, composeWithTracker } from 'mantra-core';
+import { Counter } from 'meteor/natestrauser:publish-performant-counts';
 
 import UserList from '../components/list.jsx';
 
@@ -10,7 +11,10 @@ export const composer = ({ context, location }, onData) => {
   }
   const limit = 10;
 
-  if (UserSubs.subscribe('users.list', page, limit).ready()) {
+  UserSubs.subscribe('users.list', page, limit);
+  UserSubs.subscribe('users.count.all');
+
+  if (UserSubs.ready()) {
     const skip = (page - 1) * limit;
     // This will get 10 users without the current user
     const users = Meteor.users.find(
@@ -20,19 +24,13 @@ export const composer = ({ context, location }, onData) => {
       skip,
     }).fetch();
 
-    Meteor.call('users.count', (error, result) => {
-      if (error) {
-        // console.log(error);
-      }
-      if (result) {
-        const totalUsers = result;
-        onData(null, { users, totalUsers, page, limit });
-      }
-    });
+    const totalUsers = Counter.get('users.count.all') - 1; // -1 for current user
+
+    onData(null, { users, totalUsers, page, limit });
   }
 };
 
-export const depsMapper = (context) => ({
+export const depsMapper = context => ({
   context: () => context,
 });
 

@@ -10,11 +10,6 @@ export default class UserFeed extends React.Component {
     this.extendLimit = this.extendLimit.bind(this);
   }
 
-  componentWillUnmount() {
-    const { resetLimit } = this.props;
-    resetLimit();
-  }
-
   liking(post) {
     const { likePost, unlikePost, currentUser } = this.props;
 
@@ -26,13 +21,9 @@ export default class UserFeed extends React.Component {
   }
 
   likingDisplay(post) {
-    if ( this.props.currentUser ) {
-      return (<span className="link" onClick={this.liking.bind(this, post)}>
-        {post.likeCount()} <i className="material-icons">favorite</i>
-      </span>);
-    } else {
-      return null;
-    }
+    return (<span className="link" onClick={this.liking.bind(this, post)}>
+      {post.likeCount()} <i className="material-icons">favorite</i>
+    </span>);
   }
 
   /**
@@ -75,11 +66,11 @@ export default class UserFeed extends React.Component {
 
   render() {
     let addToLimit;
-    const { posts } = this.props;
+    const { posts, postsLimit, totalPosts } = this.props;
     if (posts !== undefined && posts !== null) {
-      if (posts.length > 10) {
+      if (totalPosts > postsLimit) {
         addToLimit = (<div className="align-center">
-          <a className="btn waves-effect waves-light" onClick={this.extendLimit}>Show more</a>
+          <a className="btn waves-effect waves-light col s12 float-none" onClick={this.extendLimit}>Show more</a>
         </div>);
       }
     }
@@ -92,10 +83,18 @@ export default class UserFeed extends React.Component {
 }
 
 UserFeed.propTypes = {
-  currentUser: React.PropTypes.oneOfType([ React.PropTypes.object, React.PropTypes.bool ]),
+  currentUser: React.PropTypes.oneOfType([ React.PropTypes.object, React.PropTypes.bool ]).isRequired,
+  /* eslint-disable react/no-unused-prop-types */
+  feedUser: React.PropTypes.oneOfType([ React.PropTypes.object, React.PropTypes.bool ]).isRequired,
+  /* eslint-enable react/no-unused-prop-types */
   increaseLimit: React.PropTypes.func.isRequired,
   likePost: React.PropTypes.func.isRequired,
   posts: React.PropTypes.array,
-  resetLimit: React.PropTypes.func.isRequired,
+  postsLimit: React.PropTypes.number.isRequired,
+  totalPosts: React.PropTypes.number.isRequired,
   unlikePost: React.PropTypes.func.isRequired,
+};
+
+UserFeed.defaultProps = {
+  feedUser: false,
 };

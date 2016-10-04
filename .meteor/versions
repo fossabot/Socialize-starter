@@ -64,6 +64,7 @@ modules-runtime@0.7.6
 mongo@1.1.12
 mongo-id@1.0.5
 msavin:mongol@2.0.1
+natestrauser:publish-performant-counts@0.1.1
 npm-bcrypt@0.9.1
 npm-mongo@1.5.50
 observe-sequence@1.0.12

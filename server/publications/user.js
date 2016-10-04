@@ -1,5 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
+import { Counter } from 'meteor/natestrauser:publish-performant-counts';
+
+// total user count
+const totalUsers = new Counter('countAllUsers', Meteor.users.find({}));
 
 export default function () {
   /**
@@ -9,11 +13,11 @@ export default function () {
    */
   Meteor.publish('user.get', (userIdOrUsername) => {
     check(userIdOrUsername, String);
-    return Meteor.users.find(
-      { $or: [ { _id: userIdOrUsername },
-      { username: userIdOrUsername } ] },
-      { fields: { username: 1, createdAt: 1 } }
-    );
+    return Meteor.users.find({
+      $or: [ { _id: userIdOrUsername }, { username: userIdOrUsername } ] },
+      {
+        fields: { username: 1, createdAt: 1 },
+      });
   });
 
   /**
@@ -28,6 +32,15 @@ export default function () {
 
     const skip = (page - 1) * limit;
 
-    return Meteor.users.find({}, { fields: { username: 1, createdAt: 1 }, limit, skip });
+    const results = Meteor.users.find({}, { fields: { username: 1, createdAt: 1 }, limit, skip });
+
+    return results;
+  });
+
+  /**
+   * Returns total number of users in the DB
+   */
+  Meteor.publish('users.count.all', () => {
+    return totalUsers;
   });
 }

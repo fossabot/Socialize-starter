@@ -21,3 +21,4 @@ import friend_requests from './friend_requests';
 import sign_up_beta from './sign_up_beta';
 import EmailVerify from './email_verify';
 import UserSearch from './user_search';
+import DashboardFriends from './dashboard_friends';
