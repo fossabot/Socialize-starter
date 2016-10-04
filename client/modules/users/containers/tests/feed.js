@@ -1,7 +1,7 @@
 const { describe, it } = global;
 import { expect } from 'chai';
 import { stub, spy } from 'sinon';
-import { composer } from '../feed';
+// import { composer } from '../feed';
 
 describe('users.containers.feed', () => {
   describe('composer', () => {

@@ -1,6 +1,6 @@
 import { BrowserPolicy } from 'meteor/browser-policy-common';
 
-export default function() {
+export default function () {
   BrowserPolicy.framing.disallow();
   BrowserPolicy.content.disallowEval();
   BrowserPolicy.content.allowFontDataUrl();

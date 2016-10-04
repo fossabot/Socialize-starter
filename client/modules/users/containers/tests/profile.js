@@ -1,7 +1,7 @@
 const { describe, it } = global;
 import { expect } from 'chai';
 import { stub, spy } from 'sinon';
-import { composer } from '../profile';
+// import { composer } from '../profile';
 
 describe('users.containers.profile', () => {
   describe('composer', () => {
