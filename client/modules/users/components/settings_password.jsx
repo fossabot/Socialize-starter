@@ -23,7 +23,7 @@ export default class UserChangePassword extends React.Component {
     const { changePassword } = this.props;
 
     if (newPassword === newPasswordConfirm) {
-      if (newPassword.length > 3 && oldPassword.length > 3) {
+      if (newPassword.length >= 4) {
         changePassword(oldPassword, newPassword);
       } else {
         // TODO: Display as error

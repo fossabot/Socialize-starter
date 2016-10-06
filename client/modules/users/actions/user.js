@@ -15,6 +15,10 @@ export default {
       return LocalState.set('CREATE_USER_ERROR', 'Password does not macht.');
     }
 
+    if (password.length >= 4) {
+      return LocalState.set('CREATE_USER_ERROR', 'Password must be more than 4 characters.');
+    }
+
     Accounts.createUser({ email, username, password }, (error) => {
       /* TODO: figure out why we are getting "Content is required"
       error here even though the user gets created successfully*/
