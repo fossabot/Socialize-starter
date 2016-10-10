@@ -7,7 +7,7 @@ export const composer = ({ context, clearErrors }, onData) => {
   const error = LocalState.get('LOGIN_ERROR');
   onData(null, { error });
 
-  return clearErrors();
+  return clearErrors;
 };
 
 export const depsMapper = (context, actions) => ({

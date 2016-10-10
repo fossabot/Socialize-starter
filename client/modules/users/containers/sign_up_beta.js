@@ -6,7 +6,7 @@ export const composer = ({ context, success, error, clearErrors }, onData) => {
   // const {} = context();
 
   onData(null, { success, error });
-  return clearErrors();
+  return clearErrors;
 };
 
 export const depsMapper = (context, actions) => ({

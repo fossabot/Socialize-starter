@@ -8,7 +8,7 @@ export const composer = ({ context, clearErrors }, onData) => {
   const success = LocalState.get('ACCOUNTS_SUCCESS_RESET_PASSWORD');
 
   onData(null, { error, success });
-  return clearErrors();
+  return clearErrors;
 };
 
 export const depsMapper = (context, actions) => ({

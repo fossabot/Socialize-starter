@@ -19,7 +19,7 @@ export const composer = ({ context, location, verify, clearErrors }, onData) => 
 
   onData(null, { success, error });
   if (!success && !error) {
-    return clearErrors();
+    return clearErrors;
   }
 };
 

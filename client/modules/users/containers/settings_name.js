@@ -9,7 +9,7 @@ export const composer = ({ context, clearErrors }, onData) => {
     const error = LocalState.get('ACCOUNTS_ERROR_NAME_UPDATE');
     const success = LocalState.get('ACCOUNTS_SUCCESS_NAME_UPDATE');
     onData(null, { profile, error, success });
-    return clearErrors();
+    return clearErrors;
   }
 };
 

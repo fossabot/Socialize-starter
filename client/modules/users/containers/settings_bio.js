@@ -10,7 +10,7 @@ export const composer = ({ context, clearErrors }, onData) => {
     const error = LocalState.get('ACCOUNTS_ERROR_BIO_UPDATE');
     const success = LocalState.get('ACCOUNTS_SUCCESS_BIO_UPDATE');
     onData(null, { profile, error, success });
-    return clearErrors();
+    return clearErrors;
   }
 };
 

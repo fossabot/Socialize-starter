@@ -10,7 +10,7 @@ export const composer = ({ context, clearErrors }, onData) => {
   if (Meteor.user()) {
     const emails = Meteor.user().emails;
     onData(null, { emails, error, success });
-    return clearErrors();
+    return clearErrors;
   }
 };
 
