@@ -15,7 +15,7 @@ export default {
       return LocalState.set('CREATE_USER_ERROR', 'Password does not macht.');
     }
 
-    if (password.length < 4) {
+    if (password.length < 3) {
       return LocalState.set('CREATE_USER_ERROR', 'Password must be more than 4 characters.');
     }
 

@@ -45,14 +45,14 @@ export default class UserFriendsRequests extends React.Component {
           <i className="material-icons circle">user</i>
           <span className="title">{requester.username}</span>
           <p>
-            <a href="" onClick={(e) => { e.preventDefault(); this.accept.bind(this, requester); }} >
+            <a className="clickable" onClick={this.accept.bind(this, requester)} >
               <i className="material-icons">check</i>
             </a>
-            <a href="" onClick={(e) => { e.preventDefault(); this.deny.bind(this, requester); }} >
+            <a className="clickable" onClick={this.deny.bind(this, requester)} >
               <i className="material-icons">cancel</i>
             </a>
           </p>
-          <Link to={'users/' + requester.username} className="secondary-content">
+          <Link to={'/users/' + requester.username} className="secondary-content">
             <i className="material-icons">send</i>
           </Link>
         </li>);
