@@ -3,12 +3,14 @@ import { browserHistory } from 'react-router';
 
 import ConversationMessages from '../components/conversation_messages.jsx';
 
-export const composer = ({ context, params, clearErrors }, onData) => {
+export const composer = ({ context, params, conversationId, clearErrors }, onData) => {
   const { Meteor, LocalState, MessagesSubs } = context();
 
   let msgLimit = LocalState.get('MESSAGING_LIMIT');
 
-  let conversationId = params.conversationId;
+  if (params && params.conversationId) {
+    conversationId = params.conversationId;
+  }
 
   if (!msgLimit) {
     msgLimit = 10;

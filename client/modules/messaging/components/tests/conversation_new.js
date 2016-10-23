@@ -17,7 +17,6 @@ const { ConversationNew } = proxyquire('../conversation_new', {
   'meteor/socialize:messaging': { Conversation, '@noCallThru': true },
 });
 
-
 describe('messaging.components.conversation_new', () => {
   it('should do something');
 });

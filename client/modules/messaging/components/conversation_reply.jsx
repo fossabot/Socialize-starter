@@ -9,6 +9,10 @@ export default class ConversationReply extends React.Component {
   constructor(props) {
     super(props);
 
+    this.isTyping = this.isTyping.bind(this);
+    this.isNotTyping = this.isNotTyping.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
+
     this.state = {
       typing: null,
     };
@@ -25,20 +29,24 @@ export default class ConversationReply extends React.Component {
   }
 
   isNotTyping() {
-    this.state.typing.stop();
+    if (this.state.typing !== null) {
+      this.state.typing.stop();
+    }
   }
 
   sendMessage(e) {
     e.preventDefault();
     // get message
+    // TODO get from e.target
     let msg = $('#messageToSend').val();
 
     // sanitize
     msg = sanitizeHtml(msg);
 
     // send the message
-    const send = this.props.conversation.sendMessage;
-    send(msg);
+    // const send = this.props.conversation.sendMessage(msg);
+    // send(msg);
+    this.props.conversation.sendMessage(msg);
 
     // increase the limit so the current conversation stays on the screen
     this.setState({
@@ -50,7 +58,7 @@ export default class ConversationReply extends React.Component {
   }
 
   render() {
-    return (<form method="post" onSubmit={this.sendMessage.bind(this)}>
+    return (<form method="post" onSubmit={this.sendMessage}>
       <fieldset>
         <legend>Send message</legend>
         <div className="input-field col s12">
@@ -59,8 +67,8 @@ export default class ConversationReply extends React.Component {
             name="message"
             id="messageToSend"
             className="materialize-textarea"
-            onFocus={this.isTyping.bind(this)}
-            onBlur={this.isNotTyping.bind(this)}
+            onFocus={this.isTyping}
+            onBlur={this.isNotTyping}
           />
           <label htmlFor="messageToSend">Message</label>
         </div>

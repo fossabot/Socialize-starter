@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Helmet from 'react-helmet';
+import moment from 'moment';
 
 import UserNewConversation from './conversation_new.jsx';
 
@@ -19,10 +20,10 @@ export default class UserConversationOverview extends React.Component {
     if (conversations && conversations.length > 0) {
       return conversations.map((conversation) => {
         const usersArray = [];
-        conversation.participants().forEach((participant) => {
+        let participants = conversation.participants().fetch();
+        participants.forEach((participant) => {
           usersArray.push(participant.user().username);
         });
-
 
         let users = usersArray[0];
         for (let i = 1; i < usersArray.length; i++) {
@@ -30,12 +31,21 @@ export default class UserConversationOverview extends React.Component {
         }
 
         const lastMessage = conversation.lastMessage();
+        let msg = null;
+        let date = null;
+        if ( lastMessage ) {
+          msg = (<p className="flow-text truncate">{lastMessage.user().username}: {lastMessage.body}</p>);
+          date = (<span className="right">{moment(lastMessage.date).fromNow()}</span>);
+        }
 
         return (<li className="collection-item avatar" key={conversation._id}>
-          <Link to={'pm/' + conversation._id} >
+          <Link to={'/pm/' + conversation._id} >
             <i className="material-icons circle">mail</i>
-            <span className="title">{users}</span>
-            <p className="flow-text truncate">{lastMessage.user().username}: {lastMessage.body}</p>
+            <p>
+              <span className="title">{users}</span>
+              {date}
+            </p>
+            {msg}
           </Link>
         </li>);
       });

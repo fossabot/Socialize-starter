@@ -69,14 +69,14 @@ export default class UserNewConversation extends React.Component {
   populateSuggestions() {
     if (this.state.search) {
       return this.state.search.map((user) => {
-        return (<button
+        return (<div
           key={'SUG' + user._id}
-          className="suggestion-item avatar"
+          className="suggestion-item avatar clickable"
           onClick={this.addUser.bind(this, user)}
         >
           <i className="material-icons circle">account_circle</i>
           <span className="title">{user.username}</span>
-        </button>);
+        </div>);
       });
     } else {
       // TODO fix that this displays

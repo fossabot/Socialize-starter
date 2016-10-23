@@ -15,6 +15,10 @@ export default class UserConversation extends React.Component {
   constructor(props) {
     super(props);
 
+    this.showOlder = this.showOlder.bind(this);
+    this.getMessages = this.getMessages.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
+
     this.state = {
       viewing: null,
       typing: null,
@@ -26,7 +30,8 @@ export default class UserConversation extends React.Component {
     resetLimit();
   }
 
-  showOlder() {
+  showOlder(e) {
+    e.preventDefault();
     const { increaseLimit } = this.props;
     increaseLimit(10);
   }
@@ -82,7 +87,7 @@ export default class UserConversation extends React.Component {
     let showOlder;
 
     if (this.props.totalMessages > this.props.msgLimit) {
-      showOlder = <a className="center-align" href="#!" onClick={this.showOlder.bind(this)}>Show older messages.</a>;
+      showOlder = <a className="center-align" href="#!" onClick={this.showOlder}>Show older messages.</a>;
     }
 
     return (<div>
@@ -105,7 +110,6 @@ export default class UserConversation extends React.Component {
     </div>);
   }
 }
-
 
 UserConversation.propTypes = {
   conversation: React.PropTypes.object,

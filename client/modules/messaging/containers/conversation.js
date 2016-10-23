@@ -3,10 +3,11 @@ import { browserHistory } from 'react-router';
 
 import UserConversation from '../components/conversation.jsx';
 
-export const composer = ({ context, conversationId }, onData) => {
+export const composer = ({ context, params }, onData) => {
   const { Meteor, MessagesSubs, LocalState } = context();
 
-  if (conversationId) {
+  if (params.conversationId) {
+    const conversationId = params.conversationId;
     MessagesSubs.subscribe('conversation', conversationId);
     if (MessagesSubs.ready()) {
       const conversation = Meteor.conversations.findOne({ _id: conversationId });
@@ -22,7 +23,7 @@ export const composer = ({ context, conversationId }, onData) => {
 
       if (access) {
         let totalMessages = 1;
-        Meteor.call('pm.conversation.count', this.props.conversationId, (error, result) => {
+        Meteor.call('pm.conversation.count', conversationId, (error, result) => {
           if (error) {
             // console.log(error);
           }
@@ -37,7 +38,7 @@ export const composer = ({ context, conversationId }, onData) => {
           LocalState.set('MESSAGING_LIMIT', 10);
         }
 
-        onData(null, { conversation, totalMessages, msgLimit });
+        onData(null, { conversation, totalMessages, msgLimit, conversationId });
       } else {
         // unauthorized access
         browserHistory.push('/pm');
