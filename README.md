@@ -54,6 +54,8 @@ We are using Material design via the `poetic:materialize-scss`.
 
 This allows you to use scss to change the theme easily.
 
+Note: MaterializeCSS will be replaced in the near future with something else, probably Material-UI
+
 ### Routing
 
 We are using `react-router` for routing.
@@ -73,6 +75,7 @@ Basic "user" role is added to each user after they register.
 *   User feed
 *   Friending
 *   Messaging
+*   User search / listing
 
 ## Future plans
 
@@ -84,5 +87,4 @@ What is coming in the future?
 *   Testing (Jest?)
 *   Blogs
 *   Badges
-*   User search / listing
 *   Administration components for everything
