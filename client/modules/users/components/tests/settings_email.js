@@ -9,7 +9,7 @@ const Materialize = {
 };
 
 // Get the component
-const { SettungsEmail } = proxyquire('../settings_email', {
+const { SettingsEmail } = proxyquire('../settings_email', {
   'meteor/poetic:materialize-scss': { Materialize, '@noCallThru': true },
 });
 

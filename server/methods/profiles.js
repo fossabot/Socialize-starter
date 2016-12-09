@@ -5,21 +5,6 @@ import { check } from 'meteor/check';
 export default function () {
   Meteor.methods({
     /**
-     * Updates user's avatar
-     * @function call profile.avater.update
-     * @param {string} avatar
-     * @returns {boolean}
-     */
-    'profile.avatar.update'(avatar) {
-      check(avatar, String);
-      const result = Meteor.profiles.update({ userId: Meteor.userId() }, { $set: { avatar } });
-      if (result) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    /**
      * Updates user's biography
      * @function call profile.biography.update
      * @param {string} bio
@@ -61,12 +46,15 @@ export default function () {
       }
     },
     /**
-     * Count all users on the site
-     * @function call users.count
-     * @returns {Number}
+     * Set a new avatar for the user
+     * @param {string} url
      */
-    'users.count'() {
-      return Meteor.users.find().count();
-    },
+    'profile.avatar.set'(url) {
+      check(url, String);
+
+      return Meteor.profiles.update({ userId: Meteor.userId() }, {
+        $set: { avatar: url }
+      });
+    }
   });
 }

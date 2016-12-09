@@ -1,8 +1,13 @@
 import React from 'react';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { Materialize } from 'meteor/poetic:materialize-scss';
 import Error from '../../core/components/error.jsx';
 
-export default class UserChangeName extends React.Component {
+class UserChangeName extends React.Component {
+  constructor(props) {
+    super(props);
+    this.changeName = this.changeName.bind(this);
+  }
   /**
    * Functions that run every time the component updates
    * @access private
@@ -32,21 +37,41 @@ export default class UserChangeName extends React.Component {
    */
   render() {
     let { givenName, familyName } = this.props.profile;
+    const { formatMessage } = this.props.intl;
 
     return (
-      <form method="post" className="row section" ref="usernameForm" onSubmit={this.changeName.bind(this)}>
+      <form method="post" className="row section" onSubmit={this.changeName}>
         <fieldset>
-          <legend>Real name</legend>
+          <legend>
+            <FormattedMessage
+              id="settings.name"
+              defaultMessage="Real name"
+            />
+          </legend>
           <Error error={this.props.error} success={this.props.success} />
           <div className="input-field col s12 m6">
             <input type="text" name="given" className="validate" defaultValue={givenName} />
-            <label htmlFor="given" className="active">Given Name</label>
+            <label htmlFor="given" className="active">
+              <FormattedMessage
+                id="settings.name.given"
+                defaultMessage="Given name"
+              />
+            </label>
           </div>
           <div className="input-field col s12 m6">
             <input type="text" name="family" className="validate" defaultValue={familyName} />
-            <label htmlFor="family" className="active">Family Name</label>
+            <label htmlFor="family" className="active">
+              <FormattedMessage
+                id="settings.name.family"
+                defaultMessage="Family name"
+              />
+            </label>
           </div>
-          <input type="submit" value="Change" className="btn waves-effect" />
+          <input
+            type="submit"
+            value={formatMessage({id: 'common.save'})}
+            className="btn waves-effect waves-light"
+          />
         </fieldset>
       </form>);
   }
@@ -54,7 +79,10 @@ export default class UserChangeName extends React.Component {
 
 UserChangeName.propTypes = {
   error: React.PropTypes.string,
+  intl: intlShape.isRequired,
   nameUpdate: React.PropTypes.func.isRequired,
   profile: React.PropTypes.object.isRequired,
   success: React.PropTypes.string,
 };
+
+export default injectIntl(UserChangeName);

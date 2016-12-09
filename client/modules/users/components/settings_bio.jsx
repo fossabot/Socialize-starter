@@ -1,21 +1,20 @@
 import React from 'react';
-import { Materialize } from 'meteor/poetic:materialize-scss';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import S from 'string';
 import Error from '../../core/components/error.jsx';
 
 /**
  * @class component UserChangeBio
  * @classdesc Change user biography
  */
-export default class UserChangeBio extends React.Component {
+class UserChangeBio extends React.Component {
   constructor(props) {
     super(props);
     $('#userBio').trigger('autoresize');
-    Materialize.updateTextFields();
   }
 
   componentDidUpdate() {
     $('#userBio').trigger('autoresize');
-    Materialize.updateTextFields();
   }
 
   /**
@@ -37,20 +36,35 @@ export default class UserChangeBio extends React.Component {
    * @returns {jsx}
    */
   render() {
+    const { formatMessage } = this.props.intl;
     return (
       <form method="post" className="row" ref="bioForm" onSubmit={this.changeBio.bind(this)}>
         <fieldset>
-          <legend>Biography</legend>
+          <legend>
+            <FormattedMessage
+              id='settings.biography'
+              defaultMessage='Biography'
+            />
+          </legend>
           <Error error={this.props.error} success={this.props.success} />
           <div className="input-field col s12">
             <textarea
               id="userBio"
               name="userBio"
               className="materialize-textarea"
-              defaultValue={this.props.profile.biography}
+              defaultValue={S(this.props.profile.biography).decodeHTMLEntities().toString()}
             />
-            <label htmlFor="userBio" className="active">A little bit about yourself</label>
-            <input type="submit" value="Change" className="btn waves-effect" />
+            <label htmlFor="userBio" className="active">
+              <FormattedMessage
+                id='settings.biography.placeholder'
+                defaultMessage='A little bit about yourself to be shown on your profile.'
+              />
+            </label>
+            <input
+              type="submit"
+              value={formatMessage({id: 'common.save'})}
+              className="btn waves-effect waves-light"
+            />
           </div>
         </fieldset>
       </form>);
@@ -60,6 +74,9 @@ export default class UserChangeBio extends React.Component {
 UserChangeBio.propTypes = {
   bioUpdate: React.PropTypes.func.isRequired,
   error: React.PropTypes.string,
+  intl: intlShape.isRequired,
   profile: React.PropTypes.object.isRequired,
   success: React.PropTypes.string,
 };
+
+export default injectIntl(UserChangeBio);

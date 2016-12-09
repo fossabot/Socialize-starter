@@ -1,6 +1,7 @@
 import React from 'react';
-import moment from 'moment';
+import S from 'string';
 import { Link } from 'react-router';
+import { FormattedMessage, FormattedRelative } from 'react-intl';
 
 export default class UserFeed extends React.Component {
   constructor(props) {
@@ -42,15 +43,20 @@ export default class UserFeed extends React.Component {
                 {post.poster().username}
               </Link>
             </div>
-            <div className="col s7">{post.body}</div>
+            <div className="col s7">{S(post.body).decodeHTMLEntities().toString()}</div>
             <div className="col s3">
-              {moment(post.date).fromNow()}<br />
+              <FormattedRelative value={post.date} /><br />
               {this.likingDisplay(post)}
             </div>
           </div>);
         });
       } else {
-        return <div>No entries in the feed.</div>;
+        return (<div>
+          <FormattedMessage
+            id="feed.empty"
+            defaultMessage="No entries in the feed."
+          />
+        </div>);
       }
     }
   }
@@ -70,7 +76,12 @@ export default class UserFeed extends React.Component {
     if (posts !== undefined && posts !== null) {
       if (totalPosts > postsLimit) {
         addToLimit = (<div className="align-center">
-          <a className="btn waves-effect waves-light col s12 float-none" onClick={this.extendLimit}>Show more</a>
+          <a className="btn waves-effect waves-light col s12 float-none" onClick={this.extendLimit}>
+            <FormattedMessage
+              id="common.showmore"
+              defaultMessage="Show more"
+            />
+          </a>
         </div>);
       }
     }

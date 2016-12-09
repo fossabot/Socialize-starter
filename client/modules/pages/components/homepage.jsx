@@ -56,6 +56,20 @@ const Homepage = () => (
         </div>
       </div>
 
+      <div className="col s12 m6">
+        <div className="card-panel blue-grey darken-1">
+          <h4 className="white-text">User Search / Listing</h4>
+          <p className="white-text">Search and list registered users.</p>
+        </div>
+      </div>
+
+      <div className="col s12 m6">
+        <div className="card-panel blue-grey darken-1">
+          <h4 className="white-text">i18n and l10n</h4>
+          <p className="white-text">Adding your locales and new translations is easy.</p>
+        </div>
+      </div>
+
       <h3 className="col s12">What is in the future</h3>
 
       <div className="col s12 m6">
@@ -76,13 +90,6 @@ const Homepage = () => (
         <div className="card-panel blue-grey darken-1">
           <h4 className="white-text">Administration</h4>
           <p className="white-text">The starter is currently lacking an admin interface. That will change soon.</p>
-        </div>
-      </div>
-
-      <div className="col s12 m6">
-        <div className="card-panel blue-grey darken-1">
-          <h4 className="white-text">User Search / Listing</h4>
-          <p className="white-text">Search and list registered users.</p>
         </div>
       </div>
 

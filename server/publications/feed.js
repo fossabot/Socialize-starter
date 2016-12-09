@@ -70,7 +70,7 @@ export default function () {
             return Meteor.likes.find(
               { linkedObjectId: post._id },
               { fields: { linkedObjectId: true, userId: true, date: true },
-            });
+              });
           },
         },
         {
@@ -123,9 +123,9 @@ export default function () {
         {
           find: (post) => {
             return Meteor.likes.find(
-              { linkedObjectId: post._id },
+              { linkedObjectId: post._id, userId: this.userId },
               { fields: { linkedObjectId: true, userId: true, date: true },
-            });
+              });
           },
         },
         {
@@ -154,7 +154,7 @@ export default function () {
       friendMap.push(this.userId);
 
       return new Counter('feed.count.for.user', Meteor.posts.find(
-          { $or: [ { userId: { $in: friendMap } },
+        { $or: [ { userId: { $in: friendMap } },
           { posterId: { $in: friendMap } } ] }
         )
       );

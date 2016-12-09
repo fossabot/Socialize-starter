@@ -1,5 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
+import { injectIntl, intlShape } from 'react-intl';
 import Footer from './footer.jsx';
 import Navigation from '../containers/navigation.js';
 
@@ -7,9 +8,9 @@ const Layout = props => (
   <div id="app">
 
     <Helmet
-      titleTemplate="Socialize - %s"
+      titleTemplate={'%s - ' + props.intl.formatMessage({id: 'sitename'})}
       meta={[
-        { name: 'description', content: 'Meteor starter app with social features.' },
+        { name: 'description', content: props.intl.formatMessage({id: 'site.description'}) },
         { name: 'author', content: 'Jan Dvorak IV.' },
       ]}
     />
@@ -28,8 +29,9 @@ const Layout = props => (
   </div>
 );
 
-export default Layout;
-
 Layout.propTypes = {
   children: React.PropTypes.object.isRequired,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(Layout);

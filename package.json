@@ -18,17 +18,15 @@
   "dependencies": {
     "bcrypt": "^0.8.7",
     "mantra-core": "^1.2.0",
-    "meteor-node-stubs": "^0.2.3",
-    "moment": "^2.15.0",
+    "meteor-node-stubs": "^0.2.4",
     "react": "^15.3.0",
     "react-dom": "^15.0.0",
     "react-helmet": "^3.1.0",
-    "react-redux": "^4.4.5",
+    "react-intl": "^2.1.5",
     "react-router": "^2.8.1",
-    "react-router-redux": "^4.0.5",
     "react-simple-di": "^1.0.1",
-    "redux": "^3.6.0",
-    "sanitize-html": "^1.13.0"
+    "sanitize-html": "^1.13.0",
+    "string": "^3.3.3"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.x.x",

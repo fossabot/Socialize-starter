@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Helmet from 'react-helmet';
-import moment from 'moment';
-
+import { FormattedMessage, FormattedRelative, injectIntl, intlShape } from 'react-intl';
 import UserNewConversation from './conversation_new.jsx';
 
 /**
  * @class component UserConversationOverview
  * @classdesc Overview of all conversations that the user is involved in.
  */
-export default class UserConversationOverview extends React.Component {
+class UserConversationOverview extends React.Component {
   constructor(props) {
     super(props);
 
@@ -35,7 +34,7 @@ export default class UserConversationOverview extends React.Component {
         let date = null;
         if ( lastMessage ) {
           msg = (<p className="flow-text truncate">{lastMessage.user().username}: {lastMessage.body}</p>);
-          date = (<span className="right">{moment(lastMessage.date).fromNow()}</span>);
+          date = (<span className="right"><FormattedRelative value={lastMessage.date} /></span>);
         }
 
         return (<li className="collection-item avatar" key={conversation._id}>
@@ -55,20 +54,23 @@ export default class UserConversationOverview extends React.Component {
   }
 
   noData() {
-    return <li className="collection-item avatar">You are currently not conversing with anyone.</li>;
+    return (<li className="collection-item avatar">
+      <FormattedMessage id='pm.conversations.none' defaultMessage='You are currently not conversing with anyone.' />
+    </li>);
   }
 
   render() {
     const { conversations } = this.props;
+    const { formatMessage } = this.props.intl;
     return (<div>
       <Helmet
-        title="Your messages"
+        title={formatMessage({id: 'pm.messages.own', defaultMessage: 'Your messages'})}
       />
       <section className="row valign-wrapper">
         <h1 className="col m11 l11">
           <Link to={'/dashboard'}>
             <i className="material-icons">arrow_back</i>
-          </Link> Messages
+          </Link> <FormattedMessage id='common.pm' defaultMessage='Messages' />
         </h1>
         <div className="col m1 l1">
           <UserNewConversation
@@ -86,4 +88,7 @@ export default class UserConversationOverview extends React.Component {
 
 UserConversationOverview.propTypes = {
   conversations: React.PropTypes.array,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(UserConversationOverview);

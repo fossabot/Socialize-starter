@@ -15,17 +15,19 @@ export default {
       return LocalState.set('CREATE_USER_ERROR', 'Password does not macht.');
     }
 
-    if (password.length < 3) {
-      return LocalState.set('CREATE_USER_ERROR', 'Password must be more than 4 characters.');
+    if (password.length < 5) {
+      return LocalState.set('CREATE_USER_ERROR', 'Password must be more than 6 characters.');
     }
 
-    Accounts.createUser({ email, username, password }, (error) => {
-      /* TODO: figure out why we are getting "Content is required"
-      error here even though the user gets created successfully*/
+    const profile = {
+      language: localStorage.getItem('LU-locale').split('-')[0],
+    };
+
+    Accounts.createUser({ email, username, password, profile }, (error) => {
       if (error) {
         return LocalState.set('CREATE_USER_ERROR', error.reason);
       } else {
-        browserHistory.push('dashboard');
+        browserHistory.push('/dashboard');
       }
     });
   },
@@ -41,7 +43,7 @@ export default {
       if (error !== undefined) {
         LocalState.set('LOGIN_ERROR', error.reason);
       } else {
-        browserHistory.push('dashboard');
+        browserHistory.push('/dashboard');
       }
     });
   },
@@ -87,7 +89,7 @@ export default {
       if (error) {
         LocalState.set('ACCOUNTS_ERROR_RESET_PASSWORD', error.reason);
       } else {
-        browserHistory.push('dashboard');
+        browserHistory.push('/dashboard');
       }
     });
   },

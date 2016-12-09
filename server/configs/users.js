@@ -36,6 +36,15 @@ export default function () {
    * Assign basic roles
    */
   Meteor.users.after.insert((userId, document) => {
+    // add to user group
     Roles.addUsersToRoles(document._id, 'user', Roles.GLOBAL_GROUP);
+
+    // send verification e-mail
+    Accounts.sendVerificationEmail(document._id);
+  });
+
+  // deny updates via non-trusted code
+  Meteor.users.deny({
+    update() { return true; }
   });
 }

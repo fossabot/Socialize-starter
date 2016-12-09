@@ -20,11 +20,11 @@ export const composer = ({ context, location }, onData) => {
     const users = Meteor.users.find(
       { _id: { $nin: [ Meteor.userId() ] } },
       { fields: { username: 1, createdAt: 1 },
-      limit,
-      skip,
-    }).fetch();
+        limit,
+        skip,
+      }).fetch();
 
-    const totalUsers = Counter.get('users.count.all') - 1; // -1 for current user
+    const totalUsers = Counter.get('countAllUsers') - 1; // -1 for current user
 
     onData(null, { users, totalUsers, page, limit });
   }

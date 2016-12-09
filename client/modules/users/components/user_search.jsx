@@ -1,11 +1,12 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
 /**
  * Search for users
  */
-export default class UserSearch extends React.Component {
+class UserSearch extends React.Component {
   constructor(props) {
     super(props);
 
@@ -40,7 +41,7 @@ export default class UserSearch extends React.Component {
     const { results } = this.state;
     // first account for not results or search not even started
     if (results === false) {
-      return <div>Searching...</div>;
+      return (<div><FormattedMessage id="common.searching" defaulMessage="Searching..." /></div>);
     } else if (results === undefined || results === null) {
       return null;
     } else if (results.length < 1) {
@@ -56,14 +57,20 @@ export default class UserSearch extends React.Component {
   }
 
   render() {
+    const { formatMessage } = this.props.intl;
     return (<div className="row">
       <Helmet
-        title="Search for users"
+        title={formatMessage({id: 'search.users', defaulMessage: 'Search for users'})}
       />
       <div className="input-field col s12">
         <i className="material-icons prefix">search</i>
         <input type="text" name="search" id="search" onKeyUp={this.search.bind(this)} />
-        <label htmlFor="search">Search</label>
+        <label htmlFor="search">
+          <FormattedMessage
+            id="common.search.do"
+            defaulMessage="Search"
+          />
+        </label>
       </div>
       <div className="collection">
         {this.showResults()}
@@ -71,3 +78,9 @@ export default class UserSearch extends React.Component {
     </div>);
   }
 }
+
+UserSearch.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(UserSearch);

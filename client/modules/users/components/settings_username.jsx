@@ -1,11 +1,12 @@
 import React from 'react';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Error from '../../core/components/error.jsx';
 
 /**
  * @class component UserChangeUsername
  * @classdesc Allows user to change username
  */
-export default class UserChangeUsernane extends React.Component {
+class UserChangeUsernane extends React.Component {
   /**
    * Changes currently logged in user's username
    * @access private
@@ -23,15 +24,30 @@ export default class UserChangeUsernane extends React.Component {
    * @returns {jsx}
    */
   render() {
+    const { formatMessage } = this.props.intl;
     return (
       <form method="post" className="row" ref="usernameForm" onSubmit={this.changeUsername.bind(this)}>
         <fieldset>
-          <legend>Change Username</legend>
+          <legend>
+            <FormattedMessage
+              id='settings.username'
+              defaultMessage="Change Username"
+            />
+          </legend>
           <Error error={this.props.error} success={this.props.success} />
           <div className="input-field col s12">
             <input type="text" className="validate" name="username" defaultValue={this.props.currentUsername} />
-            <label htmlFor="username" className="active">Username</label>
-            <input type="submit" value="Change" className="btn waves-effect" />
+            <label htmlFor="username" className="active">
+              <FormattedMessage
+                id='settings.username.label'
+                defaultMessage="Username"
+              />
+            </label>
+            <input
+              type="submit"
+              value={formatMessage({id: 'common.save'})}
+              className="btn waves-effect"
+            />
           </div>
         </fieldset>
       </form>);
@@ -42,5 +58,8 @@ UserChangeUsernane.propTypes = {
   changeUsername: React.PropTypes.func.isRequired,
   currentUsername: React.PropTypes.string,
   error: React.PropTypes.string,
+  intl: intlShape.isRequired,
   success: React.PropTypes.string,
 };
+
+export default injectIntl(UserChangeUsernane);

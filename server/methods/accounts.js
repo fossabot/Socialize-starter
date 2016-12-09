@@ -64,5 +64,14 @@ export default function () {
         return false;
       }
     },
+    /**
+     * Set a new language for the user
+     * @param {string} newLang The new language user should be set to.
+     */
+    'accounts.language.set'(newLang) {
+      check(newLang, String); // TODO improve
+
+      return Meteor.users.update(this.userId, {$set: {'profile.language': newLang}});
+    },
   });
 }

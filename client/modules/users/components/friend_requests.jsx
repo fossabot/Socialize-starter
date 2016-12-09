@@ -2,12 +2,13 @@ import React from 'react';
 import { Materialize } from 'meteor/poetic:materialize-scss';
 import { Link } from 'react-router';
 import Helmet from 'react-helmet';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
 /**
  * @class component UserFriendsRequests
  * @classdesc Component to manage friend requests.
  */
-export default class UserFriendsRequests extends React.Component {
+class UserFriendsRequests extends React.Component {
   /**
    * Accepts a friend request from a given user.
    * @access private
@@ -36,7 +37,9 @@ export default class UserFriendsRequests extends React.Component {
     const { requests } = this.props;
 
     if (requests.length === 0) {
-      return <li className="collection-item">You have no requests for friendship.</li>;
+      return (<li className="collection-item">
+        <FormattedMessage id='user.friend.norequests' defaultMessage='You have no requests for friendship.' />
+      </li>);
     } else {
       return requests.map((req) => {
         const requester = req.requester();
@@ -66,11 +69,16 @@ export default class UserFriendsRequests extends React.Component {
    * @returns {jsx}
    */
   render() {
+    const { formatMessage } = this.props.intl;
     return (<div>
       <Helmet
-        title="Friend requests"
+        title={formatMessage({id: 'user.friend.requests', defaultMessage: 'Friend requests'})}
       />
-      <h1><Link to={'/dashboard'}><i className="material-icons">arrow_back</i></Link> Friendships requests</h1>
+      <h1>
+        <Link to={'/dashboard'}>
+          <i className="material-icons">arrow_back</i>
+        </Link> <FormattedMessage id='user.friend.requests' defaultMessage='Friendships requests' />
+      </h1>
       <ul className="collection">
         {this.request()}
       </ul>
@@ -79,5 +87,8 @@ export default class UserFriendsRequests extends React.Component {
 }
 
 UserFriendsRequests.propTypes = {
+  intl: intlShape.isRequired,
   requests: React.PropTypes.array,
 };
+
+export default injectIntl(UserFriendsRequests);

@@ -1,12 +1,13 @@
 import React from 'react';
-import Error from '../../core/components/error.jsx';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { Materialize } from 'meteor/poetic:materialize-scss';
+import Error from '../../core/components/error.jsx';
 
 /**
  * @class component UserChangePassword
  * @classdesc Changes user password
  */
-export default class UserChangePassword extends React.Component {
+class UserChangePassword extends React.Component {
   /**
    * Changes user password
    * @access private
@@ -15,26 +16,35 @@ export default class UserChangePassword extends React.Component {
    */
   changePassword(event) {
     event.preventDefault();
+    const { formatMessage } = this.props.intl;
 
     const oldPassword = event.target.old.value;
     const newPassword = event.target.new.value;
     const newPasswordConfirm = event.target.repeat.value;
 
     const { changePassword } = this.props;
+    const minPasswordLength = 6;
 
     if (newPassword === newPasswordConfirm) {
-      if (newPassword.length >= 4) {
+      if (newPassword.length >= minPasswordLength) {
         changePassword(oldPassword, newPassword);
       } else {
         // TODO: Display as error
-        Materialize.toast('Password must be at least 4 characters long.', 5000);
+        Materialize.toast(formatMessage({
+          id: 'settings.password.badlength',
+          defaultMessage: 'Password must be at least {legth} characters long.',
+          values: { length: minPasswordLength }
+        }), 5000);
       }
     } else {
       // TODO: Display as error
-      Materialize.toast('New password does not match!', 5000);
+      Materialize.toast(formatMessage({
+        id: 'settings.password.nomatch',
+        defaultMessage: 'New password does not match!',
+      }), 5000);
     }
 
-    this.refs.passwordForm.reset();
+    event.target.reset();
   }
   /**
    * Content to be displayed when user data are available.
@@ -42,24 +52,49 @@ export default class UserChangePassword extends React.Component {
    * @returns {jsx}
    */
   render() {
+    const { formatMessage } = this.props.intl;
     return (
-      <form method="post" className="row" ref="passwordForm" onSubmit={this.changePassword.bind(this)}>
+      <form method="post" className="row" onSubmit={this.changePassword.bind(this)}>
         <fieldset>
-          <legend>Change password</legend>
+          <legend>
+            <FormattedMessage
+              id='settings.password'
+              defaultMessage="Change password"
+            />
+          </legend>
           <Error error={this.props.error} success={this.props.success} />
           <div className="input-field col s12">
             <input className="validate" type="password" name="old" />
-            <label htmlFor="old">Current password</label>
+            <label htmlFor="old">
+              <FormattedMessage
+                id='settings.password.current'
+                defaultMessage="Current password"
+              />
+            </label>
           </div>
           <div className="input-field col s12">
             <input className="validate" type="password" name="new" />
-            <label htmlFor="new">New password</label>
+            <label htmlFor="new">
+              <FormattedMessage
+                id='settings.password.new'
+                defaultMessage="New password"
+              />
+            </label>
           </div>
           <div className="input-field col s12">
             <input className="validate" type="password" name="repeat" />
-            <label htmlFor="repeat">Repeat new password</label>
+            <label htmlFor="repeat">
+              <FormattedMessage
+                id='settings.password.new.repeat'
+                defaultMessage="Repeat new password"
+              />
+            </label>
           </div>
-          <input className="btn waves-effect" value="Submit" type="submit" />
+          <input
+            type="submit"
+            value={formatMessage({id: 'common.save'})}
+            className="btn waves-effect waves-light"
+          />
         </fieldset>
       </form>);
   }
@@ -68,5 +103,8 @@ export default class UserChangePassword extends React.Component {
 UserChangePassword.propTypes = {
   changePassword: React.PropTypes.func.isRequired,
   error: React.PropTypes.string,
+  intl: intlShape.isRequired,
   success: React.PropTypes.string,
 };
+
+export default injectIntl(UserChangePassword);

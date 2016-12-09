@@ -32,6 +32,21 @@ export default function () {
    */
   Meteor.publish('profile.for', (userIdOrUsername) => {
     check(userIdOrUsername, String);
-    return Profile.find({ $or: [ { userId: userIdOrUsername }, { username: userIdOrUsername } ] });
+    return Meteor.profiles.find(
+      { $or: [ { userId: userIdOrUsername }, { username: userIdOrUsername } ] },
+      { limit: 1 }
+    );
+  });
+
+  /**
+   * Get a profile for the current user.
+   * @return {MongoDB pointer}
+   * TODO pass a list of fields in
+   */
+  Meteor.publish('profile', function () {
+    return Meteor.profiles.find(
+      { userId: this.userId },
+      { limit: 1 }
+    );
   });
 }

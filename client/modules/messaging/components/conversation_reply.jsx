@@ -1,11 +1,12 @@
 import React from 'react';
 import sanitizeHtml from 'sanitize-html';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
 /**
  * @class component ConversationReply
  * @classdesc Reply to the given conversation
  */
-export default class ConversationReply extends React.Component {
+class ConversationReply extends React.Component {
   constructor(props) {
     super(props);
 
@@ -58,9 +59,12 @@ export default class ConversationReply extends React.Component {
   }
 
   render() {
+    const { formatMessage } = this.props.intl;
     return (<form method="post" onSubmit={this.sendMessage}>
       <fieldset>
-        <legend>Send message</legend>
+        <legend>
+          <FormattedMessage id='pm.send.message' defaultMessage='Send message' />
+        </legend>
         <div className="input-field col s12">
           <i className="material-icons prefix">mode_edit</i>
           <textarea
@@ -70,9 +74,15 @@ export default class ConversationReply extends React.Component {
             onFocus={this.isTyping}
             onBlur={this.isNotTyping}
           />
-          <label htmlFor="messageToSend">Message</label>
+          <label htmlFor="messageToSend">
+            <FormattedMessage id='pm.message' defaultMessage='Message' />
+          </label>
         </div>
-        <input type="submit" value="send" className="btn pull-right waves-light waves-light" />
+        <input
+          type="submit"
+          value={formatMessage({id: 'feed.post.send', defaultMessage: 'Send'})}
+          className="btn pull-right waves-light waves-light"
+        />
       </fieldset>
     </form>);
   }
@@ -82,4 +92,7 @@ export default class ConversationReply extends React.Component {
 ConversationReply.propTypes = {
   conversation: React.PropTypes.object.isRequired,
   conversationId: React.PropTypes.string,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(ConversationReply);

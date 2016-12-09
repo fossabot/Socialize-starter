@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Helmet from 'react-helmet';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Error from '../../core/components/error.jsx';
 
 /**
  * @class component UserLogin
  * @classdesc Shows user login form
  */
-export default class UserLogin extends React.Component {
+class UserLogin extends React.Component {
   /**
    * Login the user
    * @access private
@@ -28,9 +29,11 @@ export default class UserLogin extends React.Component {
    * @access private
    */
   render() {
+    const { formatMessage } = this.props.intl;
+
     return (<div className="row">
       <Helmet
-        title="Login"
+        title={formatMessage({id: 'common.signin', defaultMessage: 'Login'})}
       />
       <div className="col s12 m8 offset-m2 l4 offset-l4 center-align">
         <h1>Login</h1>
@@ -38,16 +41,40 @@ export default class UserLogin extends React.Component {
         <form onSubmit={this.login.bind(this)}>
           <div className="input-field col s12 left-align">
             <input className="validate" type="email" id="email" name="email" required />
-            <label htmlFor="email">E-mail</label>
+            <label htmlFor="email">
+              <FormattedMessage
+                id='common.email'
+                defaultMessage='E-mail'
+              />
+            </label>
           </div>
           <div className="input-field col s12 left-align">
             <input className="validate" type="password" name="password" required />
-            <label htmlFor="email">Your password</label>
+            <label htmlFor="email">
+              <FormattedMessage
+                id='common.password'
+                defaultMessage='Password'
+              />
+            </label>
           </div>
-          <div className="left-align"><Link to={'forgot-password'}>Forgot password?</Link></div>
+          <div className="left-align"><Link to={'/user/forgot-password'}>
+            <FormattedMessage
+              id='signin.password.forgot'
+              defaultMessage='Forgot password?'
+            />
+          </Link></div>
           <div className="expanded button-group">
-            <Link to={'register'} className="waves-effect waves-teal btn-flat">Register</Link>
-            <input type="submit" value="Login" className="btn waves-effect waves-light" />
+            <Link to={'/register'} className="waves-effect waves-teal btn-flat">
+              <FormattedMessage
+                id='common.signup'
+                defaultMessage='Register'
+              />
+            </Link>
+            <input
+              type="submit"
+              value={formatMessage({id: 'common.signin', defaultMessage: 'Login'})}
+              className="btn waves-effect waves-light"
+            />
           </div>
         </form>
       </div>
@@ -57,5 +84,8 @@ export default class UserLogin extends React.Component {
 
 UserLogin.propTypes = {
   error: React.PropTypes.string,
+  intl: intlShape.isRequired,
   loginUser: React.PropTypes.func.isRequired,
 };
+
+export default injectIntl(UserLogin);

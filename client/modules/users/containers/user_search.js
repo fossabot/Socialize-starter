@@ -2,13 +2,11 @@ import { useDeps, composeAll, composeWithTracker } from 'mantra-core';
 
 import UserSearch from '../components/user_search.jsx';
 
-export const composer = ({ context }, onData) => {
-  // const {Meteor, Collections} = context();
-
+export const composer = ({}, onData) => {
   onData(null, {});
 };
 
-export const depsMapper = (context) => ({
+export const depsMapper = context => ({
   context: () => context,
 });
 

@@ -4,7 +4,7 @@ import SignUp from '../components/sign_up.jsx';
 
 export const composer = ({ context, clearErrors }, onData) => {
   const { LocalState } = context();
-  const error = LocalState.get('LOGIN_ERROR');
+  const error = LocalState.get('CREATE_USER_ERROR');
   onData(null, { error });
 
   return clearErrors;

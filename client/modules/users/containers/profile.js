@@ -14,7 +14,7 @@ export const composer = ({ context, params, clearErrors }, onData) => {
   if (Meteor.subscribe('profile.for', user).ready()) {
     const profile = Meteor.profiles.findOne({ $or: [ { userId: user }, { username: user } ] });
 
-    if (Meteor.userId() !== profile.userId) {
+    if (profile && Meteor.userId() !== profile.userId) {
       if (
         Meteor.subscribe('user.get', profile.userId).ready() &&
         Meteor.subscribe('friends').ready() &&
@@ -28,11 +28,13 @@ export const composer = ({ context, params, clearErrors }, onData) => {
 
         onData(null, { profile, profileUser, currentUser, currentFriends, currentRequests });
       }
-    } else {
+    } else if (profile) {
       // The user is visiting their own profile
       const profileUser = Meteor.users.findOne({ _id: profile.userId });
       const currentUser = profileUser;
       onData(null, { profile, profileUser, currentUser });
+    } else {
+      onData(null, {});
     }
   }
 };

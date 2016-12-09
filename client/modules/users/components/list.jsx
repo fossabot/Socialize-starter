@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Helmet from 'react-helmet';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
-export default class UserListing extends React.Component {
+class UserListing extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+    const { formatMessage } = this.props.intl;
     const list = this.props.users.map((user) => {
-      return (<Link to={'users/' + user.username} key={user._id} className="collection-item">
+      return (<Link to={'/users/' + user.username} key={user._id} className="collection-item">
         <i className="material-icons">account_circle</i> {user.username}
       </Link>);
     });
@@ -38,9 +40,14 @@ export default class UserListing extends React.Component {
 
     return (<div>
       <Helmet
-        title="Users"
+        title={formatMessage({id: 'common.users', defaultMessage: 'Users'})}
       />
-      <h1>User listing</h1>
+      <h1>
+        <FormattedMessage
+          id="user.listing"
+          defaultMessage="User listing"
+        />
+      </h1>
       <div className="collection">
         {list}
       </div>
@@ -53,8 +60,11 @@ export default class UserListing extends React.Component {
 }
 
 UserListing.propTypes = {
+  intl: intlShape.isRequired,
   limit: React.PropTypes.number.isRequired,
-  page: React.PropTypes.string, // comes in from url params as string
+  page: React.PropTypes.number,
   totalUsers: React.PropTypes.number.isRequired,
   users: React.PropTypes.array,
 };
+
+export default injectIntl(UserListing);

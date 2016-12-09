@@ -2,12 +2,13 @@ import React from 'react';
 import { Materialize } from 'meteor/poetic:materialize-scss';
 import sanitizeHtml from 'sanitize-html';
 import { Conversation } from 'meteor/socialize:messaging';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
 /**
  * @class component UserNewConversation
  * @classdesc Modal to start a new conversation.
  */
-export default class UserNewConversation extends React.Component {
+class UserNewConversation extends React.Component {
   constructor(props) {
     super(props);
 
@@ -21,8 +22,11 @@ export default class UserNewConversation extends React.Component {
       users,
     };
 
-    this.usersListing.bind(this);
-    this.populateSuggestions.bind(this);
+    this.usersListing = this.usersListing.bind(this);
+    this.populateSuggestions = this.populateSuggestions.bind(this);
+    this.lookupUser = this.lookupUser.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
+    this.openModal = this.openModal.bind(this);
   }
 
   componentDidMount() {
@@ -80,7 +84,9 @@ export default class UserNewConversation extends React.Component {
       });
     } else {
       // TODO fix that this displays
-      return <div className="suggestion-item"><span className="title">No results.</span></div>;
+      return (<div className="suggestion-item"><span className="title">
+        <FormattedMessage id='common.nothingfound' defaultMessage='Nothing found.' />
+      </span></div>);
     }
   }
 
@@ -143,6 +149,7 @@ export default class UserNewConversation extends React.Component {
    */
   sendMessage(e) {
     e.preventDefault();
+    const { formatMessage } = this.props.intl;
     let msg = e.target.msg.value;
     const users = this.state.users;
     if (users.length > 0) {
@@ -156,7 +163,7 @@ export default class UserNewConversation extends React.Component {
 
       // sanitize
       msg = sanitizeHtml(msg);
-      if (msg.length > 0) {
+      if (msg.length > 1) {
         // send the message
         converstation.sendMessage(msg);
 
@@ -165,10 +172,16 @@ export default class UserNewConversation extends React.Component {
         // close modal or redirect to the conversation
         $('#newConversation').closeModal();
       } else {
-        Materialize.toast('You should really say something...', 5000);
+        Materialize.toast(formatMessage({
+          id: 'pm.errors.saysomething',
+          defaultMessage: 'You should really say something...'
+        }) , 5000);
       }
     } else {
-      Materialize.toast('You need to add at least one other user!', 5000);
+      Materialize.toast(formatMessage({
+        id: 'pm.errors.addrecipient',
+        defaultMessage: 'You need to add at least one other user.'
+      }), 5000);
     }
   }
 
@@ -180,6 +193,7 @@ export default class UserNewConversation extends React.Component {
 
   render() {
     let { buttonClass, buttonText } = this.props;
+    const { formatMessage } = this.props.intl;
 
     if (buttonClass === null || buttonClass === undefined) {
       buttonClass = 'btn waves-effect modal-trigger';
@@ -192,16 +206,18 @@ export default class UserNewConversation extends React.Component {
     }
 
     // the search element
-    const search = (<div className="input-field">
+    const search = (<div className="input-field col s12">
       <i className="material-icons prefix">search</i>
       <input
         id="searchUsernames"
         name="searchUsernames"
         type="text"
         className="validate"
-        onInput={this.lookupUser.bind(this)}
+        onInput={this.lookupUser}
       />
-      <label className="active" htmlFor="searchUsernames">Username</label>
+      <label className="active" htmlFor="searchUsernames">
+        <FormattedMessage id='settings.username.label' defaultMessage='Username' />
+      </label>
       <div id="searchSuggestions" className="search-suggestions-box">
         {this.populateSuggestions()}
       </div>
@@ -209,21 +225,27 @@ export default class UserNewConversation extends React.Component {
 
     return (
       <div>
-        <button className={buttonClass} onClick={this.openModal.bind(this)}>{buttonText}</button>
+        <button className={buttonClass} onClick={this.openModal}>{buttonText}</button>
         <div id="newConversation" className="modal">
           <div className="modal-content">
-            <form method="post" onSubmit={this.sendMessage.bind(this)}>
+            <form method="post" className="row" onSubmit={this.sendMessage}>
               {search}
               <div className="">
-                To: {this.usersListing()}
+                <FormattedMessage id='pm.to' defaultMessage='To:' /> {this.usersListing()}
               </div>
-              <div className="input-field">
+              <div className="input-field col s12">
                 <i className="material-icons prefix">mode_edit</i>
                 <textarea name="msg" className="materialize-textarea validate" />
-                <label htmlFor="msg">Message</label>
+                <label htmlFor="msg">
+                  <FormattedMessage id='pm.message' defaultMessage='Message' />
+                </label>
               </div>
-              <div className="input-field">
-                <input type="submit" className="btn waves-effect waves-light right" value="Send" />
+              <div className="input-field col s12">
+                <input
+                  type="submit"
+                  className="btn waves-effect waves-light right"
+                  value={formatMessage({id: 'pm.send', defaultMessage: 'Send'})}
+                />
               </div>
             </form>
           </div>
@@ -239,5 +261,8 @@ UserNewConversation.propTypes = {
     React.PropTypes.element,
     React.PropTypes.string,
   ]),
+  intl: intlShape.isRequired,
   recipients: React.PropTypes.array,
 };
+
+export default injectIntl(UserNewConversation);

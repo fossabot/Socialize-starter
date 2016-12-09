@@ -32,9 +32,9 @@ export default function () {
       username: { $regex: query, $options: 'i' },
       _id: { $nin: excluded } },
       { fields:
-        { username: 1,
-          roles: 1,
-        },
+      { username: 1,
+        roles: 1,
+      },
         limit: 10,
       }
     );

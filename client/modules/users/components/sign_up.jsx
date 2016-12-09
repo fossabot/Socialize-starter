@@ -1,13 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router';
-import Error from '../../core/components/error.jsx';
 import Helmet from 'react-helmet';
+import { Link } from 'react-router';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import Error from '../../core/components/error.jsx';
 
 /**
  * @class component UserRegister
  * @classdesc User registration form.
  */
-export default class UserRegister extends React.Component {
+class UserRegister extends React.Component {
   /**
    * Registers a new user in the system.
    * @access private
@@ -30,34 +31,69 @@ export default class UserRegister extends React.Component {
    * @access private
    */
   render() {
+    const {formatMessage} = this.props.intl;
     return (
       <div className="row">
         <Helmet
-          title="Register"
+          title={formatMessage({id: 'common.signup', defaultMessage: 'Register'})}
         />
         <div className="col s12 m8 offset-m2 l4 offset-l4 center-align">
-          <h1>Register</h1>
+          <h1>
+            <FormattedMessage
+              id='common.signup'
+              defaultMessage='Register'
+            />
+          </h1>
           <Error error={this.props.error} />
           <form onSubmit={this.register.bind(this)}>
             <div className="input-field col s12 left-align">
               <input className="validate" type="text" id="username" name="username" required />
-              <label htmlFor="username">Your username</label>
+              <label htmlFor="username">
+                <FormattedMessage
+                  id='signup.username'
+                  defaultMessage='Desired username'
+                />
+              </label>
             </div>
             <div className="input-field col s12 left-align">
               <input className="validate" type="email" name="email" required />
-              <label htmlFor="email">Your e-mail</label>
+              <label htmlFor="email">
+                <FormattedMessage
+                  id='signup.email'
+                  defaultMessage='Your e-mail'
+                />
+              </label>
             </div>
             <div className="input-field col s12 left-align">
               <input className="validate" type="password" name="password" required />
-              <label htmlFor="password">Your password</label>
+              <label htmlFor="password">
+                <FormattedMessage
+                  id='signup.password'
+                  defaultMessage='Your password'
+                />
+              </label>
             </div>
             <div className="input-field col s12 left-align">
               <input className="validate" type="password" name="password2" required />
-              <label htmlFor="password2">Repeat your password</label>
+              <label htmlFor="password2">
+                <FormattedMessage
+                  id='signup.password.repeat'
+                  defaultMessage='Repeat your password'
+                />
+              </label>
             </div>
             <div className="expanded button-group">
-              <Link to={'login'} className="waves-effect waves-teal btn-flat">Login</Link>
-              <input type="submit" value="Create account" className="btn waves-effect" />
+              <Link to={'login'} className="waves-effect waves-teal btn-flat">
+                <FormattedMessage
+                  id='common.signin'
+                  defaultMessage='Login'
+                />
+              </Link>
+              <input
+                type="submit"
+                value={formatMessage({id: 'common.account.create', defaultMessage: 'Create an account'})}
+                className="btn waves-effect"
+              />
             </div>
           </form>
         </div>
@@ -68,4 +104,8 @@ export default class UserRegister extends React.Component {
 UserRegister.propTypes = {
   create: React.PropTypes.func.isRequired,
   error: React.PropTypes.string,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(UserRegister);
+

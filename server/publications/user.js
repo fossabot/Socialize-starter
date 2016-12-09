@@ -16,7 +16,7 @@ export default function () {
     return Meteor.users.find({
       $or: [ { _id: userIdOrUsername }, { username: userIdOrUsername } ] },
       {
-        fields: { username: 1, createdAt: 1 },
+        fields: { username: 1, createdAt: 1, roles: 1 },
       });
   });
 

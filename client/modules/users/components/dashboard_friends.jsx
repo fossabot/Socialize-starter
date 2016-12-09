@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { FormattedMessage} from 'react-intl';
 
 export default class DashboardFriends extends React.Component {
   render() {
@@ -7,12 +8,6 @@ export default class DashboardFriends extends React.Component {
     if (user) {
       // friends requests
       if (user.numRequests() > 0) {
-        let msg;
-        if (user.numRequests() > 1) {
-          msg = user.numRequests() + ' new friend requests';
-        } else {
-          msg = user.numRequests() + ' new friend request';
-        }
         return (<div className="col s6 m4 l3 center-align">
           <div className="card hoverable indigo waves-effect waves-block waves-light">
             <Link to={'user/friends'}>
@@ -20,7 +15,14 @@ export default class DashboardFriends extends React.Component {
                 <i className="material-icons white-text">person_add</i>
               </div>
               <div className="card-content">
-                <p className="flow-text white-text">{msg}</p>
+                <p className="flow-text white-text">
+                  <FormattedMessage
+                    id="user.friend.requests"
+                    values={{
+                      num: user.numRequests(),
+                    }}
+                  />
+                </p>
               </div>
             </Link>
           </div>

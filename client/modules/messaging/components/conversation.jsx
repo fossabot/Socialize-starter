@@ -1,8 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import moment from 'moment';
 import sanitizeHtml from 'sanitize-html';
-
+import { FormattedMessage, FormattedRelative, injectIntl, intlShape } from 'react-intl';
 import ConversationParticipants from '../containers/conversation_participants.js';
 import ConversationMessages from '../containers/conversation_messages.js';
 import ConversationReply from '../containers/conversation_reply.js';
@@ -11,7 +10,7 @@ import ConversationReply from '../containers/conversation_reply.js';
  * @class component UserConversation
  * @classdesc Component to display a full user conversation.
  */
-export default class UserConversation extends React.Component {
+class UserConversation extends React.Component {
   constructor(props) {
     super(props);
 
@@ -43,7 +42,9 @@ export default class UserConversation extends React.Component {
 
       return (<div key={msg._id} className="row">
         <div className="col s10"><strong>{user.username}:</strong> {msg.body}</div>
-        <div className="col s2">{moment(msg.date).fromNow()}</div>
+        <div className="col s2">
+          <FormattedRelative value={msg.date} />
+        </div>
       </div>);
     });
   }
@@ -85,14 +86,16 @@ export default class UserConversation extends React.Component {
 
   render() {
     let showOlder;
-
+    const { formatMessage } = this.props.intl;
     if (this.props.totalMessages > this.props.msgLimit) {
-      showOlder = <a className="center-align" href="#!" onClick={this.showOlder}>Show older messages.</a>;
+      showOlder = (<a className="center-align clickable" onClick={this.showOlder}>
+        <FormattedMessage id='pm.showolder' defaultMessage='Show older messages.' />
+      </a>);
     }
 
     return (<div>
       <Helmet
-        title="Conversation"
+        title={formatMessage({id: 'pm.conversation', defaultMessage: 'Conversation'})}
       />
       <div className="row">
         <div className="col s12 m10 l10">
@@ -115,8 +118,11 @@ UserConversation.propTypes = {
   conversation: React.PropTypes.object,
   conversationId: React.PropTypes.string,
   increaseLimit: React.PropTypes.func.isRequired,
+  intl: intlShape.isRequired,
   messages: React.PropTypes.array,
   msgLimit: React.PropTypes.number,
   resetLimit: React.PropTypes.func.isRequired,
   totalMessages: React.PropTypes.number,
 };
+
+export default injectIntl(UserConversation);

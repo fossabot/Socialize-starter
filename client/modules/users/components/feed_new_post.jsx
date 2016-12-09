@@ -1,6 +1,13 @@
 import React from 'react';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
-export default class FeedNewPost extends React.Component {
+class FeedNewPost extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.addPost = this.addPost.bind(this);
+  }
+
   addPost(e) {
     e.preventDefault();
 
@@ -20,15 +27,21 @@ export default class FeedNewPost extends React.Component {
     if (this.props.error) {
       error = <div className="col s12 red darken-2"><p className="white-text flow-text">{this.props.error}</p></div>;
     }
+    const { formatMessage } = this.props.intl;
 
     if (Meteor.userId()) {
-      return (<form id="postForm" method="post" className="row card-panel hoverable" onSubmit={this.addPost.bind(this)}>
+      return (<form id="postForm" method="post" className="row card-panel hoverable" onSubmit={this.addPost}>
         <div className="input-field col s10">
           <input type="text" className="validate" name="postText" />
-          <label htmlFor="postText">New post</label>
+          <label htmlFor="postText">
+            <FormattedMessage
+              id="feed.post.new"
+              defaultMessage="New post"
+            />
+          </label>
         </div>
         <div className="input-field col s2">
-          <input type="submit" className="btn" name="postSubmit" value="Post" />
+          <input type="submit" className="btn" name="postSubmit" value={formatMessage({ id: 'feed.post.send'})} />
         </div>
         {error}
       </form>);
@@ -39,4 +52,7 @@ export default class FeedNewPost extends React.Component {
 FeedNewPost.propTypes = {
   addPost: React.PropTypes.func.isRequired,
   error: React.PropTypes.string,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(FeedNewPost);

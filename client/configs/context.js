@@ -4,20 +4,20 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { Tracker } from 'meteor/tracker';
 import { SubsManager } from 'meteor/meteorhacks:subs-manager';
 
-// Redux
-import { createStore } from 'redux';
+// i18n
+import i18n from '../../intl/settings.js';
 
 const UserSubs = new SubsManager();
 const ProfileSubs = new SubsManager();
 const MessagesSubs = new SubsManager();
 
-export default function ({ reducer }) {
+export default function () {
   return {
     Meteor,
     Collections,
     LocalState: new ReactiveDict(),
     Tracker,
-    Store: createStore(reducer),
+    i18n,
     /* SUBS */
     UserSubs,
     ProfileSubs,

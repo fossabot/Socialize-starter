@@ -64,6 +64,32 @@ export default {
       }
     });
   },
+  setLang({ Meteor, LocalState }, newLang) {
+    localStorage.setItem('LU-locale', newLang);
+    Meteor.call('accounts.language.set', newLang, (error, result) => {
+      if (error) {
+        LocalState.set('ACCOUNTS_ERROR_LANGUAGE_UPDATE', error.reason);
+      }
+      if (result) {
+        LocalState.set('ACCOUNTS_SUCCESS_LANGUAGE_UPDATE', 'New language set.');
+      }
+    });
+  },
+  setPatreon({}) {
+    // check that url goes to Patreon
+    // url = url.trim();
+    // save
+  },
+  setAvatar({LocalState}, url) {
+    Meteor.call('profile.avatar.set', url, (error, result) => {
+      if (error) {
+        LocalState.set('ACCOUNTS_ERROR_AVATAR_UPDATE', error.reason);
+      }
+      if (result) {
+        LocalState.set('ACCOUNTS_SUCCESS_AVATAR_UPDATE', 'New avatar has been set.');
+      }
+    });
+  },
   clearErrors({ LocalState }) {
     LocalState.set('ACCOUNTS_ERROR_EMAIL', null);
     LocalState.set('ACCOUNTS_ERROR_USERNAME_UPDATE', null);
@@ -71,6 +97,10 @@ export default {
     LocalState.set('ACCOUNTS_SUCCESS_EMAIL', null);
     LocalState.set('ACCOUNTS_SUCCESS_USERNAME_UPDATE', null);
     LocalState.set('ACCOUNTS_SUCCESS_BIO_UPDATE', null);
+    LocalState.set('ACCOUNTS_ERROR_LANGUAGE_UPDATE', null);
+    LocalState.set('ACCOUNTS_SUCCESS_LANGUAGE_UPDATE', null);
+    LocalState.set('ACCOUNTS_ERROR_AVATAR_UPDATE', null);
+    LocalState.set('ACCOUNTS_SUCCESS_AVATAR_UPDATE', null);
     LocalState.set('ACCOUNTS_SUCCESS_NAME_UPDATE', null);
     return LocalState.set('ACCOUNTS_ERROR_NAME_UPDATE', null);
   },

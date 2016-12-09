@@ -1,13 +1,14 @@
 import React from 'react';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Error from '../../core/components/error.jsx';
 
 /**
  * @class component UserEmail
  * @classdesc Shows e-mails associated with the account and allows to add more or delete them.
  */
-export default class UserEmail extends React.Component {
-  constructor() {
-    super();
+class UserEmail extends React.Component {
+  constructor(props) {
+    super(props);
 
     this.verification.bind(this);
   }
@@ -24,7 +25,12 @@ export default class UserEmail extends React.Component {
           verified = (<i className="material-icons green-text">check</i>);
         } else {
           verified = (<div className="chip red darken-1">
-            <span className="link" onClick={this.verification.bind(this, email.address)}>not verified</span>
+            <span className="link" onClick={this.verification.bind(this, email.address)}>
+              <FormattedMessage
+               id="settings.email.verified.not"
+               defaultMessage="not verified"
+              />
+            </span>
           </div>);
         }
         return (<li key={email.address} className="collection-item">
@@ -38,7 +44,10 @@ export default class UserEmail extends React.Component {
       });
     } else {
       // TODO add Loader here
-      return <div>Loading...</div>;
+      return (<div><FormattedMessage
+               id="common.loading"
+               defaultMessage="Loading..."
+              /></div>);
     }
   }
 
@@ -91,21 +100,41 @@ export default class UserEmail extends React.Component {
    * @returns {jsx}
    */
   render() {
+    const { formatMessage } = this.props.intl;
     return (
       <form method="post" className="row" ref="emailForm" onSubmit={this.addEmail.bind(this)}>
         <fieldset>
-          <legend>E-mails</legend>
+          <legend>
+            <FormattedMessage
+              id="settings.email"
+              defaultMessage="E-mails"
+            />
+          </legend>
           <Error error={this.props.error} success={this.props.success} />
           <ul className="collection with-header col s12">
-            <li className="collection-header">E-mails associated with your account</li>
+            <li className="collection-header">
+              <FormattedMessage
+              id="settings.email.msg"
+              defaultMessage="E-mails associated with your account"
+            />
+            </li>
             {this.getEmails(this.props.emails)}
           </ul>
           <div className="input-field col s12">
             <input type="email" className="validate" required name="email" />
-            <label htmlFor="email">Add e-mail</label>
+            <label htmlFor="email">
+              <FormattedMessage
+                id="settings.email.add"
+                defaultMessage="Add e-mail"
+              />
+            </label>
           </div>
-          <input type="submit" className="btn waves-effect waves-light" value="Add" />
+          <input
+            type="submit"
+            className="btn waves-effect waves-light"
+            value={formatMessage({id: 'common.add', defaultMessage: 'Add'})} />
         </fieldset>
+
       </form>);
   }
 }
@@ -114,7 +143,10 @@ UserEmail.propTypes = {
   addEmail: React.PropTypes.func.isRequired,
   emails: React.PropTypes.array.isRequired,
   error: React.PropTypes.string,
+  intl: intlShape.isRequired,
   removeEmail: React.PropTypes.func.isRequired,
   success: React.PropTypes.string,
   verify: React.PropTypes.func.isRequired,
 };
+
+export default injectIntl(UserEmail);

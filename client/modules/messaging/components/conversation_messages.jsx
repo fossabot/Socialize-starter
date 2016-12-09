@@ -1,5 +1,6 @@
 import React from 'react';
-import moment from 'moment';
+import S from 'string';
+import { FormattedRelative } from 'react-intl';
 
 /**
  * @class component ConversationMessage
@@ -25,8 +26,8 @@ export default class ConversationMessage extends React.Component {
       const user = msg.user();
 
       return (<div key={msg._id} className="row">
-        <div className="col s10"><strong>{user.username}:</strong> {msg.body}</div>
-        <div className="col s2">{moment(msg.date).fromNow()}</div>
+        <div className="col s10"><strong>{user.username}:</strong> {S(msg.body).decodeHTMLEntities().toString()}</div>
+        <div className="col s2"><FormattedRelative value={msg.date} /></div>
       </div>);
     });
   }

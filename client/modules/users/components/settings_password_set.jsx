@@ -1,12 +1,13 @@
 import React from 'react';
 import Helmet from 'react-helmet';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { Materialize } from 'meteor/poetic:materialize-scss';
 import Error from '../../core/components/error.jsx';
 /**
  * @class component SetPassword
  * @classdesc Component where users can reset their password.
  */
-export default class SetPassword extends React.Component {
+class SetPassword extends React.Component {
   constructor(props) {
     super(props);
 
@@ -15,47 +16,76 @@ export default class SetPassword extends React.Component {
 
   setPassword(e) {
     e.preventDefault();
+    const { formatMessage } = this.props.intl;
 
-    const pass1 = e.target.pass1.value;
-    const pass2 = e.target.pass2.value;
+    const newPassword = e.target.pass1.value;
+    const newPasswordConfirm = e.target.pass2.value;
+    const minPasswordLength = 6;
 
-    if (pass1 === pass2) {
-      let { token } = this.props;
-      if (token) {
-        /**
-         * TODO figure out why "3D" is added after "=" in url token creation
-         * so that we don't have to doctor the token
-         */
-        if (token[0] === '3' && token[1] === 'D') {
-          token = token.substr(2);
-        }
-
-        const { resetPassword } = this.props;
-
-        resetPassword(token, pass1);
+    let { token } = this.props;
+    if (token) {
+      /**
+       * TODO figure out why "3D" is added after "=" in url token creation
+       * so that we don't have to doctor the token
+       */
+      if (token[0] === '3' && token[1] === 'D') {
+        token = token.substr(2);
       }
-      // TODO for future actions like enrollment
-    } else {
-      Materialize.toast('Passwords don\'t match!', 5000);
-      e.target.reset();
+
+      if (newPassword === newPasswordConfirm) {
+        if (newPassword.length >= minPasswordLength) {
+          const { resetPassword } = this.props;
+          resetPassword(token, newPassword);
+        } else {
+          // TODO: Display as error
+          Materialize.toast(formatMessage({
+            id: 'settings.password.badlength',
+            defaultMessage: 'Password must be at least {legth} characters long.',
+            values: { length: minPasswordLength }
+          }), 5000);
+        }
+      } else {
+        // TODO: Display as error
+        Materialize.toast(formatMessage({
+          id: 'settings.password.nomatch',
+          defaultMessage: 'New password does not match!',
+        }), 5000);
+      }
     }
+    e.target.reset();
   }
+
   render() {
-    return (<form method="post" onSubmit={this.setPassword}>
+    const { formatMessage } = this.props.intl;
+    return (<form method="post" className="row" onSubmit={this.setPassword}>
       <Helmet
         title="Set your password"
       />
       <Error error={this.props.error} />
-      <div className="input-field">
+      <div className="input-field col s12">
         <input type="password" name="pass1" className="validate" />
-        <label htmlFor="pass1">New password</label>
+        <label htmlFor="pass1">
+          <FormattedMessage
+            id='settings.password.new'
+            defaultMessage="New password"
+          />
+        </label>
       </div>
-      <div className="input-field">
+      <div className="input-field col s12">
         <input type="password" name="pass2" className="validate" />
-        <label htmlFor="pass2">Repeat password</label>
+        <label htmlFor="pass2">
+          <FormattedMessage
+            id='settings.password.new.repeat'
+            defaultMessage="Repeat new password"
+          />
+        </label>
       </div>
-      <div className="input-field right-align">
-        <input type="submit" className="btn waves-effect waves-light" />
+      <div className="input-field col s12 right-align">
+        <input
+          type="submit"
+          value={formatMessage({id: 'common.save'})}
+          className="btn waves-effect waves-light"
+        />
       </div>
     </form>);
   }
@@ -63,6 +93,9 @@ export default class SetPassword extends React.Component {
 
 SetPassword.propTypes = {
   error: React.PropTypes.string,
+  intl: intlShape.isRequired,
   resetPassword: React.PropTypes.func.isRequired,
   token: React.PropTypes.string.isRequired,
 };
+
+export default injectIntl(SetPassword);
