@@ -81,6 +81,7 @@ Basic "user" role is added to each user after they register.
 
 What is coming in the future?
 
+*   Change Materialize CSS for Material-UI once `next` (aka v1) is released
 *   React Storybook for all components
 *   Default settings and other reusable components settings for all components
 *   Improve existing functionality

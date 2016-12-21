@@ -72,12 +72,12 @@ class UserFriendsRequests extends React.Component {
     const { formatMessage } = this.props.intl;
     return (<div>
       <Helmet
-        title={formatMessage({id: 'user.friend.requests', defaultMessage: 'Friend requests'})}
+        title={formatMessage({id: 'user.friend.requests.title', defaultMessage: 'Friend requests'})}
       />
       <h1>
         <Link to={'/dashboard'}>
           <i className="material-icons">arrow_back</i>
-        </Link> <FormattedMessage id='user.friend.requests' defaultMessage='Friendships requests' />
+        </Link> <FormattedMessage id='user.friend.requests.title' defaultMessage='Friendships requests' />
       </h1>
       <ul className="collection">
         {this.request()}
