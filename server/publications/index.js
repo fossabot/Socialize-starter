@@ -2,12 +2,12 @@ import friendships from './friendships.js';
 import feed from './feed.js';
 import profiles from './profiles.js';
 import user from './user.js';
-import messaging from './messaging.js';
+import { messagingPublications } from 'meteor/storyteller:messaging-server';
 
 export default function () {
   friendships();
   feed();
   profiles();
   user();
-  messaging();
+  messagingPublications();
 }

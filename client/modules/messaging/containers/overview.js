@@ -4,7 +4,7 @@ import UserConversationOverview from '../components/overview.jsx';
 
 export const composer = ({ context }, onData) => {
   const { Meteor, MessagesSubs } = context();
-  if (MessagesSubs.subscribe('conversations').ready()) {
+  if (MessagesSubs.subscribe('pm.conversations').ready()) {
     const conversations = Meteor.conversations.find().fetch();
 
     onData(null, { conversations });

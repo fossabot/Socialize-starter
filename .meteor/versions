@@ -102,6 +102,8 @@ srp@1.0.10
 standard-minifier-css@1.3.2
 standard-minifier-js@1.2.1
 static-html@1.1.13
+storyteller:accounts-server@0.2.0
+storyteller:messaging-server@0.2.0
 templating@1.2.15
 templating-compiler@1.2.15
 templating-runtime@1.2.15

@@ -6,7 +6,7 @@ export const composer = ({ context, conversationId }, onData) => {
   const { Meteor, MessagesSubs } = context();
 
   if (conversationId) {
-    if (MessagesSubs.subscribe('conversation', conversationId).ready()) {
+    if (MessagesSubs.subscribe('pm.conversation', conversationId).ready()) {
       const conversation = Meteor.conversations.findOne({ _id: conversationId });
 
       // confirm that user can view the conversation

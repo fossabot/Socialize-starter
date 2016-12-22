@@ -9,7 +9,7 @@ export const composer = ({ context, recipients, clearErrors }, onData) => {
    * TODO move user search sub fully here?
    */
   if (LocalState.get('CONVERSATION_USER_SEARCH')) {
-    if (Meteor.subscribe('searchForUsers', LocalState.get('CONVERSATION_USER_SEARCH')).ready()) {
+    if (Meteor.subscribe('pm.users.search', LocalState.get('CONVERSATION_USER_SEARCH')).ready()) {
       const userSearchResults = Meteor.users.find({}).fetch();
       onData(null, { userSearchResults, recipients });
     }

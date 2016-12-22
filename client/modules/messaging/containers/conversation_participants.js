@@ -4,7 +4,7 @@ import ConversationParticipants from '../components/conversation_participants.js
 
 export const composer = ({ context, conversationId }, onData) => {
   const { Meteor, MessagesSubs } = context();
-  if (MessagesSubs.subscribe('conversation', conversationId).ready()) {
+  if (MessagesSubs.subscribe('pm.conversation', conversationId).ready()) {
     const conversation = Meteor.conversations.findOne({ _id: conversationId });
 
     onData(null, { conversation });

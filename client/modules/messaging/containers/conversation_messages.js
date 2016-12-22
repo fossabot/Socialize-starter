@@ -18,8 +18,8 @@ export const composer = ({ context, params, conversationId, clearErrors }, onDat
   }
 
   if (conversationId) {
-    MessagesSubs.subscribe('messages.for', conversationId, { limit: msgLimit, skip: 0 });
-    MessagesSubs.subscribe('conversation', conversationId);
+    MessagesSubs.subscribe('pm.messages.for', conversationId, { limit: msgLimit, skip: 0 });
+    MessagesSubs.subscribe('pm.conversation', conversationId);
 
     if (MessagesSubs.ready()) {
       const messages = Meteor.messages.find({ conversationId }, { sort: { date: 1 } }).fetch();

@@ -8,7 +8,7 @@ export const composer = ({ context, params }, onData) => {
 
   if (params.conversationId) {
     const conversationId = params.conversationId;
-    MessagesSubs.subscribe('conversation', conversationId);
+    MessagesSubs.subscribe('pm.conversation', conversationId);
     if (MessagesSubs.ready()) {
       const conversation = Meteor.conversations.findOne({ _id: conversationId });
 
