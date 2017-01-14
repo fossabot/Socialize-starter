@@ -25,7 +25,7 @@ socialize:base-model
 socialize:user-profile
 socialize:likeable
 socialize:feed
-socialize:messaging@0.5.2
+socialize:messaging
 socialize:friendships
 meteorhacks:subs-manager
 alanning:roles
