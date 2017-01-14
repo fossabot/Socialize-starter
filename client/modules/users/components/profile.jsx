@@ -201,13 +201,9 @@ export default class UserProfile extends React.Component {
         newPost = <NewFeedPost />;
       }
 
-      let nanowrimo = null;
-      if ( profile.nanowrimo && profile.nanowrimo.username ) {
-        nanowrimo = (<p className="center-align"><img
-          className="responsive-img"
-          alt="NaNoWriMo"
-          src={'http://nanowrimo.org/widget/LiveSupporter/' + profile.nanowrimo.username.toLowerCase() + '.png' }
-        /></p>);
+      let bio = null;
+      if (profile.biography) {
+        S(profile.biography).decodeHTMLEntities().toString();
       }
 
       return (<div className="profile-header-bg">
@@ -253,7 +249,7 @@ export default class UserProfile extends React.Component {
           <div className="col s12 m2 l3">
             <div className="card-panel">
               <h5>{profile.givenName} {profile.familyName}</h5>
-              <p>{S(profile.biography).decodeHTMLEntities().toString()}</p>
+              <p>{bio}</p>
               <p>
                 <FormattedMessage
                   id="user.joined"
@@ -268,7 +264,6 @@ export default class UserProfile extends React.Component {
                   year='numeric'
                 />
               </p>
-              {nanowrimo}
             </div>
           </div>
         </section>
