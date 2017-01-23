@@ -122,7 +122,7 @@ export default class UserProfile extends React.Component {
     // if friends show unfriend button
     if (currentUser.isFriendsWith(profileUser)) {
       return (<button onClick={this.unfriend} className="btn waves-effect">
-        <FormattedMessage id="user.unfriend" defaultMessage="Unfriend" />
+        <FormattedMessage id="user.friend.unfriend" defaultMessage="Unfriend" />
       </button>);
     } else {
       return (<button onClick={this.requestFriendship} className="btn waves-effect">

@@ -49,4 +49,33 @@ export default function () {
       { limit: 1 }
     );
   });
+
+  /**
+   * Get the profile information for a user card or username display
+   * TODO phase out with Apollo
+   * @param {String} userIdOrUsername username or id
+   * @param {Boolean} avatar
+   */
+  Meteor.publishComposite('profile.card', function (userIdOrUsername, avatar) {
+    check(userIdOrUsername, String);
+    check(avatar, Boolean);
+
+    return {
+      find() {
+        return Meteor.users.find({
+          $or: [ { _id: userIdOrUsername }, { username: userIdOrUsername } ] },
+          {
+            fields: { username: 1, createdAt: 1, roles: 1 },
+          }
+        );
+      },
+      children: [ {
+        find(user) {
+          if (avatar) {
+            return Meteor.profiles.find({userId: user._id }, {fields: {userId: 1, avatar: 1}});
+          }
+        }
+      } ]
+    };
+  });
 }

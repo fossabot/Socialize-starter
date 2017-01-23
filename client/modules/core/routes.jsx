@@ -24,6 +24,7 @@ import Settings from '../users/components/settings.jsx';
 import UserList from '../users/containers/list.js';
 import Profile from '../users/containers/profile.js';
 import FriendRequests from '../users/containers/friend_requests.js';
+import FriendsList from '../users/containers/friends_list.js';
 import SetPassword from '../users/containers/settings_password_set.js';
 import ForgotPassword from '../users/containers/settings_password_forgot.js';
 import EmailVerify from '../users/containers/email_verify.js';
@@ -121,7 +122,8 @@ export default function (injectDeps) {
           <Route path="/user" component={MainLayoutCtx}>
             <IndexRoute component={Profile} onEnter={requireAuth} />
             <Route path="settings" component={Settings} onEnter={requireAuth} />
-            <Route path="friends" component={FriendRequests} onEnter={requireAuth} />
+            <Route path="friend-requests" component={FriendRequests} onEnter={requireAuth} />
+            <Route path="friends" component={FriendsList} onEnter={requireAuth} />
             <Route path="reset-password" component={SetPassword} />
             <Route path="forgot-password" component={ForgotPassword} />
             <Route path="verify-email" component={EmailVerify} />

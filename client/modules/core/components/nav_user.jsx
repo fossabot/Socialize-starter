@@ -73,6 +73,12 @@ class NavUser extends React.Component {
                 defaultMessage="Profile"
               />
             </Link></li>
+            <li><Link className="waves-effect" to={'/user/friends'}> 
+              <FormattedMessage 
+                id="common.friends" 
+                defaultMessage="Friends" 
+              />
+            </Link></li>
             <li><Link className="waves-effect" to={'/user/settings'}>
               <FormattedMessage
                 id="common.settings"
@@ -104,6 +110,12 @@ class NavUser extends React.Component {
             <FormattedMessage
               id="common.pm"
               defaultMessage="Messages"
+            />
+          </Link></li>
+          <li><Link className="waves-effect" to={'/user/friends'}> 
+            <FormattedMessage 
+              id="common.friends" 
+              defaultMessage="Friends" 
             />
           </Link></li>
           <li><Link to={'/user/settings'}>

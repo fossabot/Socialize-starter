@@ -34,10 +34,7 @@ export default {
   'common.futurefeature': 'Future feature',
   'common.futurefeature.text': 'We are sorry, but this feature is not available at this time. We are working hard to make it available as soon as possible.',
   'common.nothingfound': 'Nothing found',
-  'common.explore': 'Explore',
   'common.by': 'by ', // keep the space at the end as username follows
-  'common.scratchpad': 'Scratchpad',
-  'common.scratchpad.own': 'Your scratchpad',
   'common.news': 'News',
   'common.post': 'Post',
   'common.lang.select': 'Select language',
@@ -124,6 +121,7 @@ export default {
   'user.profile.visit': 'Visit {user}\'s profile.',
   'user.friend.requests.title': 'Friendships requests',
   'user.friend.norequests': 'You have no requests for friendship.',
+  'common.friends': 'Friends',
 
   feed: 'Stream',
   'feed.post.new': 'New post',

@@ -10,7 +10,7 @@ export default class DashboardFriends extends React.Component {
       if (user.numRequests() > 0) {
         return (<div className="col s6 m4 l3 center-align">
           <div className="card hoverable indigo waves-effect waves-block waves-light">
-            <Link to={'user/friends'}>
+            <Link to={'/user/friend-requests'}>
               <div className="card-image">
                 <i className="material-icons white-text">person_add</i>
               </div>

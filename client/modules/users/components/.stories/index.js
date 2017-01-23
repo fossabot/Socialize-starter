@@ -24,3 +24,5 @@ import SettingsPatreon from './settings_patreon';
 import SettingsLanguage from './settings_language';
 import SettingsAvatar from './settings_avatar';
 import logout from './logout';
+import FriendsList from './friends_list';
+import UsernameDisplay from './username_display';

@@ -34,7 +34,6 @@ export default {
   'common.futurefeature': 'Budoucí funkcionalita',
   'common.futurefeature.text': 'Omlouváme se, ale tato funkcionalita je momentálně ve vývoji.',
   'common.nothingfound': 'Nic nenalezeno',
-  'common.explore': 'Objev',
   'common.by': 'od ', // keep the space at the end
   'common.news': 'Novinky',
   'common.post': 'Odeslat',
@@ -123,6 +122,7 @@ export default {
   'user.profile.visit': 'Navštiv profil pro {user}.',
   'user.friend.requests.title': 'Žádosti o přátelství',
   'user.friend.norequests': 'Momentálně nemáte žádné žádosti.',
+  'common.friends': 'Friends',
 
   feed: 'Stream',
   'feed.post.new': 'Nový příspěvek',
