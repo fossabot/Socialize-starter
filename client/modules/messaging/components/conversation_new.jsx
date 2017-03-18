@@ -31,6 +31,7 @@ class UserNewConversation extends React.Component {
 
   componentDidMount() {
     this.hideSuggestions();
+    $('#newConversation').modal();
   }
 
   /**
@@ -170,7 +171,7 @@ class UserNewConversation extends React.Component {
         Materialize.toast('Converstaion created!', 3000);
 
         // close modal or redirect to the conversation
-        $('#newConversation').closeModal();
+        $('#newConversation').modal('close');
       } else {
         Materialize.toast(formatMessage({
           id: 'pm.errors.saysomething',
@@ -187,7 +188,7 @@ class UserNewConversation extends React.Component {
 
   openModal(e) {
     e.preventDefault();
-    $('#newConversation').openModal();
+    $('#newConversation').modal('open');
   }
 
 
