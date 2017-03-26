@@ -1,6 +1,9 @@
 machine:
   node:
     version: 4.8.0
+dependencies:
+  cache_directories:
+    - ~/.meteor
   pre:
     - npm install --global snyk
     - meteor || curl https://install.meteor.com | /bin/sh
