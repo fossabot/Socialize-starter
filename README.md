@@ -1,5 +1,7 @@
 # Socialize starter
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/StorytellerCZ/Socialize-starter.svg)](https://greenkeeper.io/)
+
 [![Join the chat at https://gitter.im/StorytellerCZ/Socialize-starter](https://badges.gitter.im/StorytellerCZ/Socialize-starter.svg)](https://gitter.im/StorytellerCZ/Socialize-starter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 A starter for [Meteor](https://www.meteor.com/) apps that takes care of basic
