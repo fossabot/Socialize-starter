@@ -1,6 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 import Error from '../../core/components/error.jsx';
 
 /**
@@ -58,10 +59,10 @@ class ForgotPassword extends React.Component {
 }
 
 ForgotPassword.propTypes = {
-  error: React.PropTypes.string,
+  error: PropTypes.string,
   intl: intlShape.isRequired,
-  resetPasswordEmail: React.PropTypes.func.isRequired,
-  success: React.PropTypes.string,
+  resetPasswordEmail: PropTypes.func.isRequired,
+  success: PropTypes.string,
 };
 
 export default injectIntl(ForgotPassword);

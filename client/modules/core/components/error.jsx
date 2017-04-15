@@ -1,5 +1,6 @@
 import React from 'react';
 import { Materialize } from 'meteor/poetic:materialize-scss';
+import PropTypes from 'prop-types';
 
 export default class Error extends React.Component {
   render() {
@@ -17,6 +18,6 @@ export default class Error extends React.Component {
 }
 
 Error.propTypes = {
-  error: React.PropTypes.string,
-  success: React.PropTypes.string,
+  error: PropTypes.string,
+  success: PropTypes.string,
 };

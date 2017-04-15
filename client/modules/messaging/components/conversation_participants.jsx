@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 /**
  * @class component ConversationParticipants
  * @classdesc Lists conversation participants
@@ -22,5 +23,5 @@ export default class ConversationParticipants extends React.Component {
 }
 
 ConversationParticipants.propTypes = {
-  conversation: React.PropTypes.object.isRequired,
+  conversation: PropTypes.object.isRequired,
 };

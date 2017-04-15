@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import { Roles } from 'meteor/alanning:roles';
 import S from 'string';
+import PropTypes from 'prop-types';
 import UserFeed from '../containers/feed.js';
 import NewFeedPost from '../containers/feed_new_post.js';
 // NOTE This was creating a very strange behavior where
@@ -289,7 +290,7 @@ export default class UserProfile extends React.Component {
 }
 
 UserProfile.propTypes = {
-  currentUser: React.PropTypes.object,
-  profile: React.PropTypes.object,
-  profileUser: React.PropTypes.object,
+  currentUser: PropTypes.object,
+  profile: PropTypes.object,
+  profileUser: PropTypes.object,
 };

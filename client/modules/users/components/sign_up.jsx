@@ -2,6 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 import Error from '../../core/components/error.jsx';
 
 /**
@@ -102,8 +103,8 @@ class UserRegister extends React.Component {
 }
 
 UserRegister.propTypes = {
-  create: React.PropTypes.func.isRequired,
-  error: React.PropTypes.string,
+  create: PropTypes.func.isRequired,
+  error: PropTypes.string,
   intl: intlShape.isRequired,
 };
 

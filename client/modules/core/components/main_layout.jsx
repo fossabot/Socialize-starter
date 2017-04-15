@@ -1,6 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 import Footer from './footer.jsx';
 import Navigation from '../containers/navigation.js';
 
@@ -30,7 +31,7 @@ const Layout = props => (
 );
 
 Layout.propTypes = {
-  children: React.PropTypes.object.isRequired,
+  children: PropTypes.object.isRequired,
   intl: intlShape.isRequired,
 };
 

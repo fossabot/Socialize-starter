@@ -3,6 +3,7 @@ import { Materialize } from 'meteor/poetic:materialize-scss';
 import { Link } from 'react-router';
 import Helmet from 'react-helmet';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 
 /**
  * @class component UserFriendsRequests
@@ -88,7 +89,7 @@ class UserFriendsRequests extends React.Component {
 
 UserFriendsRequests.propTypes = {
   intl: intlShape.isRequired,
-  requests: React.PropTypes.array,
+  requests: PropTypes.array,
 };
 
 export default injectIntl(UserFriendsRequests);

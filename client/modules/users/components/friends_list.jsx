@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import DashboardFriends from '../containers/dashboard_friends.js';
 import UsernameDisplay from '../containers/username_display.js';
+import PropTypes from 'prop-types';
 
 class FriendsList extends React.Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class FriendsList extends React.Component {
 }
 
 FriendsList.propTypes = {
-  friends: React.PropTypes.array,
+  friends: PropTypes.array,
   intl: intlShape.isRequired,
 };
 

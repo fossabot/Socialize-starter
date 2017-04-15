@@ -2,6 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { Materialize } from 'meteor/poetic:materialize-scss';
+import PropTypes from 'prop-types';
 import Error from '../../core/components/error.jsx';
 /**
  * @class component SetPassword
@@ -92,10 +93,10 @@ class SetPassword extends React.Component {
 }
 
 SetPassword.propTypes = {
-  error: React.PropTypes.string,
+  error: PropTypes.string,
   intl: intlShape.isRequired,
-  resetPassword: React.PropTypes.func.isRequired,
-  token: React.PropTypes.string.isRequired,
+  resetPassword: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
 };
 
 export default injectIntl(SetPassword);

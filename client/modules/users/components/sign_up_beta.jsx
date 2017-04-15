@@ -1,6 +1,7 @@
 import React from 'react';
 import Error from '../../core/components/error.jsx';
 import Helmet from 'react-helmet';
+import PropTypes from 'prop-types';
 
 export default class SignUpBeta extends React.Component {
   constructor(props) {
@@ -102,7 +103,7 @@ export default class SignUpBeta extends React.Component {
 }
 
 SignUpBeta.propTypes = {
-  betaSignup: React.PropTypes.func.isRequired,
-  error: React.PropTypes.string,
-  success: React.PropTypes.string,
+  betaSignup: PropTypes.func.isRequired,
+  error: PropTypes.string,
+  success: PropTypes.string,
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import S from 'string';
+import PropTypes from 'prop-types';
 import Error from '../../core/components/error.jsx';
 
 /**
@@ -72,11 +73,11 @@ class UserChangeBio extends React.Component {
 }
 
 UserChangeBio.propTypes = {
-  bioUpdate: React.PropTypes.func.isRequired,
-  error: React.PropTypes.string,
+  bioUpdate: PropTypes.func.isRequired,
+  error: PropTypes.string,
   intl: intlShape.isRequired,
-  profile: React.PropTypes.object.isRequired,
-  success: React.PropTypes.string,
+  profile: PropTypes.object.isRequired,
+  success: PropTypes.string,
 };
 
 export default injectIntl(UserChangeBio);

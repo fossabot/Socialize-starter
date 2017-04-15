@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import Helmet from 'react-helmet';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 
 class UserListing extends React.Component {
   constructor(props) {
@@ -61,10 +62,10 @@ class UserListing extends React.Component {
 
 UserListing.propTypes = {
   intl: intlShape.isRequired,
-  limit: React.PropTypes.number.isRequired,
-  page: React.PropTypes.number,
-  totalUsers: React.PropTypes.number.isRequired,
-  users: React.PropTypes.array,
+  limit: PropTypes.number.isRequired,
+  page: PropTypes.number,
+  totalUsers: PropTypes.number.isRequired,
+  users: PropTypes.array,
 };
 
 export default injectIntl(UserListing);

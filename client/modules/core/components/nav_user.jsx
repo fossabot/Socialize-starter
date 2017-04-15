@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 
 class NavUser extends React.Component {
   constructor(props) {
@@ -137,7 +138,7 @@ class NavUser extends React.Component {
 }
 
 NavUser.propTypes = {
-  avatar: React.PropTypes.string,
+  avatar: PropTypes.string,
   intl: intlShape.isRequired,
 };
 

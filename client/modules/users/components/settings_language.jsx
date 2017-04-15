@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 import Error from '../../core/components/error.jsx';
 
 class SettingsLanguage extends React.Component {
@@ -62,12 +63,12 @@ class SettingsLanguage extends React.Component {
 }
 
 SettingsLanguage.propTypes = {
-  currentLang: React.PropTypes.string.isRequired,
-  error: React.PropTypes.string,
+  currentLang: PropTypes.string.isRequired,
+  error: PropTypes.string,
   intl: intlShape.isRequired,
-  languages: React.PropTypes.arrayOf( React.PropTypes.object ).isRequired,
-  setLang: React.PropTypes.func.isRequired,
-  success: React.PropTypes.string,
+  languages: PropTypes.arrayOf( PropTypes.object ).isRequired,
+  setLang: PropTypes.func.isRequired,
+  success: PropTypes.string,
 };
 
 SettingsLanguage.defaultProps = {

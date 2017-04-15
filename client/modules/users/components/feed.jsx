@@ -2,6 +2,7 @@ import React from 'react';
 import S from 'string';
 import { Link } from 'react-router';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
+import PropTypes from 'prop-types';
 
 export default class UserFeed extends React.Component {
   constructor(props) {
@@ -94,16 +95,16 @@ export default class UserFeed extends React.Component {
 }
 
 UserFeed.propTypes = {
-  currentUser: React.PropTypes.oneOfType([ React.PropTypes.object, React.PropTypes.bool ]).isRequired,
+  currentUser: PropTypes.oneOfType([ PropTypes.object, PropTypes.bool ]).isRequired,
   /* eslint-disable react/no-unused-prop-types */
-  feedUser: React.PropTypes.oneOfType([ React.PropTypes.object, React.PropTypes.bool ]).isRequired,
+  feedUser: PropTypes.oneOfType([ PropTypes.object, PropTypes.bool ]).isRequired,
   /* eslint-enable react/no-unused-prop-types */
-  increaseLimit: React.PropTypes.func.isRequired,
-  likePost: React.PropTypes.func.isRequired,
-  posts: React.PropTypes.array,
-  postsLimit: React.PropTypes.number.isRequired,
-  totalPosts: React.PropTypes.number.isRequired,
-  unlikePost: React.PropTypes.func.isRequired,
+  increaseLimit: PropTypes.func.isRequired,
+  likePost: PropTypes.func.isRequired,
+  posts: PropTypes.array,
+  postsLimit: PropTypes.number.isRequired,
+  totalPosts: PropTypes.number.isRequired,
+  unlikePost: PropTypes.func.isRequired,
 };
 
 UserFeed.defaultProps = {

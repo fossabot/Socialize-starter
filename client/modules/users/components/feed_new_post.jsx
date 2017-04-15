@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 
 class FeedNewPost extends React.Component {
   constructor(props) {
@@ -50,8 +51,8 @@ class FeedNewPost extends React.Component {
 }
 
 FeedNewPost.propTypes = {
-  addPost: React.PropTypes.func.isRequired,
-  error: React.PropTypes.string,
+  addPost: PropTypes.func.isRequired,
+  error: PropTypes.string,
   intl: intlShape.isRequired,
 };
 

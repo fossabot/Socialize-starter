@@ -1,6 +1,7 @@
 import React from 'react';
 import sanitizeHtml from 'sanitize-html';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 
 /**
  * @class component ConversationReply
@@ -90,8 +91,8 @@ class ConversationReply extends React.Component {
 
 
 ConversationReply.propTypes = {
-  conversation: React.PropTypes.object.isRequired,
-  conversationId: React.PropTypes.string,
+  conversation: PropTypes.object.isRequired,
+  conversationId: PropTypes.string,
   intl: intlShape.isRequired,
 };
 

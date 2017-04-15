@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { Materialize } from 'meteor/poetic:materialize-scss';
+import PropTypes from 'prop-types';
 import Error from '../../core/components/error.jsx';
 
 /**
@@ -101,10 +102,10 @@ class UserChangePassword extends React.Component {
 }
 
 UserChangePassword.propTypes = {
-  changePassword: React.PropTypes.func.isRequired,
-  error: React.PropTypes.string,
+  changePassword: PropTypes.func.isRequired,
+  error: PropTypes.string,
   intl: intlShape.isRequired,
-  success: React.PropTypes.string,
+  success: PropTypes.string,
 };
 
 export default injectIntl(UserChangePassword);

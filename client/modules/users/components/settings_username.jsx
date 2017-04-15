@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 import Error from '../../core/components/error.jsx';
 
 /**
@@ -55,11 +56,11 @@ class UserChangeUsernane extends React.Component {
 }
 
 UserChangeUsernane.propTypes = {
-  changeUsername: React.PropTypes.func.isRequired,
-  currentUsername: React.PropTypes.string,
-  error: React.PropTypes.string,
+  changeUsername: PropTypes.func.isRequired,
+  currentUsername: PropTypes.string,
+  error: PropTypes.string,
   intl: intlShape.isRequired,
-  success: React.PropTypes.string,
+  success: PropTypes.string,
 };
 
 export default injectIntl(UserChangeUsernane);

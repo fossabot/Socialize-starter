@@ -2,6 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import sanitizeHtml from 'sanitize-html';
 import { FormattedMessage, FormattedRelative, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 import ConversationParticipants from '../containers/conversation_participants.js';
 import ConversationMessages from '../containers/conversation_messages.js';
 import ConversationReply from '../containers/conversation_reply.js';
@@ -115,14 +116,14 @@ class UserConversation extends React.Component {
 }
 
 UserConversation.propTypes = {
-  conversation: React.PropTypes.object,
-  conversationId: React.PropTypes.string,
-  increaseLimit: React.PropTypes.func.isRequired,
+  conversation: PropTypes.object,
+  conversationId: PropTypes.string,
+  increaseLimit: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
-  messages: React.PropTypes.array,
-  msgLimit: React.PropTypes.number,
-  resetLimit: React.PropTypes.func.isRequired,
-  totalMessages: React.PropTypes.number,
+  messages: PropTypes.array,
+  msgLimit: PropTypes.number,
+  resetLimit: PropTypes.func.isRequired,
+  totalMessages: PropTypes.number,
 };
 
 export default injectIntl(UserConversation);

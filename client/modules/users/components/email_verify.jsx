@@ -1,6 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 import Error from '../../core/components/error.jsx';
 
 class EmailVerify extends React.Component {
@@ -41,9 +42,9 @@ class EmailVerify extends React.Component {
 }
 
 EmailVerify.propTypes = {
-  error: React.PropTypes.string,
+  error: PropTypes.string,
   intl: intlShape.isRequired,
-  success: React.PropTypes.string,
+  success: PropTypes.string,
 };
 
 export default injectIntl(EmailVerify);

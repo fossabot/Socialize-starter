@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import Helmet from 'react-helmet';
 import { FormattedMessage, FormattedRelative, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 import UserNewConversation from './conversation_new.jsx';
 
 /**
@@ -87,7 +88,7 @@ class UserConversationOverview extends React.Component {
 }
 
 UserConversationOverview.propTypes = {
-  conversations: React.PropTypes.array,
+  conversations: PropTypes.array,
   intl: intlShape.isRequired,
 };
 

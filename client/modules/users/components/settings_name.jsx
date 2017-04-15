@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { Materialize } from 'meteor/poetic:materialize-scss';
+import PropTypes from 'prop-types';
 import Error from '../../core/components/error.jsx';
 
 class UserChangeName extends React.Component {
@@ -78,11 +79,11 @@ class UserChangeName extends React.Component {
 }
 
 UserChangeName.propTypes = {
-  error: React.PropTypes.string,
+  error: PropTypes.string,
   intl: intlShape.isRequired,
-  nameUpdate: React.PropTypes.func.isRequired,
-  profile: React.PropTypes.object.isRequired,
-  success: React.PropTypes.string,
+  nameUpdate: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
+  success: PropTypes.string,
 };
 
 export default injectIntl(UserChangeName);

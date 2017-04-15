@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage} from 'react-intl';
+import PropTypes from 'prop-types';
 
 export default class DashboardFriends extends React.Component {
   render() {
@@ -37,5 +38,5 @@ export default class DashboardFriends extends React.Component {
 }
 
 DashboardFriends.propTypes = {
-  user: React.PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };

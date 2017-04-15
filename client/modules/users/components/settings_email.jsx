@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 import Error from '../../core/components/error.jsx';
 
 /**
@@ -140,13 +141,13 @@ class UserEmail extends React.Component {
 }
 
 UserEmail.propTypes = {
-  addEmail: React.PropTypes.func.isRequired,
-  emails: React.PropTypes.array.isRequired,
-  error: React.PropTypes.string,
+  addEmail: PropTypes.func.isRequired,
+  emails: PropTypes.array.isRequired,
+  error: PropTypes.string,
   intl: intlShape.isRequired,
-  removeEmail: React.PropTypes.func.isRequired,
-  success: React.PropTypes.string,
-  verify: React.PropTypes.func.isRequired,
+  removeEmail: PropTypes.func.isRequired,
+  success: PropTypes.string,
+  verify: PropTypes.func.isRequired,
 };
 
 export default injectIntl(UserEmail);

@@ -3,6 +3,7 @@ import { Materialize } from 'meteor/poetic:materialize-scss';
 import sanitizeHtml from 'sanitize-html';
 import { Conversation } from 'meteor/socialize:messaging';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 
 /**
  * @class component UserNewConversation
@@ -257,13 +258,13 @@ class UserNewConversation extends React.Component {
 }
 
 UserNewConversation.propTypes = {
-  buttonClass: React.PropTypes.string,
-  buttonText: React.PropTypes.oneOfType([
-    React.PropTypes.element,
-    React.PropTypes.string,
+  buttonClass: PropTypes.string,
+  buttonText: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.string,
   ]),
   intl: intlShape.isRequired,
-  recipients: React.PropTypes.array,
+  recipients: PropTypes.array,
 };
 
 export default injectIntl(UserNewConversation);

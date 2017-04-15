@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 
 // TODO display premium and admin graphics if applicable to user
 class UsernameDisplay extends React.Component {
@@ -22,9 +23,9 @@ class UsernameDisplay extends React.Component {
 }
 
 UsernameDisplay.propTypes = {
-  avatar: React.PropTypes.bool,
-  profile: React.PropTypes.object,
-  user: React.PropTypes.object.isRequired,
+  avatar: PropTypes.bool,
+  profile: PropTypes.object,
+  user: PropTypes.object.isRequired,
 };
 
 UsernameDisplay.defaultProps = {

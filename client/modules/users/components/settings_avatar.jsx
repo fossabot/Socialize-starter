@@ -2,6 +2,7 @@
 import React from 'react';
 import filepicker from 'filepicker-js';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 import Error from '../../core/components/error.jsx';
 
 class SettingsAvatar extends React.Component {
@@ -83,13 +84,13 @@ class SettingsAvatar extends React.Component {
 }
 
 SettingsAvatar.propTypes = {
-  avatar: React.PropTypes.string,
-  error: React.PropTypes.string,
-  filestackKey: React.PropTypes.string,
+  avatar: PropTypes.string,
+  error: PropTypes.string,
+  filestackKey: PropTypes.string,
   intl: intlShape.isRequired,
-  saveAvatar: React.PropTypes.func,
-  success: React.PropTypes.string,
-  userLang: React.PropTypes.string,
+  saveAvatar: PropTypes.func,
+  success: PropTypes.string,
+  userLang: PropTypes.string,
 };
 
 export default injectIntl(SettingsAvatar);

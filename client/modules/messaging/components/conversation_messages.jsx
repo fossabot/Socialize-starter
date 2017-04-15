@@ -1,6 +1,7 @@
 import React from 'react';
 import S from 'string';
 import { FormattedRelative } from 'react-intl';
+import PropTypes from 'prop-types';
 
 /**
  * @class component ConversationMessage
@@ -40,6 +41,6 @@ export default class ConversationMessage extends React.Component {
 }
 
 ConversationMessage.propTypes = {
-  conversationId: React.PropTypes.string,
-  messages: React.PropTypes.array,
+  conversationId: PropTypes.string,
+  messages: PropTypes.array,
 };

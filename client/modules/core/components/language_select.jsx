@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class LanguageSelect extends React.Component {
   changeLang(e) {
@@ -23,10 +24,10 @@ export default class LanguageSelect extends React.Component {
 }
 
 LanguageSelect.propTypes = {
-  changeLang: React.PropTypes.func.isRequired,
-  currentLang: React.PropTypes.string.isRequired,
-  hide: React.PropTypes.bool.isRequired,
-  languages: React.PropTypes.arrayOf( React.PropTypes.object ).isRequired,
+  changeLang: PropTypes.func.isRequired,
+  currentLang: PropTypes.string.isRequired,
+  hide: PropTypes.bool.isRequired,
+  languages: PropTypes.arrayOf( PropTypes.object ).isRequired,
 };
 
 LanguageSelect.defaultProps = {

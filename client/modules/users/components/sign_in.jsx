@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import Helmet from 'react-helmet';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import PropTypes from 'prop-types';
 import Error from '../../core/components/error.jsx';
 
 /**
@@ -83,9 +84,9 @@ class UserLogin extends React.Component {
 }
 
 UserLogin.propTypes = {
-  error: React.PropTypes.string,
+  error: PropTypes.string,
   intl: intlShape.isRequired,
-  loginUser: React.PropTypes.func.isRequired,
+  loginUser: PropTypes.func.isRequired,
 };
 
 export default injectIntl(UserLogin);

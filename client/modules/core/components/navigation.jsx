@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import NavUser from '../containers/nav_user.js';
 import NavPublic from './nav_public.jsx';
 
@@ -13,7 +14,7 @@ export default class Navigation extends React.Component {
 }
 
 Navigation.propTypes = {
-  user: React.PropTypes.object,
+  user: PropTypes.object,
 };
 
 Navigation.defaultProps = {
