@@ -19,6 +19,7 @@
     "bcrypt": "^1.0.2",
     "mantra-core": "^1.7.0",
     "meteor-node-stubs": "^0.2.5",
+    "prop-types": "^15.5.8",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
     "react-helmet": "^5.0.1",
