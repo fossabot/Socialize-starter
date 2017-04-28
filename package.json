@@ -44,17 +44,17 @@
     "chai": "3.x.x",
     "enzyme": "^2.4.0",
     "eslint": "^3.5.0",
-    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-meteor": "^4.x.x",
     "eslint-plugin-react": "^6.2.2",
     "g": "^2.0.1",
-    "jsdom": "^9.11.0",
+    "jsdom": "^10.0.0",
     "mantra-lint": "^0.0.1",
     "mocha": "3.x.x",
     "proxyquire": "^1.7.10",
     "raw-loader": "^0.5.1",
     "react-addons-test-utils": "^15.4.x",
-    "sinon": "^1.17.5",
-    "style-loader": "^0.13.2"
+    "sinon": "^2.1.0",
+    "style-loader": "^0.16.1"
   }
 }
