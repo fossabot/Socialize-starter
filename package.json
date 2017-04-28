@@ -22,7 +22,7 @@
     "prop-types": "^15.5.8",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
-    "react-helmet": "^5.0.1",
+    "react-helmet": "^5.0.3",
     "react-intl": "^2.2.3",
     "react-router": "^4.0.0",
     "react-simple-di": "^1.2.0",
@@ -48,13 +48,13 @@
     "eslint-plugin-meteor": "^4.x.x",
     "eslint-plugin-react": "^6.2.2",
     "g": "^2.0.1",
-    "jsdom": "^9.11.0",
+    "jsdom": "^10.0.0",
     "mantra-lint": "^0.0.1",
     "mocha": "3.x.x",
     "proxyquire": "^1.7.10",
     "raw-loader": "^0.5.1",
     "react-addons-test-utils": "^15.4.x",
     "sinon": "^2.1.0",
-    "style-loader": "^0.16.0"
+    "style-loader": "^0.16.1"
   }
 }
