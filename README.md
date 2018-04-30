@@ -1,6 +1,7 @@
 # Socialize starter
 
 [![Join the chat at https://gitter.im/StorytellerCZ/Socialize-starter](https://badges.gitter.im/StorytellerCZ/Socialize-starter.svg)](https://gitter.im/StorytellerCZ/Socialize-starter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FStorytellerCZ%2FSocialize-starter.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FStorytellerCZ%2FSocialize-starter?ref=badge_shield)
 
 A starter for [Meteor](https://www.meteor.com/) apps that takes care of basic
 user functionality by utilizing the `socialize` packages.
@@ -89,3 +90,7 @@ What is coming in the future?
 *   Blogs
 *   Badges
 *   Administration components for everything
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FStorytellerCZ%2FSocialize-starter.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FStorytellerCZ%2FSocialize-starter?ref=badge_large)
